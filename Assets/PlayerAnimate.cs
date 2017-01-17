@@ -72,9 +72,9 @@ public class PlayerAnimate : MonoBehaviour {
 		Vector3 moveDirection = shift * stickDirection;
 		Vector3 axisSign = Vector3.Cross (moveDirection, rootDirection);
 
-		Debug.DrawRay (new Vector3 (root.position.x, root.position.y + 2f, root.position.z), moveDirection, Color.green);
-		Debug.DrawRay (new Vector3 (root.position.x, root.position.y + 2f, root.position.z), axisSign, Color.red);
-		Debug.DrawRay (new Vector3 (root.position.x, root.position.y + 2f, root.position.z), rootDirection, Color.magenta);
+		//Debug.DrawRay (new Vector3 (root.position.x, root.position.y + 2f, root.position.z), moveDirection, Color.green);
+		//Debug.DrawRay (new Vector3 (root.position.x, root.position.y + 2f, root.position.z), axisSign, Color.red);
+		//Debug.DrawRay (new Vector3 (root.position.x, root.position.y + 2f, root.position.z), rootDirection, Color.magenta);
 
 		float multiplier = axisSign.y >= 0 ? -1f : 1f;
 		float angleRootToMove = Vector3.Angle (rootDirection, moveDirection) * multiplier;

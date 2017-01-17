@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour {
 	[SerializeField]
+	public Camera mainCamera;
+
+	[SerializeField]
 	private Vector3 distanceAway = new Vector3 (0, 0, 2);
 
 	[SerializeField]
@@ -19,64 +22,66 @@ public class ThirdPersonCamera : MonoBehaviour {
 	float rotationSpeed = 5;
 
 	[SerializeField]
-	float maxAngle = 30.0f;
+	float maxAngle = 70.0f;
+
+	public Transform head;
 
 	private Vector3 cameraSmoothVelocity = Vector3.zero;
 	private bool freeLookMode = false;
+
 	private Vector3 prevPosition = new Vector3();
 	private Quaternion prevRotation = new Quaternion();
-
-	Vector2 prevMousePosition;
-
-	void Start() {
-		prevMousePosition = Input.mousePosition;
-	}
 
 	void Update() {
 		if (Input.GetKeyDown (KeyCode.Mouse3)) {
 			freeLookMode = true;
-			prevPosition = transform.position;
-			prevRotation = transform.rotation;
+			prevPosition = transform.localPosition;
+			prevRotation = transform.localRotation;
 			Debug.Log ("");
 		} else if (Input.GetKeyUp(KeyCode.Mouse3)) {
 			freeLookMode = false;
-			transform.position = prevPosition;
-			transform.rotation = prevRotation;
+			transform.localPosition = prevPosition;
+			transform.localRotation = prevRotation;
 			Debug.Log ("");
 		}
 	}
 
 	void LateUpdate() {
-		Vector3 playerOffset = followTransform.position;
+		Vector3 playerPosition = followTransform.position;
 
-		Vector3 lookDirection = playerOffset - transform.position;
+		Vector3 lookDirection = playerPosition - transform.position;
 		lookDirection.y = 0;
 		lookDirection.Normalize ();
-		Vector3 targetPosition = playerOffset + (distanceAway.x * Vector3.right) + (followTransform.up * distanceAway.y) - (lookDirection * distanceAway.z);
+		Debug.DrawRay (playerPosition, lookDirection * 20, Color.white);
+
+		// debug
+		Debug.DrawRay(playerPosition, followTransform.forward * 20, Color.black);
 
 		if (freeLookMode) {
-			snapToPosition (targetPosition);
-			float horizontal = Input.GetAxis ("Mouse X") * rotationSpeed;
-			float currentlyRotated = Quaternion.Angle(transform.rotation, Quaternion.AngleAxis(0, Vector3.up));
+			Vector3 targetPosition = playerPosition - (lookDirection * 2);
+			float horizontal = Input.GetAxis ("Mouse X");// * rotationSpeed;
+			float vertical = Input.GetAxis ("Mouse Y");// * rotationSpeed;
 
-			transform.RotateAround (transform.position, Vector3.up, horizontal);
+			Debug.Log ("tp camera's local/world position: '" + transform.localPosition + "'/'" + transform.position + "'");
+			//transform.RotateAround (followTransform.position, Vector3.up, horizontal);
 
-			float cr2 = Quaternion.Angle(transform.rotation, Quaternion.AngleAxis(0, Vector3.up));
-			if (cr2 > maxAngle) {
-				transform.RotateAround (transform.position, Vector3.up, -horizontal);
-			}
-		} else {
-			smoothToPosition (transform.position, targetPosition);
-			transform.LookAt (followTransform);
+			Vector3 movement = new Vector3 (0.0f, horizontal, 0);
+			transform.RotateAround (followTransform.position, movement.normalized, 5);
+
+			const float X_DELTA = 0.05f;
+			bool perpendicular = Vector3.Dot (head.right, transform.right) < X_DELTA;
+			//if (perpendicular) {
+				// Rotated too far, rotate back
+			//	transform.RotateAround (followTransform.position, Vector3.up, -horizontal);
+			//}
+
+			//transform.RotateAround (followTransform.position, Vector3.left, vertical);
+			const float Y_DELTA = 0.10f;
+			bool perpendicular2 = Vector3.Dot (head.up, transform.up) < (Y_DELTA);
+			//if (perpendicular2) {
+				// Rotated too far, rotate back
+			//	transform.RotateAround (followTransform.position, Vector3.left, -vertical);
+			//}
 		}
-		prevMousePosition = Input.mousePosition;
-	}
-
-	private void snapToPosition(Vector3 targetPos) {
-		transform.position = targetPos;
-	}
-
-	private void smoothToPosition(Vector3 fromPos, Vector3 toPos) {
-		transform.position = Vector3.SmoothDamp (fromPos, toPos, ref cameraSmoothVelocity, cameraSmoothDampTime);
 	}
 }
