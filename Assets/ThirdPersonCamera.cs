@@ -12,14 +12,6 @@ public class ThirdPersonCamera : MonoBehaviour {
 	[SerializeField]
 	private Transform followTransform;
 
-	[SerializeField]
-	float rotationSpeed = 5;
-
-	[SerializeField]
-	float maxAngle = 70.0f;
-
-	public Transform head;
-
 	private Vector3 cameraSmoothVelocity = Vector3.zero;
 	private bool freeLookMode = false;
 
@@ -31,54 +23,62 @@ public class ThirdPersonCamera : MonoBehaviour {
 			freeLookMode = true;
 			prevPosition = transform.localPosition;
 			prevRotation = transform.localRotation;
-			Debug.Log ("");
 		} else if (Input.GetKeyUp(KeyCode.Mouse3)) {
 			freeLookMode = false;
 			transform.localPosition = prevPosition;
 			transform.localRotation = prevRotation;
-			Debug.Log ("");
 		}
 	}
 
 	void LateUpdate() {
+		if (freeLookMode) {
+			updateLateFreelookCameraTransform ();
+		} else {
+			updateLateThirdPersonCameraTransform ();
+		}
+	}
+
+	private bool withinThreshold(Vector3 a, Vector3 b) {
+		const float DELTA = 0.05f;
+		return Vector3.Dot (a, b) < DELTA;
+	}
+
+	private Vector2 getMouseAxis() {
+		const float multiplier = 150.0f;
+		float horizontal = Input.GetAxis ("Mouse X");
+		float vertical = Input.GetAxis ("Mouse Y");
+		return new Vector2(horizontal * Time.deltaTime * multiplier, vertical * Time.deltaTime * multiplier);
+	}
+
+	void updateLateFreelookCameraTransform ()
+	{
 		Vector3 playerPosition = followTransform.position;
 
 		Vector3 lookDirection = playerPosition - transform.position;
 		lookDirection.y = 0;
 		lookDirection.Normalize ();
-		Debug.DrawRay (playerPosition, lookDirection * 20, Color.white);
 
-		// debug
-		Debug.DrawRay(playerPosition, followTransform.forward * 20, Color.black);
+		float horizontal = getMouseAxis().x;
+		Vector3 horizontalOrientation = (Vector3.up * horizontal).normalized;
 
-		if (freeLookMode) {
-			Vector3 targetPosition = playerPosition - (lookDirection * 2);
-			float horizontal = Input.GetAxis ("Mouse X") * Time.deltaTime * 150.0f;
 
-			Vector3 rot = new Vector3 (0.0f, horizontal, 0);
-			transform.RotateAround (followTransform.position, rot.normalized, rotationSpeed);
-
-			float X_DELTA = maxAngle;//0.05f;
-			bool perpendicular = Vector3.Dot (head.right, transform.right) < X_DELTA;
-			if (perpendicular) {
-				// Rotated too far, rotate back
-				//transform.RotateAround (followTransform.position, Vector3.up, -horizontal);
-			}
-
-			//transform.RotateAround (followTransform.position, Vector3.left, vertical);
-			const float Y_DELTA = 0.10f;
-			bool perpendicular2 = Vector3.Dot (head.up, transform.up) < (Y_DELTA);
-			//if (perpendicular2) {
+		transform.RotateAround (followTransform.position, horizontalOrientation, Mathf.Abs(horizontal));
+		if (withinThreshold (player.right, transform.right)) {
 			// Rotated too far, rotate back
-			//	transform.RotateAround (followTransform.position, Vector3.left, -vertical);
-			//}
-		} else {
-			float horizontal = Input.GetAxis ("Mouse X") * Time.deltaTime * 150.0f;
-			player.RotateAround (player.position, Vector3.up, horizontal);
+			transform.RotateAround (followTransform.position, horizontalOrientation, -Mathf.Abs(horizontal));
+		}
+	}
 
-			float vertical = Input.GetAxis ("Mouse Y") * Time.deltaTime * 150.0f;
-			transform.RotateAround (followTransform.position, followTransform.right, -vertical);
-			//transform.Translate(Vector3.up * vertical);
+	void updateLateThirdPersonCameraTransform ()
+	{
+		Vector2 mouseAxis = getMouseAxis ();
+		player.RotateAround (player.position, Vector3.up, mouseAxis.x);
+
+		float vertical = mouseAxis.y;
+		transform.RotateAround (followTransform.position, followTransform.right, -vertical);
+		if (withinThreshold (player.up, transform.up)) {
+			// Rotated too far, rotate back
+			transform.RotateAround (followTransform.position, followTransform.right, vertical);
 		}
 	}
 }
