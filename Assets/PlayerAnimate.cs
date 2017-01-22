@@ -44,7 +44,7 @@ public class PlayerAnimate : MonoBehaviour {
 
 		StickToWorldspace(transform, tpCamera.transform, ref direction, ref speed);
 		animator.SetFloat ("Speed", speed);
-		//animator.SetFloat ("Direction", direction, directionDampTime, Time.deltaTime);
+		animator.SetBool("Strafing", Mathf.Abs(Input.GetAxis("Horizontal")) > 0.25f);
 	}
 
 	void FixedUpdate() {
@@ -71,10 +71,6 @@ public class PlayerAnimate : MonoBehaviour {
 		// stick to worldspace
 		Vector3 moveDirection = shift * stickDirection;
 		Vector3 axisSign = Vector3.Cross (moveDirection, rootDirection);
-
-		//Debug.DrawRay (new Vector3 (root.position.x, root.position.y + 2f, root.position.z), moveDirection, Color.green);
-		//Debug.DrawRay (new Vector3 (root.position.x, root.position.y + 2f, root.position.z), axisSign, Color.red);
-		//Debug.DrawRay (new Vector3 (root.position.x, root.position.y + 2f, root.position.z), rootDirection, Color.magenta);
 
 		float multiplier = axisSign.y >= 0 ? -1f : 1f;
 		float angleRootToMove = Vector3.Angle (rootDirection, moveDirection) * multiplier;
