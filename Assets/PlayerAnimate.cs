@@ -43,8 +43,11 @@ public class PlayerAnimate : MonoBehaviour {
 		vertical = Input.GetAxis ("Vertical") * Time.deltaTime * 150.0f;
 
 		StickToWorldspace(transform, tpCamera.transform, ref direction, ref speed);
+		animator.SetBool("Jump", Input.GetKeyDown (KeyCode.Space));
 		animator.SetFloat ("Speed", speed);
 		animator.SetBool("Strafing", Mathf.Abs(Input.GetAxis("Horizontal")) > 0.25f);
+		animator.SetBool ("Crouching", Input.GetKey (KeyCode.LeftControl));
+		animator.SetBool ("Sprinting", Input.GetKey (KeyCode.LeftShift));
 	}
 
 	void FixedUpdate() {
