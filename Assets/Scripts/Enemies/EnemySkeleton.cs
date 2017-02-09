@@ -23,33 +23,42 @@ public class EnemySkeleton : MonoBehaviour {
 
 	void Update () {
 		float distance = Vector3.Distance (transform.position, playerTransform.position);
-		Vector3 delta = playerTransform.position - transform.position;
-		delta.y = 0; // We won't want to fall over
 
 		if (distance < followDistance) {
-			rotateTowardsPlayer (delta);
-			anim.SetBool ("isIdle", false);
-			if (distance > attackDistance) {
-				moveTowardsPlayer (delta.normalized);
-				anim.SetBool ("isWalking", true);
-				anim.SetBool ("isAttacking", false);
-			} else {
-				anim.SetBool ("isAttacking", true);
-				anim.SetBool ("isWalking", false);
-			}
+			activeState (distance);
 		} else {
-			anim.SetBool ("isIdle", true);
-			anim.SetBool ("isWalking", false);
-			anim.SetBool ("isAttacking", false);
+			idleState ();
 		}
 	}
 
+	private void activeState(float distance) {
+		Vector3 delta = playerTransform.position - transform.position;
+		delta.y = 0; // We won't want to fall over
+
+		rotateTowardsPlayer (delta);
+		anim.SetBool ("isIdle", false);
+		if (distance > attackDistance) {
+			moveTowardsPlayer (delta.normalized);
+			anim.SetBool ("isWalking", true);
+			anim.SetBool ("isAttacking", false);
+		} else {
+			anim.SetBool ("isAttacking", true);
+			anim.SetBool ("isWalking", false);
+		}
+	}
+
+	private void idleState() {
+		anim.SetBool ("isIdle", true);
+		anim.SetBool ("isWalking", false);
+		anim.SetBool ("isAttacking", false);
+	}
+
 	private void rotateTowardsPlayer(Vector3 delta) {
-		Quaternion lookRotation = Quaternion.LookRotation (delta);
-		transform.rotation = Quaternion.Slerp (transform.rotation, lookRotation, 0.1f); // DeltaTime
+		Quaternion lookRotation = Quaternion.LookRotation (delta, Vector3.up);
+		transform.rotation = Quaternion.Slerp (transform.rotation, lookRotation, 0.1f);
 	}
 
 	private void moveTowardsPlayer(Vector3 direction) {
-		this.transform.Translate (direction * followSpeed * Time.deltaTime);
+		transform.position = Vector3.MoveTowards (transform.position, playerTransform.position, followSpeed * Time.deltaTime);
 	}
 }
