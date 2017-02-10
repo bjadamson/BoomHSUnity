@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 public class ChatAlpha : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
-	[SerializeField] private Image panel;
+	private Image panel;
 	[SerializeField] private float mouseOverAlpha = 0.60f;
 
 	private Color idleColor;
 	private Color activeColor;
 
 	void Start() {
+		panel = GetComponent<Image> ();
 		idleColor = panel.color;
 	}
 
@@ -21,15 +22,13 @@ public class ChatAlpha : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 		panel.color = color;
 	}
 
-	public void OnPointerEnter(PointerEventData eventData)
-	{
+	public void OnPointerEnter(PointerEventData eventData) {
 		Color color = idleColor;
 		color.a = mouseOverAlpha;
 		updateColor (color);
 	}
 
-	public void OnPointerExit(PointerEventData eventData)
-	{
+	public void OnPointerExit(PointerEventData eventData) {
 		updateColor (idleColor);
 	}
 }

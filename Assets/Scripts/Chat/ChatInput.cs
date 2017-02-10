@@ -12,7 +12,7 @@ public class ChatInput : MonoBehaviour {
 
 	void Start() {
 		inputBox.gameObject.SetActive (false); // Initially input-field is hidden.
-		textArea.text = string.Empty;
+		//textArea.text = string.Empty;
 	}
 
 	void Update () {
@@ -22,13 +22,25 @@ public class ChatInput : MonoBehaviour {
 			inputBox.gameObject.SetActive (nowActive);
 
 			if (nowActive) {
-				previouslySelected = EventSystem.current.currentSelectedGameObject;
-				inputBox.Select ();
+				readInputMode ();
 			} else {
-				textArea.text = inputBox.text;
-				inputBox.text = string.Empty;
-				EventSystem.current.SetSelectedGameObject (previouslySelected);
+				normalMode ();
 			}
 		}
+	}
+
+	private void readInputMode() {
+		previouslySelected = EventSystem.current.currentSelectedGameObject;
+		inputBox.Select ();
+	}
+
+	private void normalMode() {
+		string combined = textArea.text + "\n" + inputBox.text;
+		if (combined.Length > 500) {
+			combined.Remove (0, 100);
+		}
+		textArea.text = combined;
+		inputBox.text = string.Empty;
+		EventSystem.current.SetSelectedGameObject (previouslySelected);
 	}
 }
