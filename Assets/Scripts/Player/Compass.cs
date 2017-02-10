@@ -9,7 +9,6 @@ public class Compass : MonoBehaviour {
 
 	void Update () {
 		float angle = 360 - playerTransform.rotation.eulerAngles.y;
-		Debug.Log ("angle is '" + angle + "'");
 		transform.rotation = Quaternion.Euler(0, 0, angle);
 	}
 }
