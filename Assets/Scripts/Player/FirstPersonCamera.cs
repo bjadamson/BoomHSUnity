@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThirdPersonCamera : MonoBehaviour {
+public class FirstPersonCamera : MonoBehaviour {
 	[SerializeField]
 	public Transform player;
 
 	[SerializeField]
 	private float smooth;
-
-	[SerializeField]
-	private Transform followTransform;
 
 	private Vector3 cameraSmoothVelocity = Vector3.zero;
 	private bool freeLookMode = false;
@@ -52,7 +49,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 
 	void freelookTransformUpdate ()
 	{
-		Vector3 playerPosition = followTransform.position;
+		Vector3 playerPosition = transform.position;
 
 		Vector3 lookDirection = playerPosition - transform.position;
 		lookDirection.y = 0;
@@ -61,10 +58,10 @@ public class ThirdPersonCamera : MonoBehaviour {
 		float horizontal = getMouseAxis().x;
 		Vector3 horizontalOrientation = (Vector3.up * horizontal).normalized;
 
-		transform.RotateAround (followTransform.position, horizontalOrientation, Mathf.Abs(horizontal));
+		transform.RotateAround (transform.position, horizontalOrientation, Mathf.Abs(horizontal));
 		if (withinThreshold (player.right, transform.right)) {
 			// Rotated too far, rotate back
-			transform.RotateAround (followTransform.position, horizontalOrientation, -Mathf.Abs(horizontal));
+			transform.RotateAround (transform.position, horizontalOrientation, -Mathf.Abs(horizontal));
 		}
 	}
 
@@ -74,10 +71,10 @@ public class ThirdPersonCamera : MonoBehaviour {
 		player.RotateAround (player.position, Vector3.up, mouseAxis.x);
 
 		float vertical = mouseAxis.y;
-		transform.RotateAround (followTransform.position, followTransform.right, -vertical);
+		transform.RotateAround (transform.position, transform.right, -vertical);
 		if (withinThreshold (player.up, transform.up)) {
 			// Rotated too far, rotate back
-			transform.RotateAround (followTransform.position, followTransform.right, vertical);
+			transform.RotateAround (transform.position, transform.right, vertical);
 		}
 	}
 }

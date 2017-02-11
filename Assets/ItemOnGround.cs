@@ -1,16 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ItemOnGround : MonoBehaviour {
+public class ItemOnGround : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
-	// Use this for initialization
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		
+	}
+		
+	public void OnPointerEnter (PointerEventData eventData) {
+		throw new System.NotImplementedException ();
+	}
+		
+	public void OnPointerExit (PointerEventData eventData) {
+		throw new System.NotImplementedException ();
 	}
 }

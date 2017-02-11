@@ -3,32 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraSwitch : MonoBehaviour {
-	private ThirdPersonCamera tps;
-	public Camera mainCamera;
-
-	private MouseAimCamera mouseAim;
-	public Camera freelookCamera;
+	[SerializeField] private Camera thirdPerson;
+	[SerializeField] private Camera firstPerson;
 
 	void Start () {
-		//tps = GetComponent<ThirdPersonCamera> ();
-		//mouseAim = GetComponent<MouseAimCamera> ();
-
-		//freelookCamera.enabled = false;
-		//mouseAim.enabled = false;
+		third ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//if (Input.GetKeyDown (KeyCode.Mouse3) || Input.GetKeyUp (KeyCode.Mouse3)) {
-		//	switchCameras ();
-		//}
+		if (Input.GetKeyDown (KeyCode.T)) {
+			if (firstPerson.gameObject.activeSelf) {
+				third ();
+			} else {
+				first ();
+			}
+		}
 	}
 
-	private void switchCameras() {
-		//mainCamera.enabled ^= true;
-		//tps.enabled ^= true;
+	private void first() {
+		firstPerson.gameObject.SetActive (true);
+		firstPerson.transform.localRotation = thirdPerson.transform.localRotation;
 
-		//freelookCamera.enabled ^= true;
-		//mouseAim.enabled ^= true;
+		thirdPerson.gameObject.SetActive (false);
+	}
+
+	private void third() {
+		thirdPerson.gameObject.SetActive (true);
+		thirdPerson.transform.localRotation = firstPerson.transform.localRotation;
+
+		firstPerson.gameObject.SetActive (false);
 	}
 }
