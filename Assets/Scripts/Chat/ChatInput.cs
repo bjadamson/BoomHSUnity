@@ -19,12 +19,13 @@ public class ChatInput : MonoBehaviour {
 	private int row;
 
 	void Start() {
-		inputBox.gameObject.SetActive (false); // Initially input-field is hidden.
-
 		row = textFields.Length;
 		for (int i = 0; i < row; ++i) {
 			textFields [i] = addNewChatEntry (string.Empty, i);
 		}
+
+		inputBox.gameObject.SetActive (false); // Initially input-field is hidden.
+		scrollbar.value = 0.0f; // Initially scrolled all the way down.
 	}
 
 	void Update () {
