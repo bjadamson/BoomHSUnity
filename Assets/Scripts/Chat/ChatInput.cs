@@ -21,8 +21,8 @@ public class ChatInput : MonoBehaviour {
 	}
 
 	void Update () {
+		bool wasActive = inputBox.IsActive ();
 		if (Input.GetKeyDown (KeyCode.Return)) {
-			bool wasActive = inputBox.IsActive ();
 			bool nowActive = !wasActive;
 			inputBox.gameObject.SetActive (nowActive);
 
@@ -32,16 +32,23 @@ public class ChatInput : MonoBehaviour {
 				normalMode ();
 			}
 		}
+
+		if (Input.GetKeyDown (KeyCode.Escape) && wasActive) {
+			Debug.Log ("typed '" + inputBox.textComponent.text + "'");
+			popSelected ();
+			resetScrollBarPosition ();
+			inputBox.gameObject.SetActive (false);
+		}
 	}
 
 	private void readInputMode() {
-		previouslySelected = EventSystem.current.currentSelectedGameObject;
+		pushSelected ();
 		inputBox.Select ();
 		scrollPos = scrollbar.value;
 	}
 
 	private void normalMode() {
-		EventSystem.current.SetSelectedGameObject (previouslySelected);
+		popSelected ();
 		addNewChatEntry ();
 		resetScrollBarPosition ();
 
@@ -66,12 +73,19 @@ public class ChatInput : MonoBehaviour {
 		text.rectTransform.localScale = Vector3.one;
 	}
 
-	void resetScrollBarPosition ()
-	{
+	void resetScrollBarPosition () {
 		if (forceChatScrollBarToBottomAfterSubmit) {
 			scrollbar.value = 0.0f;
 		} else {
 			scrollbar.value = scrollPos;
 		}
+	}
+
+	void pushSelected () {
+		previouslySelected = EventSystem.current.currentSelectedGameObject;
+	}
+
+	void popSelected () {
+		EventSystem.current.SetSelectedGameObject (previouslySelected);
 	}
 }
