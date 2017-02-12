@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ChatPanel : MonoBehaviour {
-	private Text[] textFields = new Text[50];
+	private static readonly int NUM_FIELDS = 50;
+	private Text[] textFields = new Text[NUM_FIELDS];
 
 	void Start() {
-		//row = textFields.Length;
-		for (int i = 0; i < 50; ++i) {
+		for (int i = 0; i < NUM_FIELDS; ++i) {
 			textFields [i] = addNewChatEntry (string.Empty, i);
 		}
 	}
@@ -35,6 +35,6 @@ public class ChatPanel : MonoBehaviour {
 		for (int i = 0; i < textFields.Length - 1; ++i) {
 			textFields [i].text = textFields [i + 1].text;
 		}
-		textFields [49].text = value;
+		textFields [NUM_FIELDS - 1].text = value;
 	}
 }

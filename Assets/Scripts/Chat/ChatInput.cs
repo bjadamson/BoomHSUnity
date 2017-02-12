@@ -16,7 +16,6 @@ public class ChatInput : MonoBehaviour {
 	private float scrollPos;
 
 	void Start() {
-	//	row = textFields.Length;
 		inputBox.gameObject.SetActive (false); // Initially input-field is hidden.
 		scrollbar.value = 0.0f; // Initially scrolled all the way down.
 	}
