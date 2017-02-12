@@ -11,6 +11,7 @@ public class ChatTabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 	void Start() {
 		button = GetComponent<Button> ();
+		makeTransparent ();
 	}
 
 	void IPointerEnterHandler.OnPointerEnter (PointerEventData eventData)
@@ -21,6 +22,11 @@ public class ChatTabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	}
 
 	void IPointerExitHandler.OnPointerExit (PointerEventData eventData)
+	{
+		makeTransparent ();
+	}
+
+	void makeTransparent ()
 	{
 		Color color = button.image.color;
 		color.a = mouseOverTransparency;
