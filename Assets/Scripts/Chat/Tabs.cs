@@ -25,11 +25,11 @@ public class Tabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 	}
 
 	void IPointerEnterHandler.OnPointerEnter (PointerEventData eventData) {
-		manager.onTabMouseOverEnter (this);
+		manager.onTabMouseOverEnter (this, panelId);
 	}
 
 	void IPointerExitHandler.OnPointerExit (PointerEventData eventData) {
-		manager.onTabMouseOverExit (this);
+		manager.onTabMouseOverExit (this, panelId);
 	}
 
 	public void OnPointerClick (PointerEventData eventData) {
