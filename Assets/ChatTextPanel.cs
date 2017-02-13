@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ChatTextPanel : MonoBehaviour {
+	[SerializeField] private string initialText = string.Empty;
 	private static readonly int NUM_FIELDS = 50;
 	private Text[] textFields = new Text[NUM_FIELDS];
 
@@ -11,6 +12,7 @@ public class ChatTextPanel : MonoBehaviour {
 		for (int i = 0; i < NUM_FIELDS; ++i) {
 			textFields [i] = addNewChatEntry (string.Empty, i);
 		}
+		textFields [NUM_FIELDS - 1].text = initialText;
 	}
 
 	private Text addNewChatEntry (string value, int row) {
