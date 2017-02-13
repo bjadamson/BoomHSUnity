@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChatPaneManager : MonoBehaviour {
-	[SerializeField] private ChatTextPanel generalPane;
-	[SerializeField] private ChatTextPanel[] panes;
+public class MouseoverManager : MonoBehaviour {
+	[SerializeField] private TextPanel generalPane;
+	[SerializeField] private TextPanel[] panes;
 
-	private ChatTextPanel activePane;
+	private TextPanel activePane;
 	private Button activeButton;
 
 	private Transform parent;
@@ -20,14 +20,14 @@ public class ChatPaneManager : MonoBehaviour {
 		activePane = generalPane;
 	}
 
-	public void makeActive(ChatTextPanel panel) {
+	public void makeActive(TextPanel panel) {
 		hide(activePane);
 
 		activePane = panel;
 		show (activePane);
 	}
 
-	public bool isActive(ChatTextPanel panel) {
+	public bool isActive(TextPanel panel) {
 		return panel == activePane;
 	}
 
@@ -36,21 +36,21 @@ public class ChatPaneManager : MonoBehaviour {
 	}
 
 	// TODO: huge abstraction leak. Should probably use an idex or something.
-	public ChatTextPanel getActive() {
+	public TextPanel getActive() {
 		return activePane;
 	}
 
 	private void hideNonActive() {
-		foreach (ChatTextPanel pane in panes) {
+		foreach (TextPanel pane in panes) {
 			hide(pane);
 		}
 	}
 
-	private static void hide(ChatTextPanel panel) {
+	private static void hide(TextPanel panel) {
 		panel.gameObject.SetActive (false);
 	}
 
-	private static void show(ChatTextPanel panel) {
+	private static void show(TextPanel panel) {
 		panel.gameObject.SetActive (true);
 	}
 }

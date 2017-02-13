@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChatTextPanel : MonoBehaviour {
+public class TextPanel : MonoBehaviour {
 	[SerializeField] private string initialText = string.Empty;
 	[SerializeField] private Color textColor = Color.white;
 	private static readonly int NUM_FIELDS = 50;

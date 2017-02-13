@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ChatInput : MonoBehaviour {
-	[SerializeField] private ChatScrollBar scrollBar;
+public class IO : MonoBehaviour {
+	[SerializeField] private ScrollBar scrollBar;
 	[SerializeField] private InputField inputBox;
-	[SerializeField] private ChatPaneManager manager;
+	[SerializeField] private MouseoverManager manager;
 
 	private GameObject previouslySelected;
 

@@ -4,17 +4,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ChatTabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
-	[SerializeField] private ChatTextPanel panel;
-	[SerializeField] private ChatScrollView scrollView;
-	[SerializeField] private ChatPaneManager manager;
+public class Tabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
+	[SerializeField] private TextPanel panel;
+	[SerializeField] private ScrollView scrollView;
+	[SerializeField] private MouseoverManager manager;
 
 	[SerializeField] private bool initiallyTransparent = true;
 	[SerializeField] private float mouseOverTransparency = 0.25f;
 
 	private Button button;
-	private ChatTextPanel clicked;
-	private ChatTextPanel active;
+	private TextPanel clicked;
+	private TextPanel active;
 
 	void Start() {
 		button = GetComponent<Button> ();

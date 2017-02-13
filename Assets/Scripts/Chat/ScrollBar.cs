@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ChatScrollBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class ScrollBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	// config, move out
 	[SerializeField] private bool forceChatScrollBarToBottomAfterSubmit = false;
 

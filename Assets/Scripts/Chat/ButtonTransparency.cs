@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ChatAlpha : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class ButtonTransparency : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
 	private Image panel;
 	[SerializeField] private float mouseOverAlpha = 0.60f;
