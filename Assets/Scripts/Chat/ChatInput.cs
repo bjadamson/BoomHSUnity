@@ -9,8 +9,8 @@ public class ChatInput : MonoBehaviour {
 	[SerializeField] private bool forceChatScrollBarToBottomAfterSubmit = false;
 
 	[SerializeField] private InputField inputBox;
-	[SerializeField] private ChatTextPanel chatPanel;
 	[SerializeField] private Scrollbar scrollbar;
+	[SerializeField] private ChatPaneManager manager;
 
 	private GameObject previouslySelected;
 	private float scrollPos;
@@ -48,7 +48,7 @@ public class ChatInput : MonoBehaviour {
 
 	private void normalMode() {
 		popSelected ();
-		chatPanel.replaceChatEntry (inputBox.text);
+		manager.replaceChatEntry (inputBox.text);
 		resetScrollBarPosition ();
 
 		// lastly clear out input box field.

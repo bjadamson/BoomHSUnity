@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ChatTabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
-	[SerializeField] private GameObject panel;
+	[SerializeField] private ChatTextPanel panel;
 	[SerializeField] private ChatPaneManager manager;
 
 	[SerializeField] private bool initiallyTransparent = true;

@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ChatPaneManager : MonoBehaviour {
-	[SerializeField] private GameObject generalPane;
-	[SerializeField] private GameObject[] panes;
+	[SerializeField] private ChatTextPanel generalPane;
+	[SerializeField] private ChatTextPanel[] panes;
 
-	private GameObject activePane;
+	private ChatTextPanel activePane;
 	private Button activeButton;
 
 	void Start() {
@@ -18,27 +18,31 @@ public class ChatPaneManager : MonoBehaviour {
 		activePane = generalPane;
 	}
 
-	public void makeActive(GameObject panel) {
+	public void makeActive(ChatTextPanel panel) {
 		hide(activePane);
 		activePane = panel;
 		show (activePane);
 	}
 
-	public bool isActive(GameObject panel) {
+	public bool isActive(ChatTextPanel panel) {
 		return panel == activePane;
 	}
 
+	public void replaceChatEntry(string value) {
+		activePane.replaceChatEntry (value);
+	}
+
 	private void hideNonActive() {
-		foreach (GameObject pane in panes) {
+		foreach (ChatTextPanel pane in panes) {
 			hide(pane);
 		}
 	}
 
-	private static void hide(GameObject panel) {
-		panel.SetActive (false);
+	private static void hide(ChatTextPanel panel) {
+		panel.gameObject.SetActive (false);
 	}
 
-	private static void show(GameObject panel) {
-		panel.SetActive (true);
+	private static void show(ChatTextPanel panel) {
+		panel.gameObject.SetActive (true);
 	}
 }
