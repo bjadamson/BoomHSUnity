@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChatPanel : MonoBehaviour {
+public class ChatTextPanel : MonoBehaviour {
 	private static readonly int NUM_FIELDS = 50;
 	private Text[] textFields = new Text[NUM_FIELDS];
 

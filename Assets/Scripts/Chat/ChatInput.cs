@@ -9,7 +9,7 @@ public class ChatInput : MonoBehaviour {
 	[SerializeField] private bool forceChatScrollBarToBottomAfterSubmit = false;
 
 	[SerializeField] private InputField inputBox;
-	[SerializeField] private ChatPanel chatPanel;
+	[SerializeField] private ChatTextPanel chatPanel;
 	[SerializeField] private Scrollbar scrollbar;
 
 	private GameObject previouslySelected;

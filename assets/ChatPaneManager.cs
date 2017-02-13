@@ -1,31 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChatPaneManager : MonoBehaviour {
-	[SerializeField] private GameObject general;
-	[SerializeField] private GameObject whisper;
-	[SerializeField] private GameObject party;
-	[SerializeField] private GameObject guild;
-	[SerializeField] private GameObject combatLog;
+	[SerializeField] private GameObject generalPane;
+	[SerializeField] private GameObject[] panes;
 
-	private GameObject active;
+	private GameObject activePane;
+	private Button activeButton;
 
 	void Start() {
-		show (general);
-		hide (whisper);
-		//hide (party);
-		//hide (guild);
-		//hide (combatLog);
+		show (generalPane);
+		hideNonActive ();
 
 		// General is the default tab to open.
-		active = general;
+		activePane = generalPane;
 	}
 
 	public void makeActive(GameObject panel) {
-		hide (active);
-		active = panel;
-		show (active);
+		hide(activePane);
+		activePane = panel;
+		show (activePane);
+	}
+
+	public bool isActive(GameObject panel) {
+		return panel == activePane;
+	}
+
+	private void hideNonActive() {
+		foreach (GameObject pane in panes) {
+			hide(pane);
+		}
 	}
 
 	private static void hide(GameObject panel) {
