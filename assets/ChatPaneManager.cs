@@ -10,6 +10,8 @@ public class ChatPaneManager : MonoBehaviour {
 	private ChatTextPanel activePane;
 	private Button activeButton;
 
+	private Transform parent;
+
 	void Start() {
 		show (generalPane);
 		hideNonActive ();
@@ -20,6 +22,7 @@ public class ChatPaneManager : MonoBehaviour {
 
 	public void makeActive(ChatTextPanel panel) {
 		hide(activePane);
+
 		activePane = panel;
 		show (activePane);
 	}

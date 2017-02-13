@@ -5,19 +5,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ChatInput : MonoBehaviour {
-	// config, move out
-	[SerializeField] private bool forceChatScrollBarToBottomAfterSubmit = false;
-
+	[SerializeField] private ChatScrollBar scrollBar;
 	[SerializeField] private InputField inputBox;
-	[SerializeField] private Scrollbar scrollbar;
 	[SerializeField] private ChatPaneManager manager;
 
 	private GameObject previouslySelected;
-	private float scrollPos;
 
 	void Start() {
 		inputBox.gameObject.SetActive (false); // Initially input-field is hidden.
-		scrollbar.value = 0.0f; // Initially scrolled all the way down.
 	}
 
 	void Update () {
@@ -35,7 +30,7 @@ public class ChatInput : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Escape) && wasActive) {
 			popSelected ();
-			resetScrollBarPosition ();
+			scrollBar.resetPosition ();
 			inputBox.gameObject.SetActive (false);
 		}
 	}
@@ -43,24 +38,18 @@ public class ChatInput : MonoBehaviour {
 	private void readInputMode() {
 		pushSelected ();
 		inputBox.Select ();
-		scrollPos = scrollbar.value;
+		scrollBar.cachePosition ();
 	}
 
 	private void normalMode() {
 		popSelected ();
-		manager.replaceChatEntry (inputBox.text);
-		resetScrollBarPosition ();
+		if (inputBox.text.Trim().Length != 0) {
+			manager.replaceChatEntry (inputBox.text);
+		}
+		scrollBar.resetPosition ();
 
 		// lastly clear out input box field.
 		inputBox.text = string.Empty;
-	}
-
-	void resetScrollBarPosition () {
-		if (forceChatScrollBarToBottomAfterSubmit) {
-			scrollbar.value = 0.0f;
-		} else {
-			scrollbar.value = scrollPos;
-		}
 	}
 
 	void pushSelected () {
