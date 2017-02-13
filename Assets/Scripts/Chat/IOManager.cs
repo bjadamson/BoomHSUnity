@@ -4,22 +4,22 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class IO : MonoBehaviour {
+public class IOManager : MonoBehaviour {
 	[SerializeField] private ScrollBar scrollBar;
-	[SerializeField] private InputField inputBox;
-	[SerializeField] private MouseoverManager manager;
+	[SerializeField] private InputField inputField;
+	[SerializeField] private TextPanelManager panelManager;
 
 	private GameObject previouslySelected;
 
 	void Start() {
-		inputBox.gameObject.SetActive (false); // Initially input-field is hidden.
+		inputField.gameObject.SetActive (false); // Initially input-field is hidden.
 	}
 
 	void Update () {
-		bool wasActive = inputBox.IsActive ();
+		bool wasActive = inputField.IsActive ();
 		if (Input.GetKeyDown (KeyCode.Return)) {
 			bool nowActive = !wasActive;
-			inputBox.gameObject.SetActive (nowActive);
+			inputField.gameObject.SetActive (nowActive);
 
 			if (nowActive) {
 				readInputMode ();
@@ -31,25 +31,25 @@ public class IO : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Escape) && wasActive) {
 			popSelected ();
 			scrollBar.resetPosition ();
-			inputBox.gameObject.SetActive (false);
+			inputField.gameObject.SetActive (false);
 		}
 	}
 
 	private void readInputMode() {
 		pushSelected ();
-		inputBox.Select ();
+		inputField.Select ();
 		scrollBar.cachePosition ();
 	}
 
 	private void normalMode() {
 		popSelected ();
-		if (inputBox.text.Trim().Length != 0) {
-			manager.replaceChatEntry (inputBox.text);
+		if (inputField.text.Trim().Length != 0) {
+			panelManager.replaceChatEntry (inputField.text);
 		}
 		scrollBar.resetPosition ();
 
 		// lastly clear out input box field.
-		inputBox.text = string.Empty;
+		inputField.text = string.Empty;
 	}
 
 	void pushSelected () {

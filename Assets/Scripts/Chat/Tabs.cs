@@ -5,19 +5,17 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Tabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
-	[SerializeField] private TextPanel panel;
-	[SerializeField] private ScrollView scrollView;
 	[SerializeField] private MouseoverManager manager;
+	[SerializeField] private int panelId;
 
 	[SerializeField] private bool initiallyTransparent = true;
 	[SerializeField] private float mouseOverTransparency = 0.25f;
 
 	private Button button;
-	private TextPanel clicked;
-	private TextPanel active;
 
 	void Start() {
 		button = GetComponent<Button> ();
+		Debug.Assert (button != null);
 
 		if (initiallyTransparent) {
 			makeTransparent ();
@@ -27,54 +25,25 @@ public class Tabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 	}
 
 	void IPointerEnterHandler.OnPointerEnter (PointerEventData eventData) {
-		makeOpaque ();
-		scrollView.makeOpaque ();
-
-		active = manager.getActive ();
-		manager.makeActive (this.panel);
+		manager.onTabMouseOverEnter (this);
 	}
 
 	void IPointerExitHandler.OnPointerExit (PointerEventData eventData) {
-		if (clicked && clicked != active) {
-			manager.makeActive (clicked);
-		} else {
-			manager.makeActive (active);
-		}
-
-		if (!isActive()) {
-			makeTransparent ();
-		}
-
-		// regardless of activeness, we do this when the mouse leaves
-		scrollView.makeTransparent ();
+		manager.onTabMouseOverExit (this);
 	}
 
 	public void OnPointerClick (PointerEventData eventData) {
-		clicked = this.panel;
-		makeActive ();
+		manager.onTabMouseClicked (this, panelId);
 	}
-
-	private void makeActive() {
-		manager.makeActive (this.panel);
-	}
-
-	private bool isActive() {
-		return manager.isActive (this.panel);
-	}
-
-	private void makeTransparent () {
+	public void makeTransparent () {
 		Color color = button.image.color;
 		color.a = mouseOverTransparency;
 		button.image.color = color;
-
-		//scrollView.makeTransparent ();
 	}
 
-	void makeOpaque () {
+	public void makeOpaque () {
 		Color color = button.image.color;
 		color.a = 1.0f;
 		button.image.color = color;
-
-		//scrollView.makeOpaque ();
 	}
 }
