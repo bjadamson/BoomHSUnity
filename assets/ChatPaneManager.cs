@@ -35,6 +35,11 @@ public class ChatPaneManager : MonoBehaviour {
 		activePane.replaceChatEntry (value);
 	}
 
+	// TODO: huge abstraction leak. Should probably use an idex or something.
+	public ChatTextPanel getActive() {
+		return activePane;
+	}
+
 	private void hideNonActive() {
 		foreach (ChatTextPanel pane in panes) {
 			hide(pane);

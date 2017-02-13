@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ChatTextPanel : MonoBehaviour {
 	[SerializeField] private string initialText = string.Empty;
+	[SerializeField] private Color textColor = Color.white;
 	private static readonly int NUM_FIELDS = 50;
 	private Text[] textFields = new Text[NUM_FIELDS];
 
@@ -21,8 +22,9 @@ public class ChatTextPanel : MonoBehaviour {
 		uiText.AddComponent<RectTransform> ();
 		Text text = uiText.AddComponent<Text> ();
 		text.font = Resources.GetBuiltinResource<Font> ("Arial.ttf");
-		text.fontSize = 13;
-		text.color = Color.white;
+		text.fontSize = 14;
+		text.fontStyle = FontStyle.Bold;
+		text.color = textColor;
 		text.verticalOverflow = VerticalWrapMode.Overflow;
 		text.horizontalOverflow = HorizontalWrapMode.Wrap;
 		text.alignByGeometry = true;
@@ -31,6 +33,12 @@ public class ChatTextPanel : MonoBehaviour {
 		text.rectTransform.localScale = Vector3.one;
 
 		return text;
+	}
+
+	void Update() {
+		foreach (Text t in textFields) {
+			t.color = textColor;
+		}
 	}
 
 	public void replaceChatEntry(string value) {
