@@ -45,7 +45,7 @@ public class TabManager : MonoBehaviour {
 
 	private void selectTab(Tabs tab) {
 		selectedTab = tab;
-		//selectedTab.makeOpaque ();
+		selectedTab.makeOpaque ();
 	}
 	#endregion
 }

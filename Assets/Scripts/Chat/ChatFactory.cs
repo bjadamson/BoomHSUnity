@@ -16,11 +16,6 @@ public class ChatFactory : MonoBehaviour {
 	private int id = 0; // Skip 0, that's built in for the "general" tab.
 
 	void Start() {
-		StartCoroutine (lateStart());
-	}
-
-	private IEnumerator lateStart() {
-		yield return new WaitForEndOfFrame ();
 		createGeneralChatPanel ();
 		createWhisperChatPanel ();
 		createPartyChatPanel ();
@@ -37,6 +32,7 @@ public class ChatFactory : MonoBehaviour {
 		GameObject tab = makeNewTab (name, color);
 		GameObject textPanel = makeNewPanel (name, Color.white);
 
+		tab.GetComponent<Tabs> ().initiallyTransparent = false;
 		textPanel.GetComponent<TextPanel> ().initialText = "Server version 0. Welcome. Try not to die, k?";
 	}
 
@@ -118,6 +114,7 @@ public class ChatFactory : MonoBehaviour {
 		text.color = Color.white;
 
 		Tabs tab = newTab.AddComponent<Tabs> ();
+		tab.button = button;
 		tab.manager = mouseOverManager;
 		tab.panelId = id++;
 		tabManager.addTab (tab);

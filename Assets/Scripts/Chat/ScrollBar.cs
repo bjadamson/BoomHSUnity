@@ -13,16 +13,7 @@ public class ScrollBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
 	void Start() {
 		scrollbar = GetComponent<Scrollbar> ();
-
-		// This is something to look into, I have to delay setting the scroll bar's initial value until the end of the frame or else the scroll bar's
-		// postition is always reset to the top. This may be a hack/kludge.
-		StartCoroutine(LateStart ());
-	}
-
-	private IEnumerator LateStart() {
-		yield return new WaitForEndOfFrame ();
 		scrollbar.value = 0.0f;
-		hide ();
 	}
 
 	public void OnPointerEnter(PointerEventData eventData) {
