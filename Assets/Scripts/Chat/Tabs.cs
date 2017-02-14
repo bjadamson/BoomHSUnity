@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Tabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
-	[SerializeField] private MouseoverManager manager;
-	[SerializeField] private int panelId;
+	[SerializeField] public MouseoverManager manager;
+	[SerializeField] public int panelId;
 
 	[SerializeField] private bool initiallyTransparent = true;
 	[SerializeField] private float mouseOverTransparency = 0.25f;
@@ -42,6 +42,9 @@ public class Tabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 	}
 
 	public void makeOpaque () {
+		Debug.Assert (button != null);
+		Debug.Assert (button.image != null);
+
 		Color color = button.image.color;
 		color.a = 1.0f;
 		button.image.color = color;

@@ -4,23 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TabManager : MonoBehaviour {
-	[SerializeField] private Tabs[] tabs;
-
+	private IList<Tabs> tabs = new List<Tabs> ();
 	private Tabs selectedTab;
 	private Tabs mousedOverTab;
 
-	private IEnumerator lateStart() {
-		yield return new WaitForEndOfFrame ();
-		selectGeneralTab ();
-	}
-
-	public void Start() {
-		// We need to ensure that all the tabs have been instantiated
-		StartCoroutine ("lateStart");
+	public void addTab(Tabs tab) {
+		tabs.Add (tab);
 	}
 
 	public void selectGeneralTab() {
-		selectTab(tabs [0]);
+		Debug.Assert (tabs [0]);
+		selectTab(tabs[0]);
 	}
 
 	public void mouseOverTabEnter(Tabs tab) {
@@ -51,7 +45,7 @@ public class TabManager : MonoBehaviour {
 
 	private void selectTab(Tabs tab) {
 		selectedTab = tab;
-		selectedTab.makeOpaque ();
+		//selectedTab.makeOpaque ();
 	}
 	#endregion
 }

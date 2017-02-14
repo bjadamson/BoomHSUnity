@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TextPanelManager : MonoBehaviour {
-	[SerializeField] private TextPanel[] panes;
+	[SerializeField] private ScrollView scrollView;
+
+	private IList<TextPanel> panes = new List<TextPanel> ();
 	private TextPanel activePane;
 
-	void Start() {
-		showGeneral ();
-		hideInactive ();
+	public void addPane(TextPanel panel) {
+		panes.Add (panel);
 
-		// General is the default tab to open.
-		activePane = getGeneralPane();
+		if (!activePane) {
+			activePane = panel;
+		}
 	}
 
 	public void showGeneral() {
@@ -28,6 +30,11 @@ public class TextPanelManager : MonoBehaviour {
 		hideInactive ();
 
 		show (panes[id]);
+		scrollView.GetComponent<ScrollRect>().content = activePane.GetComponent<RectTransform>();
+	}
+
+	public TextPanel getById(int id) {
+		return panes [id];
 	}
 
 	#region Private Methods
@@ -39,7 +46,7 @@ public class TextPanelManager : MonoBehaviour {
 	#endregion
 
 	private TextPanel getGeneralPane() {
-		return panes [0];
+		return panes[0];
 	}
 
 	#region Private Static methods

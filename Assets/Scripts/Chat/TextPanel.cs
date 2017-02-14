@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TextPanel : MonoBehaviour {
-	[SerializeField] private string initialText = string.Empty;
-	[SerializeField] private Color textColor = Color.white;
+	[SerializeField] public string initialText = string.Empty;
+	[SerializeField] public Color textColor = Color.white;
 	private static readonly int NUM_FIELDS = 50;
 	private Text[] textFields = new Text[NUM_FIELDS];
 

@@ -11,8 +11,8 @@ public class MouseoverManager : MonoBehaviour {
 	private int activePanelId = 0;
 
 	void Start() {
-		panelManager.showGeneral ();
-		tabManager.selectGeneralTab ();
+		//panelManager.showGeneral ();
+		//tabManager.selectGeneralTab ();
 	}
 		
 	public void onTabMouseOverEnter(Tabs tab, int panelId) {
