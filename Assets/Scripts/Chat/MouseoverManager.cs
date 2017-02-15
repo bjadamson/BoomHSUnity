@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MouseoverManager : MonoBehaviour {
-	[SerializeField] private ScrollView scrollView;
+	[SerializeField] private ScrollBackground scrollBackground;
 	[SerializeField] private TextPanelManager panelManager;
 	[SerializeField] private TabManager tabManager;
 
@@ -14,7 +14,7 @@ public class MouseoverManager : MonoBehaviour {
 		tabManager.mouseOverTabEnter (tab);
 
 		panelManager.showPanel (panelId);
-		scrollView.makeOpaque ();
+		scrollBackground.makeOpaque ();
 	}
 
 	public void onTabMouseOverExit(Tabs tab, int panelId) {
@@ -23,7 +23,7 @@ public class MouseoverManager : MonoBehaviour {
 		if (panelId != activePanelId) {
 			panelManager.showPanel (activePanelId);
 		}
-		scrollView.makeTransparent ();
+		scrollBackground.makeTransparent ();
 	}
 
 	public void onTabMouseClicked(Tabs tab, int panelId) {

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ScrollView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class ScrollBackground : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	private float opaqueness = 0.55f;
 	private float transparency = 0.10f;
 	private Image image;

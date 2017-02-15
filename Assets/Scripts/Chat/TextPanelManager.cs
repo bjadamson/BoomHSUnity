@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TextPanelManager : MonoBehaviour {
-	[SerializeField] private ScrollView scrollView;
+	[SerializeField] private ScrollBackground scrollBackground;
 
 	private IList<TextPanel> panes = new List<TextPanel> ();
 	private TextPanel activePane;
@@ -30,7 +30,7 @@ public class TextPanelManager : MonoBehaviour {
 		hideInactive ();
 
 		show (panes[id]);
-		scrollView.GetComponent<ScrollRect>().content = activePane.GetComponent<RectTransform>();
+		scrollBackground.GetComponent<ScrollRect>().content = activePane.GetComponent<RectTransform>();
 	}
 
 	public TextPanel getById(int id) {
