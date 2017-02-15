@@ -29,8 +29,8 @@ public class ChatFactory : MonoBehaviour {
 	private void createGeneralChatPanel() {
 		string name = "General";
 		Color color = new Color (0.6f, 0.502f, 0.38f);
-		GameObject tab = makeNewTab (name, color);
-		GameObject textPanel = makeNewPanel (name, Color.white);
+		GameObject tab = addNewTab (name, color);
+		GameObject textPanel = addNewPanel (name, Color.white);
 
 		tab.GetComponent<Tabs> ().initiallyTransparent = false;
 		textPanel.GetComponent<TextPanel> ().initialText = "Server version 0. Welcome. Try not to die, k?";
@@ -39,32 +39,32 @@ public class ChatFactory : MonoBehaviour {
 	private void createWhisperChatPanel() {
 		string name = "Whisper";
 		Color color = new Color (0.588f, 0.031f, 0.722f);
-		GameObject tab = makeNewTab (name, color);
-		GameObject textPanel = makeNewPanel (name, color);
+		GameObject tab = addNewTab (name, color);
+		GameObject textPanel = addNewPanel (name, color);
 	}
 
 	private void createPartyChatPanel() {
 		string name = "Group";
 		Color color = new Color (0.388f, 0.796f, 1.0f);
-		GameObject tab = makeNewTab (name, color);
-		GameObject textPanel = makeNewPanel (name, color);
+		GameObject tab = addNewTab (name, color);
+		GameObject textPanel = addNewPanel (name, color);
 	}
 
 	private void createGuildChatPanel() {
 		string name = "Guild";
 		Color color = new Color (0.271f, 1.0f, 0.486f);
-		GameObject tab = makeNewTab (name, color);
-		GameObject textPanel = makeNewPanel (name, color);
+		GameObject tab = addNewTab (name, color);
+		GameObject textPanel = addNewPanel (name, color);
 	}
 
 	private void createCombatLogChatPanel() {
 		string name = "Combat Log";
 		Color color = new Color (1.0f, 0.337f, 0.337f);
-		GameObject tab = makeNewTab (name, color);
-		GameObject textPanel = makeNewPanel (name, color);
+		GameObject tab = addNewTab (name, color);
+		GameObject textPanel = addNewPanel (name, color);
 	}
 
-	private GameObject makeNewTab(string windowName, Color bgColor) {
+	private GameObject addNewTab(string windowName, Color bgColor) {
 		GameObject newTab = new GameObject (windowName);
 		newTab.transform.SetParent (tabAnchor.transform);
 		RectTransform rectTransform = newTab.AddComponent<RectTransform> ();
@@ -121,7 +121,7 @@ public class ChatFactory : MonoBehaviour {
 		return newTab;
 	}
 
-	private GameObject makeNewPanel(string windowName, Color fontColor) {
+	private GameObject addNewPanel(string windowName, Color fontColor) {
 		GameObject newPanel = new GameObject (windowName + "Content");
 		newPanel.transform.SetParent (contentAnchor.transform);
 		RectTransform rectTransform = newPanel.AddComponent<RectTransform> ();

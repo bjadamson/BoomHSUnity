@@ -22,7 +22,7 @@ public class TextPanelManager : MonoBehaviour {
 	}
 
 	public void replaceChatEntry(string value) {
-		activePane.replaceChatEntry (value);
+		activePane.addNewChatEntry (value);
 	}
 
 	public void showPanel(int id) {

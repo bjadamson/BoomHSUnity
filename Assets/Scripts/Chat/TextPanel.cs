@@ -4,22 +4,31 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TextPanel : MonoBehaviour {
-	[SerializeField] public string initialText = string.Empty;
-	[SerializeField] public Color textColor = Color.white;
-	private static readonly int NUM_FIELDS = 50;
-	private Text[] textFields = new Text[NUM_FIELDS];
+	public string initialText = string.Empty;
+	public Color textColor = Color.white;
+
+	// config, move out
+	private static readonly uint MAX_HISTORY_NUMBER_LINES = 50;
+	private IList<Text> textFields = new List<Text>();
 
 	void Start() {
-		for (int i = 0; i < NUM_FIELDS; ++i) {
-			textFields [i] = addNewChatEntry (string.Empty, i);
-		}
-		textFields [NUM_FIELDS - 1].text = initialText;
+		insertNew (initialText);
 	}
 
-	private Text addNewChatEntry (string value, int row) {
-		GameObject uiText = new GameObject ("Text" + row.ToString ());
+	public void addNewChatEntry(string value) {
+		if (textFields.Count < MAX_HISTORY_NUMBER_LINES) {
+			insertNew(value);
+		} else {
+			updateExisting (value);
+		}
+	}
+
+	private void insertNew (string value) {
+		GameObject uiText = new GameObject ("Text" + textFields.Count.ToString ());
+
 		uiText.transform.SetParent (this.transform);
 		uiText.AddComponent<RectTransform> ();
+
 		Text text = uiText.AddComponent<Text> ();
 		text.font = Resources.GetBuiltinResource<Font> ("Arial.ttf");
 		text.fontSize = 14;
@@ -27,24 +36,18 @@ public class TextPanel : MonoBehaviour {
 		text.color = textColor;
 		text.verticalOverflow = VerticalWrapMode.Overflow;
 		text.horizontalOverflow = HorizontalWrapMode.Wrap;
+		text.alignment = TextAnchor.MiddleLeft;
 		text.alignByGeometry = true;
 		text.text = value;
 		text.rectTransform.pivot = new Vector2 (0.5f, 1.0f);
 		text.rectTransform.localScale = Vector3.one;
 
-		return text;
+		textFields.Add(text);
 	}
-
-	void Update() {
-		foreach (Text t in textFields) {
-			t.color = textColor;
-		}
-	}
-
-	public void replaceChatEntry(string value) {
-		for (int i = 0; i < textFields.Length - 1; ++i) {
+	private void updateExisting(string value) {
+		for (int i = 0; i < textFields.Count - 1; ++i) {
 			textFields [i].text = textFields [i + 1].text;
 		}
-		textFields [NUM_FIELDS - 1].text = value;
+		textFields [textFields.Count - 1].text = value;
 	}
 }
