@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ScrollBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class ScrollBar : MonoBehaviour {
 	// config, move out
 	[SerializeField] private bool forceChatScrollBarToBottomAfterSubmit = false;
 
@@ -14,14 +14,6 @@ public class ScrollBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 	void Start() {
 		scrollbar = GetComponent<Scrollbar> ();
 		scrollbar.value = 0.0f;
-	}
-
-	public void OnPointerEnter(PointerEventData eventData) {
-		show ();
-	}
-
-	public void OnPointerExit(PointerEventData eventData) {
-		hide ();
 	}
 
 	public void cachePosition() {
@@ -34,13 +26,5 @@ public class ScrollBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 		} else {
 			scrollbar.value = previousValue;
 		}
-	}
-
-	private void show() {
-		gameObject.SetActive (true);
-	}
-
-	private void hide() {
-		gameObject.SetActive (false);
 	}
 }

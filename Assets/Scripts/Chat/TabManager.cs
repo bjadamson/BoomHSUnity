@@ -34,6 +34,10 @@ public class TabManager : MonoBehaviour {
 		tab.makeOpaque ();
 	}
 
+	public string getActiveTabText() {
+		return selectedTab.text ();
+	}
+
 	#region Private Methods
 	private void makeAllTransparentExcluding(Tabs tab) {
 		foreach (Tabs t in tabs) {

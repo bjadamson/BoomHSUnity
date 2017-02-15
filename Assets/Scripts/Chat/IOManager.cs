@@ -8,6 +8,8 @@ public class IOManager : MonoBehaviour {
 	[SerializeField] private ScrollBar scrollBar;
 	[SerializeField] private InputField inputField;
 	[SerializeField] private TextPanelManager panelManager;
+	[SerializeField] private TabManager tabManager;
+	[SerializeField] private TransparencyManager transparencyManager;
 
 	private GameObject previouslySelected;
 
@@ -22,8 +24,10 @@ public class IOManager : MonoBehaviour {
 			inputField.gameObject.SetActive (nowActive);
 
 			if (nowActive) {
+				transparencyManager.makeOpaque ();
 				readInputMode ();
 			} else {
+				transparencyManager.makeTransparent ();
 				normalMode ();
 			}
 		}

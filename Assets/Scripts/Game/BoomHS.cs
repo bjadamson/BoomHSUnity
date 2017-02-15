@@ -5,31 +5,35 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class BoomHS : MonoBehaviour {
-	[SerializeField] private CanvasGroup chatCanvasGroup;
-	[SerializeField] private CanvasGroup chatScrollbarGroup;
+	private CursorStatus cursorStatus = CursorStatus.NormalMode;
+
+	enum CursorStatus {
+		NormalMode,
+		InputMode
+	}
 	
 	void Start () {
 		lockCursor ();
 	}
 
 	void Update() {
-		// TODO: we can't do this during an Update() loop like this, we should probably make this an event handler for every time the mouse moves.
-		// That would be a LOT less computation.
-		if (!EventSystem.current.IsPointerOverGameObject ()) {
-			chatCanvasGroup.alpha = 0.55f;
-			chatScrollbarGroup.alpha = 0;
-		} else {
-			chatCanvasGroup.alpha = 1;
-			chatScrollbarGroup.alpha = 1;
+		if (Input.GetKeyDown (KeyCode.Return)) {
+			if (cursorStatus == CursorStatus.NormalMode) {
+				unlockCursor ();
+			} else {
+				lockCursor ();
+			}
 		}
 	}
 
 	public void unlockCursor() {
-		SetCursorState(CursorLockMode.Confined);
+		SetCursorState(CursorLockMode.None);
+		cursorStatus = CursorStatus.InputMode;
 	}
 		
 	public void lockCursor() {
 		SetCursorState(CursorLockMode.Locked);
+		cursorStatus = CursorStatus.NormalMode;
 	}
 
 	private void SetCursorState (CursorLockMode mode) {

@@ -42,4 +42,8 @@ public class Tabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 		color.a = 1.0f;
 		button.image.color = color;
 	}
+
+	public string text() {
+		return gameObject.name;
+	}
 }

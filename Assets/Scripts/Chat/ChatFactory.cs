@@ -13,7 +13,7 @@ public class ChatFactory : MonoBehaviour {
 	[SerializeField] private TextPanelManager panelManager;
 
 	private ChatChannelList channelList = new ChatChannelList();
-	private int id = 0; // Skip 0, that's built in for the "general" tab.
+	private int id = 0;
 
 	void Start() {
 		createGeneralChatPanel ();

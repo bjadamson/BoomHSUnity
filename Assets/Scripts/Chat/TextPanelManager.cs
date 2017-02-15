@@ -4,16 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TextPanelManager : MonoBehaviour {
-	[SerializeField] private ScrollBackground scrollBackground;
+	[SerializeField] private ScrollBackgroundAndHandle scrollBackground;
 
 	private IList<TextPanel> panes = new List<TextPanel> ();
 	private TextPanel activePane;
+	private TextPanel mousedOverPane;
 
 	public void addPane(TextPanel panel) {
 		panes.Add (panel);
 
 		if (!activePane) {
 			activePane = panel;
+			scrollBackground.GetComponent<ScrollRect>().content = activePane.GetComponent<RectTransform>();
 		}
 	}
 
@@ -25,20 +27,24 @@ public class TextPanelManager : MonoBehaviour {
 		activePane.addNewChatEntry (value);
 	}
 
-	public void showPanel(int id) {
-		activePane = panes [id];
-		hideInactive ();
+	public void showButNotMakeActive(int id) {
+		mousedOverPane = panes [id];
+		hideAllPanels ();
+		show (mousedOverPane);
 
-		show (panes[id]);
+		scrollBackground.GetComponent<ScrollRect>().content = mousedOverPane.GetComponent<RectTransform>();
+	}
+
+	public void makePanelActive(int id) {
+		activePane = panes [id];
+
+		hideAllPanels ();
+		show (activePane);
 		scrollBackground.GetComponent<ScrollRect>().content = activePane.GetComponent<RectTransform>();
 	}
 
-	public TextPanel getById(int id) {
-		return panes [id];
-	}
-
 	#region Private Methods
-	private void hideInactive() {
+	private void hideAllPanels() {
 		foreach (TextPanel pane in panes) {
 			hide(pane);
 		}
