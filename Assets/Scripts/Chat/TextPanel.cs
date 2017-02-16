@@ -4,18 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TextPanel : MonoBehaviour {
-	public string initialText = string.Empty;
 	public Color textColor = Color.white;
 
 	// config, move out
 	private static readonly uint MAX_HISTORY_NUMBER_LINES = 50;
 	private IList<Text> textFields = new List<Text>();
 
-	void Start() {
-		insertNew (initialText);
-	}
-
-	public void addNewChatEntry(string value) {
+	public void addEntry(string value) {
 		if (textFields.Count < MAX_HISTORY_NUMBER_LINES) {
 			insertNew(value);
 		} else {

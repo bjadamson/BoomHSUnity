@@ -48,7 +48,7 @@ public class IOManager : MonoBehaviour {
 	private void normalMode() {
 		popSelected ();
 		if (inputField.text.Trim().Length != 0) {
-			panelManager.replaceChatEntry (inputField.text);
+			panelManager.addEntry (inputField.text);
 		}
 		scrollBar.resetPosition ();
 

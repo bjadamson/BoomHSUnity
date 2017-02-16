@@ -33,7 +33,10 @@ public class ChatFactory : MonoBehaviour {
 		GameObject textPanel = addNewPanel (name, Color.white);
 
 		tab.GetComponent<Tabs> ().initiallyTransparent = false;
-		textPanel.GetComponent<TextPanel> ().initialText = "Server version 0. Welcome. Try not to die, k?";
+
+		panelManager.addEntry ("Server version 0.");
+		panelManager.addEntry ("Press 'enter' and then 'tab' to view chat commands.");
+		panelManager.addEntry ("Welcome. Try not to die, k?");
 	}
 
 	private void createWhisperChatPanel() {

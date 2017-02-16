@@ -23,8 +23,8 @@ public class TextPanelManager : MonoBehaviour {
 		show (getGeneralPane());
 	}
 
-	public void replaceChatEntry(string value) {
-		activePane.addNewChatEntry (value);
+	public void addEntry(string value) {
+		activePane.addEntry (value);
 	}
 
 	public void showButNotMakeActive(int id) {
