@@ -4,83 +4,84 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EmoteInfoPanel : MonoBehaviour {
-	[SerializeField] private GameObject textFieldAnchor;
-
-	private static readonly Color commandColor = new Color (0.902f, 1.0f, 0.0f);
 	private static readonly int fontSize = 11;
+
+	[SerializeField] private GameObject textFieldAnchor;
+	[SerializeField] private InputField input;
+	private SlashCommandManager manager = new SlashCommandManager();
 	private int row = 0;
 
-	void Start() {
-		addEntry ("/who", "Display who is in your area.");
-		addEntry ("/where", "Display your location.");
+	GameObject emptyResult;
 
-		for (int i = 0; i < 30; ++i) {
-			addEntry ("/ffs", "For fuck sakes");
+	void Start() {
+		addCommand ("/who", "Display who is in your area.");
+		addCommand("/where", "Display your location.");
+		addCommand("/ffs", "................. fuck sakes");
+		addCommand("/efs", "xxxxxxxxxx fuck sakes");
+		addCommand("/def", "XXXXXXXXXX fuck sakes");
+		addCommand("/ffs", "For fuck sakes");
+		addCommand("/abc", "For fuck sakes");
+		addCommand("/ffs", "For fuck sakes");
+		addCommand("/zzzzzzzzzzzzzzzwwwwwwwwwwww", "For FRSFSFSFSF sakes");
+		addCommand("/ffs", "ZZZZZZZZZZ fuck sakes");
+		addCommand("/ser", "TTTTTTTTTTTTTTTT fuck sakes");
+		addCommand("/zcvzxcvz", "66666666666 fuck sakes");
+		addCommand("/aaaaaaaaaaaaaaa", "For fuck sakes");
+	}
+		
+	private void addCommand(string name, string description) {
+		string guiText = "Emote" + row;
+		row++;
+
+		manager.add (new SlashCommand (textFieldAnchor, guiText, name, description, fontSize));
+	}
+
+	public void refresh() {
+		manager.showEntriesMatchingPrefix (input.text);
+
+		bool atleastOneResult = manager.showingAtleastOne;
+		if (!atleastOneResult) {
+			displayNoMatchingResult ();
+		} else {
+			hideNoMatchingResults ();
 		}
 	}
 
-	public void addEntry(string name, string description) {
-		GameObject entry = new GameObject ("Emote" + row);
-		entry.transform.SetParent (textFieldAnchor.transform);
-		++row;
-
-		RectTransform rect = entry.AddComponent<RectTransform> ();
-		rect.pivot = new Vector2 (0.5f, 0.5f);
-		rect.localScale = Vector3.one;
-		rect.sizeDelta = new Vector2 (490, 11);// = 12;
-
-		HorizontalLayoutGroup hg = entry.AddComponent<HorizontalLayoutGroup> ();
-		hg.childAlignment = TextAnchor.UpperLeft;
-		hg.childControlWidth = true;
-		hg.childControlHeight = true;
-		hg.childForceExpandWidth = true;
-		hg.childForceExpandHeight = true;
-
-		LayoutElement le = entry.AddComponent<LayoutElement> ();
-		le.minHeight = fontSize + 2;
-
-		addCommand (entry, name);
-		addDescription (entry, description);
+	void displayNoMatchingResult ()
+	{
+		if (!emptyResult) {
+			createAndAddNoMatchingResults ();
+		}
+		showNoMatchingResults ();
 	}
 
-	void addCommand (GameObject parent, string value) {
-		GameObject command = new GameObject ("Command");
-		command.transform.SetParent (parent.transform);
-		RectTransform rect = command.AddComponent<RectTransform>();
+	private void createAndAddNoMatchingResults () {
+		emptyResult = new GameObject ("NoSlashCommand");
+		emptyResult.transform.SetParent (textFieldAnchor.transform);
+		RectTransform rect = emptyResult.AddComponent<RectTransform> ();
 		rect.localScale = Vector3.one;
-		Text text = command.AddComponent<Text> ();
+		Text text = emptyResult.AddComponent<Text> ();
 		text.font = Resources.Load<Font> ("courbd");
 		Debug.Assert (text.font != null);
-
 		text.fontSize = fontSize;
 		text.fontStyle = FontStyle.Normal;
 		text.supportRichText = true;
 		text.alignment = TextAnchor.MiddleLeft;
 		text.alignByGeometry = true;
 		text.resizeTextForBestFit = false;
-		text.color = commandColor;
-		text.text = value;
-		LayoutElement layoutElement = command.AddComponent<LayoutElement> ();
+		text.color = Color.red;
+		LayoutElement layoutElement = emptyResult.AddComponent<LayoutElement> ();
 		layoutElement.preferredWidth = 0;
 	}
 
-	private static void addDescription (GameObject parent, string value) {
-		GameObject command = new GameObject ("Description");
-		command.transform.SetParent (parent.transform);
-		RectTransform rect = command.AddComponent<RectTransform>();
-		rect.localScale = Vector3.one;
-		Text text = command.AddComponent<Text> ();
-		text.font = Resources.Load<Font> ("cour");
-		Debug.Assert (text.font != null);
+	private void hideNoMatchingResults() {
+		if (emptyResult) {
+			emptyResult.SetActive (false);
+		}
+	}
 
-		text.fontSize = fontSize;
-		text.fontStyle = FontStyle.Normal;
-		text.supportRichText = true;
-		text.alignment = TextAnchor.MiddleLeft;
-		text.alignByGeometry = true;
-		text.resizeTextForBestFit = false;
-		text.text = value;
-		LayoutElement layoutElement = command.AddComponent<LayoutElement> ();
-		layoutElement.preferredWidth = 384.0396f;
+	private void showNoMatchingResults() {
+		emptyResult.SetActive (true);
+		emptyResult.GetComponent<Text>().text = "No commands found beginning with '" + input.text + "'";
 	}
 }
