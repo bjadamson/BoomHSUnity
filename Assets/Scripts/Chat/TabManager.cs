@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TabManager : MonoBehaviour {
+	private IList<TextPanel> panes = new List<TextPanel> ();
 	private IList<Tabs> tabs = new List<Tabs> ();
+
 	private Tabs selectedTab;
 	private Tabs mousedOverTab;
 
@@ -63,7 +65,7 @@ public class TabManager : MonoBehaviour {
 		}
 	}
 
-	public string getActiveTabText() {
+	private string getActiveTabText() {
 		return selectedTab.text ();
 	}
 
