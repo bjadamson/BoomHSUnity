@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class ChatChannelList {
-	
-	public void addIfNotAlreadyPresent(string channelName) {
-		//if (!containsChannel (channelName)) {
-		//	addNewChannel (channelName);
-		//}
-	}
-	//public bool containsWindow(string windowName) {
-	//}
-	//public bool containsChannel(string channelName) {
-	//}
+	private readonly IList<ChatChannel> channels = new List<ChatChannel>();
 
-	private void addNewChannel(string channelName) {
+	public void addNewChannel(string channelName, TextPanel panel) {
+		channels.Add (new ChatChannel (channelName, panel));
+	}
+
+	public void sendMessage(string channelName, string message) {
+		foreach (ChatChannel ch in channels) {
+			if (ch.Name.ToLower() == channelName) {
+				ch.sendMessage (message);
+				break;
+			}
+		}
 	}
 }

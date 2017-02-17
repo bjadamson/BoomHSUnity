@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,7 +12,6 @@ public class IOManager : MonoBehaviour {
 	[SerializeField] private TextPanelManager panelManager;
 	[SerializeField] private TabManager tabManager;
 	[SerializeField] private TransparencyManager transparencyManager;
-
 	private GameObject previouslySelected;
 
 	void Start() {
@@ -38,7 +39,6 @@ public class IOManager : MonoBehaviour {
 			inputField.gameObject.SetActive (false);
 		}
 	}
-
 	private void readInputMode() {
 		pushSelected ();
 		inputField.Select ();
@@ -55,11 +55,11 @@ public class IOManager : MonoBehaviour {
 		inputField.text = string.Empty;
 	}
 
-	void pushSelected () {
+	private void pushSelected () {
 		previouslySelected = EventSystem.current.currentSelectedGameObject;
 	}
 
-	void popSelected () {
+	private void popSelected () {
 		EventSystem.current.SetSelectedGameObject (previouslySelected);
 	}
 }

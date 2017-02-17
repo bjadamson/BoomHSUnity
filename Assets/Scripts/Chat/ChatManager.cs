@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ChatFactory : MonoBehaviour {
+public class ChatManager : MonoBehaviour {
+	[SerializeField] private bool sendAllMessagesToGeneral = true;
+
 	[SerializeField] private GameObject tabAnchor;
 	[SerializeField] private GameObject contentAnchor;
 
@@ -12,11 +14,15 @@ public class ChatFactory : MonoBehaviour {
 	[SerializeField] private TabManager tabManager;
 	[SerializeField] private TextPanelManager panelManager;
 
-	private ChatChannelList channelList = new ChatChannelList();
+	private readonly ChatChannelList channelList = new ChatChannelList();
 	private int id = 0;
 
 	void Start() {
 		createGeneralChatPanel ();
+		panelManager.addEntry ("Server version 0.");
+		panelManager.addEntry ("Press 'enter' and then 'tab' to view chat commands.");
+		panelManager.addEntry ("Welcome. Try not to die, k?");
+
 		createWhisperChatPanel ();
 		createPartyChatPanel ();
 		createGuildChatPanel ();
@@ -26,6 +32,12 @@ public class ChatFactory : MonoBehaviour {
 		tabManager.selectGeneralTab ();
 	}
 
+	private void createNewChatPanel(string name, Color color) {
+		GameObject tab = addNewTab (name, color);
+		GameObject textPanel = addNewPanel (name, color);
+		channelList.addNewChannel (name, textPanel.GetComponent<TextPanel>());
+	}
+
 	private void createGeneralChatPanel() {
 		string name = "General";
 		Color color = new Color (0.6f, 0.502f, 0.38f);
@@ -33,38 +45,31 @@ public class ChatFactory : MonoBehaviour {
 		GameObject textPanel = addNewPanel (name, Color.white);
 
 		tab.GetComponent<Tabs> ().initiallyTransparent = false;
-
-		panelManager.addEntry ("Server version 0.");
-		panelManager.addEntry ("Press 'enter' and then 'tab' to view chat commands.");
-		panelManager.addEntry ("Welcome. Try not to die, k?");
+		channelList.addNewChannel (name, textPanel.GetComponent<TextPanel>());
 	}
 
 	private void createWhisperChatPanel() {
 		string name = "Whisper";
 		Color color = new Color (0.588f, 0.031f, 0.722f);
-		GameObject tab = addNewTab (name, color);
-		GameObject textPanel = addNewPanel (name, color);
+		createNewChatPanel (name, color);
 	}
 
 	private void createPartyChatPanel() {
 		string name = "Group";
 		Color color = new Color (0.388f, 0.796f, 1.0f);
-		GameObject tab = addNewTab (name, color);
-		GameObject textPanel = addNewPanel (name, color);
+		createNewChatPanel (name, color);
 	}
 
 	private void createGuildChatPanel() {
 		string name = "Guild";
 		Color color = new Color (0.271f, 1.0f, 0.486f);
-		GameObject tab = addNewTab (name, color);
-		GameObject textPanel = addNewPanel (name, color);
+		createNewChatPanel (name, color);
 	}
 
 	private void createCombatLogChatPanel() {
 		string name = "Combat Log";
 		Color color = new Color (1.0f, 0.337f, 0.337f);
-		GameObject tab = addNewTab (name, color);
-		GameObject textPanel = addNewPanel (name, color);
+		createNewChatPanel (name, color);
 	}
 
 	private GameObject addNewTab(string windowName, Color bgColor) {
@@ -157,19 +162,12 @@ public class ChatFactory : MonoBehaviour {
 		return newPanel;
 	}
 
-	public void addNewChatPanel(string windowName) {
-		// TODO: make sure there are no spaces in the the window name, make sure it's <= 16 chars or something.
+	public void sendChatMessage(string channelName, string message) {
+		channelList.sendMessage (channelName, message);
 
-		//, string channelName) {//, Color bgColor) {
-		//if (channelList.containsWindow (windowName)) {
-			// TODO: Somehow tell the user that window already exists, and do not allow the user to create the new window.
-		//}
-		//channelList.addIfNotAlreadyPresent (channelName);
-	}
-
-	public void removeChatChannel(string windowName) {
-	}
-
-	public void movePosition(string windowName, int position) {
+		if (sendAllMessagesToGeneral && channelName != "general") {
+			// also send message to general channel
+			channelList.sendMessage("general", message);
+		}
 	}
 }
