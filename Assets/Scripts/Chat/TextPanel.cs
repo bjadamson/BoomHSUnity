@@ -11,14 +11,18 @@ public class TextPanel : MonoBehaviour {
 	private IList<Text> textFields = new List<Text>();
 
 	public void addEntry(string value) {
-		if (textFields.Count < MAX_HISTORY_NUMBER_LINES) {
-			insertNew(value);
-		} else {
-			updateExisting (value);
-		}
+		addEntry (value, this.textColor);
 	}
 
-	private void insertNew (string value) {
+	public void addEntry(string value, Color color) {
+		if (textFields.Count < MAX_HISTORY_NUMBER_LINES) {
+			insertNew(value, color);
+		} else {
+			updateExisting (value, color);
+		}
+	}
+		
+	private void insertNew (string value, Color fontColor) {
 		GameObject uiText = new GameObject ("Text" + textFields.Count.ToString ());
 
 		uiText.transform.SetParent (this.transform);
@@ -28,7 +32,7 @@ public class TextPanel : MonoBehaviour {
 		text.font = Resources.GetBuiltinResource<Font> ("Arial.ttf");
 		text.fontSize = 14;
 		text.fontStyle = FontStyle.Bold;
-		text.color = textColor;
+		text.color = fontColor;
 		text.verticalOverflow = VerticalWrapMode.Overflow;
 		text.horizontalOverflow = HorizontalWrapMode.Wrap;
 		text.alignment = TextAnchor.MiddleLeft;
@@ -39,10 +43,12 @@ public class TextPanel : MonoBehaviour {
 
 		textFields.Add(text);
 	}
-	private void updateExisting(string value) {
+	private void updateExisting(string value, Color textColor) {
 		for (int i = 0; i < textFields.Count - 1; ++i) {
 			textFields [i].text = textFields [i + 1].text;
 		}
-		textFields [textFields.Count - 1].text = value;
+		Text lastField = textFields [textFields.Count - 1];
+		lastField.text = value;
+		lastField.color = textColor;
 	}
 }

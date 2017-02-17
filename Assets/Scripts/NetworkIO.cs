@@ -34,6 +34,9 @@ public class NetworkIO : MonoBehaviour, IDisposable {
 		else {
 			chatManager.sendChatMessage ("general", generalInput.ReadLine ());
 			chatManager.sendChatMessage ("group", "ben: lazy as EFF");
+			chatManager.sendChatMessage ("guild", "hemingway: your all fucked");
+			chatManager.sendChatMessage ("combat log", "You receive 30 damage.");
+			chatManager.sendChatMessage ("whisper", "saa dude from 2013");
 		}
 	}
 

@@ -16,6 +16,7 @@ public class InputFieldManager : MonoBehaviour {
 
 	void Start() {
 		inputField.gameObject.SetActive (false); // Initially input-field is hidden.
+		transparencyManager.makeTransparent ();
 	}
 
 	public bool isEmpty() {

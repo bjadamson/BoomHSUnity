@@ -9,7 +9,7 @@ public class ChatManager : MonoBehaviour {
 	[SerializeField] private InputFieldManager inputFieldManager;
 	[SerializeField] private TextPanelManager panelManager;
 
-	private readonly ChatChannelList channelList = new ChatChannelList();
+	private readonly ChatWindowList channelList = new ChatWindowList();
 
 	void Start() {
 		ChatWindowFactory chatFactory = GetComponent<ChatWindowFactory> ();
@@ -48,8 +48,9 @@ public class ChatManager : MonoBehaviour {
 		channelList.sendMessage (channelName, message);
 
 		if (sendAllMessagesToGeneral && channelName != "general") {
-			// also send message to general channel
-			channelList.sendMessage("general", message);
+			// also send message to general channel, but do it using original channels TextColor
+			Color channelsTextColor = channelList.findChatWindow (channelName).TextColor;
+			channelList.sendMessage("general", message, channelsTextColor);
 		}
 	}
 }
