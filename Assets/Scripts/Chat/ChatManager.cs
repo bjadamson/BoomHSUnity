@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ChatManager : MonoBehaviour {
 	[SerializeField] private bool sendAllMessagesToGeneral = true;
 	[SerializeField] private InputFieldManager inputFieldManager;
+	[SerializeField] private TextPanelManager panelManager;
 
 	private readonly ChatChannelList channelList = new ChatChannelList();
 
@@ -29,6 +30,14 @@ public class ChatManager : MonoBehaviour {
 
 	public void setPlaceholderText(string value) {
 		inputFieldManager.setPlaceholderText(value);
+	}
+
+	public void showPanel(int panelId) {
+		panelManager.showButNotMakeActive (panelId);
+	}
+
+	public void makePanelActive(int panelId) {
+		panelManager.makePanelActive (panelId);
 	}
 
 	public void sendChatMessage(string channelName, string message) {

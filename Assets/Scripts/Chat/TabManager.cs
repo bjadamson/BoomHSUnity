@@ -11,7 +11,6 @@ public class TabManager : MonoBehaviour {
 	private Tabs mousedOverTab;
 
 	[SerializeField] private ChatManager chatManager;
-	[SerializeField] private TextPanelManager panelManager;
 	private int activePanelId = 0;
 
 	void Start() {
@@ -35,8 +34,7 @@ public class TabManager : MonoBehaviour {
 		mousedOverTab = tab;
 		mousedOverTab.makeOpaque ();
 
-
-		panelManager.showButNotMakeActive (panelId);
+		chatManager.showPanel (panelId);
 	}
 
 	public void mouseOverTabExit(Tabs tab, int panelId) {
@@ -45,7 +43,7 @@ public class TabManager : MonoBehaviour {
 		}
 
 		if (panelId != activePanelId) {
-			panelManager.makePanelActive (activePanelId);
+			chatManager.makePanelActive (activePanelId);
 		}
 	}
 
@@ -56,7 +54,7 @@ public class TabManager : MonoBehaviour {
 
 		activePanelId = panelId;
 
-		panelManager.makePanelActive (panelId);
+		chatManager.makePanelActive (panelId);
 		updatePlaceholderText ();
 
 		// After we select the tab, move focus to back to the input field if it's active (user is in input mode)
@@ -81,8 +79,8 @@ public class TabManager : MonoBehaviour {
 	}
 
 	private void updatePlaceholderText () {
-		string text = getActiveTabText ();
-		string placeholderText = chatManager.placeholderText ().ToLower() + "...";
+		string text = getActiveTabText ().ToLower();
+		string placeholderText = text + "...";
 		chatManager.setPlaceholderText (placeholderText);
 	}
 }
