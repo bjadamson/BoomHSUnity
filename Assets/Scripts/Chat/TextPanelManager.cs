@@ -20,7 +20,7 @@ public class TextPanelManager : MonoBehaviour {
 	}
 
 	public void showGeneral() {
-		show (getGeneralPane());
+		makePanelActive (0);
 	}
 
 	public void addEntry(string value) {
@@ -50,10 +50,6 @@ public class TextPanelManager : MonoBehaviour {
 		}
 	}
 	#endregion
-
-	private TextPanel getGeneralPane() {
-		return panes[0];
-	}
 
 	#region Private Static methods
 	private static void hide(TextPanel panel) {
