@@ -42,7 +42,6 @@ public class IOManager : MonoBehaviour {
 	private void readInputMode() {
 		pushSelected ();
 		inputField.Select ();
-		scrollBar.cachePosition ();
 	}
 
 	private void normalMode() {

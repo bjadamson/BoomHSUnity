@@ -34,6 +34,10 @@ public class SlashCommand  {
 		LayoutElement le = entry.AddComponent<LayoutElement> ();
 		le.minHeight = fontSize + 2;
 
+		ContentSizeFitter csf = entry.AddComponent<ContentSizeFitter> ();
+		csf.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+		csf.verticalFit = ContentSizeFitter.FitMode.MinSize;
+
 		addCommand (entry);
 		addDescription (entry, description);
 	}
@@ -68,7 +72,7 @@ public class SlashCommand  {
 		text.alignByGeometry = true;
 		text.resizeTextForBestFit = false;
 		text.color = commandColor;
-		text.text = commandName;
+		text.text = "/" + commandName;
 		LayoutElement layoutElement = command.AddComponent<LayoutElement> ();
 		layoutElement.preferredWidth = 0;
 	}
