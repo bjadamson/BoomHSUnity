@@ -7,12 +7,14 @@ public class SlashCommand  {
 	private static readonly Color commandColor = new Color (0.902f, 1.0f, 0.0f);
 
 	private GameObject entry;
+	private GameObject entryParent;
 	private readonly string commandName;
 	private readonly int fontSize;
 
 	public SlashCommand(GameObject parent, string guiText, string name, string description, int fontSize) {
 		entry = new GameObject (guiText);
-		entry.transform.SetParent (parent.transform);
+		entryParent = parent;
+		entry.transform.SetParent (entryParent.transform);
 
 		commandName = name;
 		this.fontSize = fontSize;
@@ -38,9 +40,11 @@ public class SlashCommand  {
 
 	public void hide() {
 		entry.SetActive (false);
+		entry.transform.SetParent(null);
 	}
 
 	public void show() {
+		entry.transform.SetParent (entryParent.transform);
 		entry.SetActive (true);
 	}
 

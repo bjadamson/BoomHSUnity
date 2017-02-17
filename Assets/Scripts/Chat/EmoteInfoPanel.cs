@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class EmoteInfoPanel : MonoBehaviour {
 	private static readonly int fontSize = 11;
 
-	[SerializeField] private GameObject textFieldAnchor;
+	[SerializeField] private GameObject emotesAnchor;
+	[SerializeField] private Text emptyResultText;
+
 	[SerializeField] private InputField input;
 	private SlashCommandManager manager = new SlashCommandManager();
 	private int row = 0;
-
-	GameObject emptyResult;
 
 	void Start() {
 		addCommand ("/who", "Display who is in your area.");
@@ -33,7 +33,7 @@ public class EmoteInfoPanel : MonoBehaviour {
 		string guiText = "Emote" + row;
 		row++;
 
-		manager.add (new SlashCommand (textFieldAnchor, guiText, name, description, fontSize));
+		manager.add (new SlashCommand (emotesAnchor, guiText, name, description, fontSize));
 	}
 
 	public void refresh() {
@@ -47,41 +47,18 @@ public class EmoteInfoPanel : MonoBehaviour {
 		}
 	}
 
-	void displayNoMatchingResult ()
-	{
-		if (!emptyResult) {
-			createAndAddNoMatchingResults ();
-		}
+	private void displayNoMatchingResult () {
 		showNoMatchingResults ();
 	}
 
-	private void createAndAddNoMatchingResults () {
-		emptyResult = new GameObject ("NoSlashCommand");
-		emptyResult.transform.SetParent (textFieldAnchor.transform);
-		RectTransform rect = emptyResult.AddComponent<RectTransform> ();
-		rect.localScale = Vector3.one;
-		Text text = emptyResult.AddComponent<Text> ();
-		text.font = Resources.Load<Font> ("courbd");
-		Debug.Assert (text.font != null);
-		text.fontSize = fontSize;
-		text.fontStyle = FontStyle.Normal;
-		text.supportRichText = true;
-		text.alignment = TextAnchor.MiddleLeft;
-		text.alignByGeometry = true;
-		text.resizeTextForBestFit = false;
-		text.color = Color.red;
-		LayoutElement layoutElement = emptyResult.AddComponent<LayoutElement> ();
-		layoutElement.preferredWidth = 0;
-	}
-
 	private void hideNoMatchingResults() {
-		if (emptyResult) {
-			emptyResult.SetActive (false);
-		}
+		emptyResultText.transform.parent.gameObject.SetActive (false);
+		emptyResultText.gameObject.SetActive (false);
 	}
 
 	private void showNoMatchingResults() {
-		emptyResult.SetActive (true);
-		emptyResult.GetComponent<Text>().text = "No commands found beginning with '" + input.text + "'";
+		emptyResultText.transform.parent.gameObject.SetActive (true);
+		emptyResultText.gameObject.SetActive (true);
+		emptyResultText.text = "No commands found beginning with '" + input.text + "'";
 	}
 }
