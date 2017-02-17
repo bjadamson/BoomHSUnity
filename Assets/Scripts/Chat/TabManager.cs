@@ -10,8 +10,8 @@ public class TabManager : MonoBehaviour {
 	private Tabs selectedTab;
 	private Tabs mousedOverTab;
 
+	[SerializeField] private ChatManager chatManager;
 	[SerializeField] private TextPanelManager panelManager;
-	[SerializeField] private InputField inputField;
 	private int activePanelId = 0;
 
 	void Start() {
@@ -28,7 +28,7 @@ public class TabManager : MonoBehaviour {
 	}
 
 	public void mouseOverTabEnter(Tabs tab, int panelId) {
-		if (inputField.text.Length > 0) {
+		if (chatManager.userHasInputAnyCharacter()) {
 			// We don't do anything on mouse-over if the user has input any text.
 			return;
 		}
@@ -60,9 +60,7 @@ public class TabManager : MonoBehaviour {
 		updatePlaceholderText ();
 
 		// After we select the tab, move focus to back to the input field if it's active (user is in input mode)
-		if (inputField.IsActive()) {
-			inputField.Select ();
-		}
+		chatManager.moveFocusToInputFieldIfActive();
 	}
 
 	private string getActiveTabText() {
@@ -84,6 +82,7 @@ public class TabManager : MonoBehaviour {
 
 	private void updatePlaceholderText () {
 		string text = getActiveTabText ();
-		inputField.placeholder.GetComponent<Text> ().text = text.ToLower() + "...";
+		string placeholderText = chatManager.placeholderText ().ToLower() + "...";
+		chatManager.setPlaceholderText (placeholderText);
 	}
 }

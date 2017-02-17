@@ -6,15 +6,35 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class IOManager : MonoBehaviour {
+public class InputFieldManager : MonoBehaviour {
 	[SerializeField] private ScrollBar scrollBar;
 	[SerializeField] private InputField inputField;
 	[SerializeField] private TextPanelManager panelManager;
 	[SerializeField] private TransparencyManager transparencyManager;
+
 	private GameObject previouslySelected;
 
 	void Start() {
 		inputField.gameObject.SetActive (false); // Initially input-field is hidden.
+	}
+
+	public bool isEmpty() {
+		return inputField.text.Length > 0;
+	}
+
+	public void selectOnlyIfActive() {
+		// After we select the tab, move focus to back to the input field if it's active (user is in input mode)
+		if (inputField.IsActive()) {
+			inputField.Select ();
+		}
+	}
+
+	public string getPlaceholderText() {
+		return inputField.placeholder.GetComponent<Text> ().text;
+	}
+
+	public void setPlaceholderText(string value) {
+		inputField.placeholder.GetComponent<Text> ().text = value;
 	}
 
 	void Update () {
