@@ -10,7 +10,6 @@ public class IOManager : MonoBehaviour {
 	[SerializeField] private ScrollBar scrollBar;
 	[SerializeField] private InputField inputField;
 	[SerializeField] private TextPanelManager panelManager;
-	[SerializeField] private TabManager tabManager;
 	[SerializeField] private TransparencyManager transparencyManager;
 	private GameObject previouslySelected;
 

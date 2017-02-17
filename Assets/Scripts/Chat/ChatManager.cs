@@ -6,17 +6,12 @@ using UnityEngine.UI;
 
 public class ChatManager : MonoBehaviour {
 	[SerializeField] private bool sendAllMessagesToGeneral = true;
-	[SerializeField] private GameObject tabAnchor;
-	[SerializeField] private GameObject panelAnchor;
-
-	[SerializeField] private TabManager tabManager;
-	[SerializeField] private TextPanelManager panelManager;
 
 	private readonly ChatChannelList channelList = new ChatChannelList();
 
 	void Start() {
-		ChatWindowFactory cwf = new ChatWindowFactory (tabAnchor, panelAnchor, tabManager, panelManager);
-		cwf.createDefaultWindow (channelList);
+		ChatWindowFactory chatFactory = GetComponent<ChatWindowFactory> ();
+		chatFactory.createDefaultWindow (channelList);
 	}
 
 	public void sendChatMessage(string channelName, string message) {

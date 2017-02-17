@@ -3,20 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChatWindowFactory {
-	private readonly GameObject tabAnchor;
-	private readonly GameObject contentAnchor;
+public class ChatWindowFactory : MonoBehaviour {
+	[SerializeField] private GameObject tabAnchor;
+	[SerializeField] private GameObject panelAnchor;
 
-	private readonly TabManager tabManager;
-	private readonly TextPanelManager panelManager;
+	[SerializeField] private TabManager tabManager;
+	[SerializeField] private TextPanelManager panelManager;
 	private int id = 0;
-
-	public ChatWindowFactory(GameObject tabAnchor, GameObject panelAnchor, TabManager tabManager, TextPanelManager panelManager) {
-		this.tabAnchor = tabAnchor;
-		this.contentAnchor = panelAnchor;
-		this.tabManager = tabManager;
-		this.panelManager = panelManager;
-	}
 
 	public void createDefaultWindow(ChatChannelList channelList) {
 		createGeneralChatPanel (channelList);
@@ -126,7 +119,7 @@ public class ChatWindowFactory {
 		tabManager.addTab (tab);
 
 		GameObject newPanel = new GameObject (channelName + "Content");
-		newPanel.transform.SetParent (contentAnchor.transform);
+		newPanel.transform.SetParent (panelAnchor.transform);
 		rectTransform = newPanel.AddComponent<RectTransform> ();
 		rectTransform.transform.position = Vector3.zero;
 		rectTransform.transform.localScale = Vector3.one;
