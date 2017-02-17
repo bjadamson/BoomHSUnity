@@ -19,34 +19,31 @@ public class IOManager : MonoBehaviour {
 	}
 
 	void Update () {
-		bool wasActive = inputField.IsActive ();
+		bool isActive = inputField.IsActive ();
 		if (Input.GetKeyDown (KeyCode.Return)) {
-			bool nowActive = !wasActive;
-			inputField.gameObject.SetActive (nowActive);
-
-			if (nowActive) {
-				transparencyManager.makeOpaque ();
-				readInputMode ();
+			if (!isActive) {
+				enableReadFromUserStdin ();
 			} else {
-				transparencyManager.makeTransparent ();
-				normalMode ();
+				disableReadFromUserStdin (true);
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.Escape) && wasActive) {
-			popSelected ();
-			scrollBar.resetPosition ();
-			inputField.gameObject.SetActive (false);
+		if (Input.GetKeyDown (KeyCode.Escape) && isActive) {
+			disableReadFromUserStdin(false);
 		}
 	}
-	private void readInputMode() {
+	private void enableReadFromUserStdin() {
+		inputField.gameObject.SetActive (true);
+		transparencyManager.makeOpaque ();
 		pushSelected ();
 		inputField.Select ();
 	}
 
-	private void normalMode() {
+	private void disableReadFromUserStdin(bool acceptInput) {
+		inputField.gameObject.SetActive (false);
+		transparencyManager.makeTransparent ();
 		popSelected ();
-		if (inputField.text.Trim().Length != 0) {
+		if (acceptInput && inputField.text.Trim ().Length != 0) {
 			panelManager.addEntry (inputField.text);
 		}
 		scrollBar.resetPosition ();
