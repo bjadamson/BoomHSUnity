@@ -10,7 +10,6 @@ public class ChatManager : MonoBehaviour {
 	[SerializeField] private GameObject tabAnchor;
 	[SerializeField] private GameObject contentAnchor;
 
-	[SerializeField] private MouseoverManager mouseOverManager;
 	[SerializeField] private TabManager tabManager;
 	[SerializeField] private TextPanelManager panelManager;
 
@@ -123,7 +122,7 @@ public class ChatManager : MonoBehaviour {
 
 		Tabs tab = newTab.AddComponent<Tabs> ();
 		tab.button = button;
-		tab.manager = mouseOverManager;
+		tab.manager = tabManager;
 		tab.panelId = id++;
 		tabManager.addTab (tab);
 		return newTab;

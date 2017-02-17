@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Tabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
-	[SerializeField] public MouseoverManager manager;
+	[SerializeField] public TabManager manager;
 	public int panelId;
 	public Button button;
 
@@ -21,15 +21,15 @@ public class Tabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 	}
 
 	void IPointerEnterHandler.OnPointerEnter (PointerEventData eventData) {
-		manager.onTabMouseOverEnter (this, panelId);
+		manager.mouseOverTabEnter (this, panelId);
 	}
 
 	void IPointerExitHandler.OnPointerExit (PointerEventData eventData) {
-		manager.onTabMouseOverExit (this, panelId);
+		manager.mouseOverTabExit (this, panelId);
 	}
 
 	public void OnPointerClick (PointerEventData eventData) {
-		manager.onTabMouseClicked (this, panelId);
+		manager.mouseClickedOnTab (this, panelId);
 	}
 	public void makeTransparent () {
 		Color color = button.image.color;
