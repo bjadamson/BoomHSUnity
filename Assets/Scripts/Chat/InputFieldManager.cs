@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class InputFieldManager : MonoBehaviour {
 	[SerializeField] private ScrollBar scrollBar;
 	[SerializeField] private InputField inputField;
-	[SerializeField] private TextPanelManager panelManager;
+	[SerializeField] private ChatManager chatManager;
 	[SerializeField] private TransparencyManager transparencyManager;
 
 	private GameObject previouslySelected;
@@ -63,7 +63,7 @@ public class InputFieldManager : MonoBehaviour {
 		transparencyManager.makeTransparent ();
 		popSelected ();
 		if (acceptInput && inputField.text.Trim ().Length != 0) {
-			panelManager.addEntry (inputField.text);
+			chatManager.sendActiveChannelMessage (inputField.text);
 		}
 		scrollBar.resetPosition ();
 

@@ -40,6 +40,10 @@ public class ChatManager : MonoBehaviour {
 		panelManager.makePanelActive (panelId);
 	}
 
+	public void sendActiveChannelMessage(string message) {
+		panelManager.addEntry (message);
+	}
+
 	public void sendChatMessage(string channelName, string message) {
 		channelList.sendMessage (channelName, message);
 
