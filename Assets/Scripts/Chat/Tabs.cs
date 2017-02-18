@@ -29,7 +29,11 @@ public class Tabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 	}
 
 	public void OnPointerClick (PointerEventData eventData) {
-		manager.mouseClickedOnTab (this, panelId);
+		if (eventData.button == PointerEventData.InputButton.Left) {
+			manager.mouseLeftClickedOnTab (this, panelId);
+		} else {
+			manager.mouseRightClickedOnTab (eventData.position);
+		}
 	}
 	public void makeTransparent () {
 		Color color = button.image.color;

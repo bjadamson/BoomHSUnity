@@ -27,11 +27,22 @@ public class ChatWindowList {
 	public ChatWindow findChatWindow(string channelName) {
 		ChatWindow channel = null;
 		foreach (ChatWindow ch in chatWindows) {
-			if (ch.Name.ToLower() == channelName) {
+			if (ch.getName().ToLower() == channelName) {
 				channel = ch;
 				break;
 			}
 		}
 		return channel;
+	}
+
+	public void renameChatWindow(string channelName, string newName) {
+		ChatWindow cw = findChatWindow (channelName);
+		cw.rename (newName);
+	}
+
+	public void removeChatWindow(string channelName) {
+		ChatWindow cw = findChatWindow (channelName);
+		chatWindows.Remove (cw);
+		cw.destroyGameObjects ();
 	}
 }

@@ -7,11 +7,11 @@ public class ChatWindow {
 	private readonly Tabs tab;
 	private readonly TextPanel panel;
 
-	public string Name;
+	private string name;
 	public Color TextColor;
 
 	public ChatWindow(string name, Color textColor, Tabs tab, TextPanel panel) {
-		this.Name = name;
+		this.name = name;
 		this.TextColor = textColor;
 		this.tab = tab;
 		this.panel = panel;
@@ -27,5 +27,19 @@ public class ChatWindow {
 
 	public void addChatEntry(string value, Color textColor) {
 		panel.addEntry (value, textColor);
+	}
+
+	public void rename(string name) {
+		this.name = name;
+		setTabText (name);
+	}
+
+	public void destroyGameObjects() {
+		GameObject.Destroy (tab);
+		GameObject.Destroy (panel);
+	}
+
+	public string getName() {
+		return this.name;
 	}
 }

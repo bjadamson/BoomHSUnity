@@ -43,6 +43,13 @@ public class TextPanelManager : MonoBehaviour {
 		scrollBackground.GetComponent<ScrollRect>().content = activePane.GetComponent<RectTransform>();
 	}
 
+	public void removePanel(TextPanel panel) {
+		this.panes.Remove (panel);
+		if (activePane == panel) {
+			activePane = panes [0];
+		}
+	}
+
 	#region Private Methods
 	private void hideAllPanels() {
 		foreach (TextPanel pane in panes) {

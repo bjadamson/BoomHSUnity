@@ -8,12 +8,14 @@ public class ChatManager : MonoBehaviour {
 	[SerializeField] private bool sendAllMessagesToGeneral = true;
 	[SerializeField] private InputFieldManager inputFieldManager;
 	[SerializeField] private TextPanelManager panelManager;
+	[SerializeField] private GameObject chatWindow;
 
 	private readonly ChatWindowList channelList = new ChatWindowList();
 
 	void Start() {
 		ChatWindowFactory chatFactory = GetComponent<ChatWindowFactory> ();
-		chatFactory.createDefaultWindow (channelList);
+		chatFactory.setChannelList (channelList);
+		chatFactory.createDefaultWindow ();
 	}
 
 	public bool userHasInputAnyCharacter() {
@@ -44,6 +46,14 @@ public class ChatManager : MonoBehaviour {
 		panelManager.addEntry (message);
 	}
 
+	public void renameChannel(string channelName, string newName) {
+		channelList.renameChatWindow (channelName, newName);
+	}
+
+	public void removeChannel(string channelName) {
+		channelList.removeChatWindow (channelName);
+	}
+
 	public void sendChatMessage(string channelName, string message) {
 		channelList.sendMessage (channelName, message);
 
@@ -52,5 +62,10 @@ public class ChatManager : MonoBehaviour {
 			Color channelsTextColor = channelList.findChatWindow (channelName).TextColor;
 			channelList.sendMessage("general", message, channelsTextColor);
 		}
+	}
+
+	public void addOptionsMenuUnderCursor(Vector2 pos) {
+		chatWindow.SetActive (true);
+		chatWindow.GetComponent<RectTransform> ().position = new Vector3 (pos.x, pos.y, 1.0f);
 	}
 }

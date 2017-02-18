@@ -9,24 +9,37 @@ public class ChatWindowFactory : MonoBehaviour {
 
 	[SerializeField] private TabManager tabManager;
 	[SerializeField] private TextPanelManager panelManager;
+	private ChatWindowList channelList;
 	private int id = 0;
 
-	public void createDefaultWindow(ChatWindowList channelList) {
-		createGeneralChatPanel (channelList);
+	public void setChannelList(ChatWindowList channelList) {
+		this.channelList = channelList;
+	}
+
+	public void createDefaultWindow() {
+		createGeneralChatPanel ();
 		channelList.sendMessage("general", "Server version 0.");
 		channelList.sendMessage("general", "Press 'enter' and then 'tab' to view chat commands.");
 		channelList.sendMessage("general", "Welcome. Try not to die, k?");
 
-		createWhisperChatPanel (channelList);
-		createPartyChatPanel (channelList);
-		createGuildChatPanel (channelList);
-		createCombatLogChatPanel (channelList);
+		createWhisperChatPanel ();
+		createPartyChatPanel ();
+		createGuildChatPanel ();
+		createCombatLogChatPanel ();
 
 		panelManager.showGeneral ();
 		tabManager.selectGeneralTab ();
 	}
 
-	private void createGeneralChatPanel(ChatWindowList channelList) {
+	public void createDefaultChatWindow(string name) {
+		Color tabBgColor = Color.magenta;
+		Color panelTextColor = Color.black;
+
+		bool transparent = false;
+		createNewChatPanel (name, transparent, tabBgColor, panelTextColor, channelList);
+	}
+
+	private void createGeneralChatPanel() {
 		string name = "General";
 		Color tabBgColor = new Color (0.6f, 0.502f, 0.38f);
 		Color panelTextColor = Color.white;
@@ -35,28 +48,28 @@ public class ChatWindowFactory : MonoBehaviour {
 		createNewChatPanel (name, transparent, tabBgColor, panelTextColor, channelList);
 	}
 
-	private void createWhisperChatPanel(ChatWindowList channelList) {
+	private void createWhisperChatPanel() {
 		string name = "Whisper";
 		Color tabBgColor = new Color (0.588f, 0.031f, 0.722f);
 		bool transparent = true;
 		createNewChatPanel (name, transparent, tabBgColor, tabBgColor, channelList);
 	}
 
-	private void createPartyChatPanel(ChatWindowList channelList) {
+	private void createPartyChatPanel() {
 		string name = "Group";
 		Color tabBgColor = new Color (0.388f, 0.796f, 1.0f);
 		bool transparent = true;
 		createNewChatPanel (name, transparent, tabBgColor, tabBgColor, channelList);
 	}
 
-	private void createGuildChatPanel(ChatWindowList channelList) {
+	private void createGuildChatPanel() {
 		string name = "Guild";
 		Color tabBgColor = new Color (0.271f, 1.0f, 0.486f);
 		bool transparent = true;
 		createNewChatPanel (name, transparent, tabBgColor, tabBgColor, channelList);
 	}
 
-	private void createCombatLogChatPanel(ChatWindowList channelList) {
+	private void createCombatLogChatPanel() {
 		string name = "Combat Log";
 		Color tabBgColor = new Color (1.0f, 0.337f, 0.337f);
 		bool transparent = true;

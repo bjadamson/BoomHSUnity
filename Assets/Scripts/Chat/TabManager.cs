@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TabManager : MonoBehaviour {
-	private IList<TextPanel> panes = new List<TextPanel> ();
 	private IList<Tabs> tabs = new List<Tabs> ();
 
 	private Tabs selectedTab;
@@ -47,7 +46,7 @@ public class TabManager : MonoBehaviour {
 		}
 	}
 
-	public void mouseClickedOnTab(Tabs tab, int panelId) {
+	public void mouseLeftClickedOnTab(Tabs tab, int panelId) {
 		makeAllTransparentExcluding (tab);
 		selectTab (tab);
 		tab.makeOpaque ();
@@ -59,6 +58,10 @@ public class TabManager : MonoBehaviour {
 
 		// After we select the tab, move focus to back to the input field if it's active (user is in input mode)
 		chatManager.moveFocusToInputFieldIfActive();
+	}
+
+	public void mouseRightClickedOnTab(Vector2 pos) {
+		chatManager.addOptionsMenuUnderCursor (pos);
 	}
 
 	private string getActiveTabText() {
