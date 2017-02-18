@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public class ChatWindowList {
 	private readonly IList<ChatWindow> chatWindows = new List<ChatWindow>();
+	private readonly TextPanelManager panelManager;
+	private readonly TabManager tabManager;
+
+	public ChatWindowList(TextPanelManager panelManager, TabManager tabManager) {
+		this.panelManager = panelManager;
+		this.tabManager = tabManager;
+	}
 
 	public void addNewChannel(string channelName, Color textColor, Tabs tab, TextPanel panel) {
 		chatWindows.Add (new ChatWindow (channelName, textColor, tab, panel));
@@ -42,6 +49,9 @@ public class ChatWindowList {
 
 	public void removeChatWindow(string channelName) {
 		ChatWindow cw = findChatWindow (channelName);
+
+		panelManager.removePanel (cw.Panel);
+		tabManager.removeTab (cw.Tab);
 		chatWindows.Remove (cw);
 		cw.destroyGameObjects ();
 	}

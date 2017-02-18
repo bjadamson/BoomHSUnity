@@ -8,11 +8,13 @@ public class ChatManager : MonoBehaviour {
 	[SerializeField] private bool sendAllMessagesToGeneral = true;
 	[SerializeField] private InputFieldManager inputFieldManager;
 	[SerializeField] private TextPanelManager panelManager;
+	[SerializeField] private TabManager tabManager;
 	[SerializeField] private GameObject chatWindow;
 
-	private readonly ChatWindowList channelList = new ChatWindowList();
+	private ChatWindowList channelList;
 
 	void Start() {
+		channelList = new ChatWindowList (panelManager, tabManager);
 		ChatWindowFactory chatFactory = GetComponent<ChatWindowFactory> ();
 		chatFactory.setChannelList (channelList);
 		chatFactory.createDefaultWindow ();

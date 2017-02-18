@@ -64,6 +64,16 @@ public class TabManager : MonoBehaviour {
 		chatManager.addOptionsMenuUnderCursor (pos);
 	}
 
+	public void removeTab(Tabs tab) {
+		this.tabs.Remove (tab);
+		if (selectedTab == tab) {
+			selectedTab = tabs [0];
+		}
+		if (mousedOverTab == tab) {
+			mousedOverTab = null;
+		}
+	}
+
 	private string getActiveTabText() {
 		return selectedTab.text ();
 	}

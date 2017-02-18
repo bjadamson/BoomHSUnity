@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ChatWindow {
-	private readonly Tabs tab;
-	private readonly TextPanel panel;
+	public readonly Tabs Tab;
+	public readonly TextPanel Panel;
 
 	private string name;
 	public Color TextColor;
@@ -13,20 +13,20 @@ public class ChatWindow {
 	public ChatWindow(string name, Color textColor, Tabs tab, TextPanel panel) {
 		this.name = name;
 		this.TextColor = textColor;
-		this.tab = tab;
-		this.panel = panel;
+		this.Tab = tab;
+		this.Panel = panel;
 	}
 
 	public void setTabText(string value) {
-		tab.transform.FindChild ("Text").GetComponent<Text> ().text = value;
+		Tab.transform.FindChild ("Text").GetComponent<Text> ().text = value;
 	}
 
 	public void addChatEntry(string value) {
-		panel.addEntry (value);
+		Panel.addEntry (value);
 	}
 
 	public void addChatEntry(string value, Color textColor) {
-		panel.addEntry (value, textColor);
+		Panel.addEntry (value, textColor);
 	}
 
 	public void rename(string name) {
@@ -35,8 +35,8 @@ public class ChatWindow {
 	}
 
 	public void destroyGameObjects() {
-		GameObject.Destroy (tab);
-		GameObject.Destroy (panel);
+		GameObject.Destroy (this.Tab.gameObject);
+		GameObject.Destroy (this.Panel.gameObject);
 	}
 
 	public string getName() {

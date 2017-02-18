@@ -37,20 +37,26 @@ public class TextPanelManager : MonoBehaviour {
 
 	public void makePanelActive(int id) {
 		activePane = panes [id];
-
-		hideAllPanels ();
-		show (activePane);
-		scrollBackground.GetComponent<ScrollRect>().content = activePane.GetComponent<RectTransform>();
+		refresh ();
 	}
 
 	public void removePanel(TextPanel panel) {
 		this.panes.Remove (panel);
 		if (activePane == panel) {
-			activePane = panes [0];
+			makePanelActive (0);
+		} else {
+			// only in else because we already refresh() inside makePanelActive()
+			refresh ();
 		}
 	}
 
 	#region Private Methods
+	private void refresh() {
+		hideAllPanels ();
+		show (activePane);
+		scrollBackground.GetComponent<ScrollRect>().content = activePane.GetComponent<RectTransform>();
+	}
+
 	private void hideAllPanels() {
 		foreach (TextPanel pane in panes) {
 			hide(pane);
