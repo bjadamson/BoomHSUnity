@@ -7,7 +7,7 @@ public class TextPanel : MonoBehaviour {
 	public Color textColor = Color.white;
 
 	// config, move out
-	private static readonly uint MAX_HISTORY_NUMBER_LINES = 50;
+	private static readonly uint MAX_HISTORY_NUMBER_LINES = 10;
 	private IList<Text> textFields = new List<Text>();
 
 	public void addEntry(string value) {
@@ -45,7 +45,10 @@ public class TextPanel : MonoBehaviour {
 	}
 	private void updateExisting(string value, Color textColor) {
 		for (int i = 0; i < textFields.Count - 1; ++i) {
-			textFields [i].text = textFields [i + 1].text;
+			Text text = textFields [i];
+			Text nextText = textFields [i + 1];
+			text.text = nextText.text;
+			text.color = nextText.color;
 		}
 		Text lastField = textFields [textFields.Count - 1];
 		lastField.text = value;
