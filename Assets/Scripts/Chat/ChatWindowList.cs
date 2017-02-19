@@ -34,7 +34,7 @@ public class ChatWindowList {
 	public ChatWindow findChatWindow(string channelName) {
 		ChatWindow channel = null;
 		foreach (ChatWindow ch in chatWindows) {
-			if (ch.getName().ToLower() == channelName) {
+			if (ch.getName().ToLower() == channelName.ToLower()) {
 				channel = ch;
 				break;
 			}
@@ -54,5 +54,7 @@ public class ChatWindowList {
 		tabManager.removeTab (cw.Tab);
 		chatWindows.Remove (cw);
 		cw.destroyGameObjects ();
+
+		chatWindows.Remove (cw);
 	}
 }

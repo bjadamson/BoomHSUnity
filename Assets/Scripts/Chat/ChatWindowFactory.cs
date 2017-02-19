@@ -10,7 +10,7 @@ public class ChatWindowFactory : MonoBehaviour {
 	[SerializeField] private TabManager tabManager;
 	[SerializeField] private TextPanelManager panelManager;
 	private ChatWindowList channelList;
-	private int id = 0;
+	public int idCounter = 0;
 
 	public void setChannelList(ChatWindowList channelList) {
 		this.channelList = channelList;
@@ -33,7 +33,7 @@ public class ChatWindowFactory : MonoBehaviour {
 
 	public void createDefaultChatWindow(string name) {
 		Color tabBgColor = Color.magenta;
-		Color panelTextColor = Color.black;
+		Color panelTextColor = Color.white;
 
 		bool transparent = false;
 		createNewChatPanel (name, transparent, tabBgColor, panelTextColor, channelList);
@@ -128,7 +128,7 @@ public class ChatWindowFactory : MonoBehaviour {
 		Tabs tab = newTab.AddComponent<Tabs> ();
 		tab.button = button;
 		tab.manager = tabManager;
-		tab.panelId = id++;
+		tab.panelId = idCounter++;
 		tabManager.addTab (tab);
 
 		GameObject newPanel = new GameObject (channelName + "Content");

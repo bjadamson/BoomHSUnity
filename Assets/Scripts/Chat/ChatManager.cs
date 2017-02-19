@@ -11,11 +11,12 @@ public class ChatManager : MonoBehaviour {
 	[SerializeField] private TabManager tabManager;
 	[SerializeField] private GameObject chatWindow;
 
+	private ChatWindowFactory chatFactory;
 	private ChatWindowList channelList;
 
 	void Start() {
 		channelList = new ChatWindowList (panelManager, tabManager);
-		ChatWindowFactory chatFactory = GetComponent<ChatWindowFactory> ();
+		chatFactory = GetComponent<ChatWindowFactory> ();
 		chatFactory.setChannelList (channelList);
 		chatFactory.createDefaultWindow ();
 	}
@@ -48,11 +49,17 @@ public class ChatManager : MonoBehaviour {
 		panelManager.addEntry (message);
 	}
 
+	public void renameRightClickedTab(string newName) {
+		string channelName = tabManager.rightClickedTab ().name;
+		channelList.renameChatWindow (channelName, newName);
+	}
+
 	public void renameChannel(string channelName, string newName) {
 		channelList.renameChatWindow (channelName, newName);
 	}
 
-	public void removeChannel(string channelName) {
+	public void removeRightClickedTabWindow() {
+		string channelName = tabManager.rightClickedTab ().name;
 		channelList.removeChatWindow (channelName);
 	}
 

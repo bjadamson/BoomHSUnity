@@ -27,6 +27,7 @@ public class EmoteInfoPanel : MonoBehaviour {
 		addCommand("ser", "TTTTTTTTTTTTTTTT fuck sakes");
 		addCommand("zcvzz", "66666666666 fuck sakes");
 		addCommand("aaaa", "For fuck sakes");
+		addCommand ("rename channel", "Rename a chat channel, ie: '/rename channel group party'");
 
 		emptyResultText.text = string.Empty;
 	}

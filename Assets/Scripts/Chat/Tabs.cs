@@ -32,7 +32,7 @@ public class Tabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 		if (eventData.button == PointerEventData.InputButton.Left) {
 			manager.mouseLeftClickedOnTab (this, panelId);
 		} else {
-			manager.mouseRightClickedOnTab (eventData.position);
+			manager.mouseRightClickedOnTab (this, eventData.position);
 		}
 	}
 	public void makeTransparent () {

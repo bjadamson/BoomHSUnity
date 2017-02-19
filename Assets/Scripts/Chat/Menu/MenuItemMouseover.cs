@@ -4,27 +4,47 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MenuItemMouseover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class MenuItemMouseover : MonoBehaviour, MenuItem, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
+	[SerializeField] private MenuItemManager menuManager;
+	[SerializeField] private GameObject targetPanel;
 	private GameObject mouseoverPanel;
 
 	void Start() {
 		mouseoverPanel = transform.Find ("MouseoverPanel").gameObject;
-		hide ();
+		menuManager.addMenuItem (this);
+
+		hideHighlight ();
+		hideTarget ();
 	}
 		
 	public void OnPointerEnter (PointerEventData eventData) {
-		show ();
+		menuManager.onPointerEnterMenuItem (this);
 	}
 
 	public void OnPointerExit (PointerEventData eventData) {
-		hide ();
+		menuManager.onPointerExitMenuItem (this);
+	}
+		
+	public void OnPointerClick (PointerEventData eventData) {
+		menuManager.onPointerClickMenuItem (this);
 	}
 
-	private void show() {
+	public void showHighlight() {
 		mouseoverPanel.SetActive (true);
 	}
 
-	private void hide() {
+	public void hideHighlight() {
 		mouseoverPanel.SetActive (false);
+	}
+
+	public void hideTarget() {
+		if (targetPanel != null) {
+			targetPanel.SetActive (false);
+		}
+	}
+	public void showTarget() {
+		if (targetPanel != null) {
+			targetPanel.SetActive (true);
+		}
 	}
 }

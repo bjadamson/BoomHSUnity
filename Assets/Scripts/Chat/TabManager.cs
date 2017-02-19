@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TabManager : MonoBehaviour {
-	private IList<Tabs> tabs = new List<Tabs> ();
+	[SerializeField] private ChatManager chatManager;
+	[SerializeField] private ChatWindowFactory chatFactory;
 
+	private IList<Tabs> tabs = new List<Tabs> ();
 	private Tabs selectedTab;
 	private Tabs mousedOverTab;
-
-	[SerializeField] private ChatManager chatManager;
+	private Tabs rightClicked;
 	private int activePanelId = 0;
 
 	void Start() {
@@ -60,18 +61,38 @@ public class TabManager : MonoBehaviour {
 		chatManager.moveFocusToInputFieldIfActive();
 	}
 
-	public void mouseRightClickedOnTab(Vector2 pos) {
+	public void mouseRightClickedOnTab(Tabs tab, Vector2 pos) {
+		rightClicked = tab;
 		chatManager.addOptionsMenuUnderCursor (pos);
+	}
+
+	public Tabs rightClickedTab() {
+		return rightClicked;
 	}
 
 	public void removeTab(Tabs tab) {
 		this.tabs.Remove (tab);
 		if (selectedTab == tab) {
 			selectedTab = tabs [0];
+			activePanelId = tabs [0].panelId;
 		}
 		if (mousedOverTab == tab) {
 			mousedOverTab = null;
 		}
+
+		if (rightClicked == tab) {
+			rightClicked = null;
+		}
+
+		// After removing a tab, we need to update all the panel id's set by the factory during construction.
+		//
+		// Also reset the factory's id counter to match the number of tabs in the list.
+		// This way the next time the factory creates an instance, the panelId given internally to the tab will
+		// be the next panel created by the factory.
+		for (int i = 0; i < tabs.Count; ++i) {
+			tabs [i].panelId = i;
+		}
+		chatFactory.idCounter = tabs.Count;
 	}
 
 	private string getActiveTabText() {
