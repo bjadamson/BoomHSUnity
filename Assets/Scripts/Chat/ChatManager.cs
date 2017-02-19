@@ -82,6 +82,10 @@ public class ChatManager : MonoBehaviour {
 		chatWindow.SetActive (true);
 		chatWindow.GetComponent<RectTransform> ().position = new Vector3 (pos.x, pos.y, 1.0f);
 	}
+
+	public void hideOptionsMenu() {
+		chatWindow.SetActive (false);
+	}
 		
 	public void setScrollViewBgColor(Color panelColor) {
 		panelManager.setPanelBgColor (panelColor);

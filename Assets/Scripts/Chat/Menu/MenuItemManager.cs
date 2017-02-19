@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuItemManager : MonoBehaviour {
-	[SerializeField] private InputField renameWindowInputField;
-
+	[SerializeField] private Image chatOverlayAlphaTransparencyPreview;
 	private readonly IList<MenuItem> menuItems = new List<MenuItem> ();
 	private MenuItem highlightedMenu = null;
 
@@ -41,15 +40,21 @@ public class MenuItemManager : MonoBehaviour {
 		highlightedMenu.showTarget ();
 	}
 
-	private void hideAllHighlights() {
+	public void hideAllTargets() {
 		foreach (MenuItem menu in menuItems) {
-			menu.hideHighlight ();
+			menu.hideTarget ();
 		}
 	}
 
-	private void hideAllTargets() {
+	public void setChatOverlayTransparencyPreview(float alpha) {
+		Color color = chatOverlayAlphaTransparencyPreview.color;
+		color.a = alpha;
+		chatOverlayAlphaTransparencyPreview.color = color;
+	}
+
+	private void hideAllHighlights() {
 		foreach (MenuItem menu in menuItems) {
-			menu.hideTarget ();
+			menu.hideHighlight ();
 		}
 	}
 }
