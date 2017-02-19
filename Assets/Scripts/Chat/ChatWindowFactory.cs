@@ -158,7 +158,7 @@ public class ChatWindowFactory : MonoBehaviour {
 		fitter.verticalFit = ContentSizeFitter.FitMode.MinSize;
 
 		TextPanel textPanel = newPanel.AddComponent<TextPanel> ();
-		textPanel.textColor = panelTextColor;
+		textPanel.setTextColor(panelTextColor);
 		panelManager.addPane (textPanel);
 
 		channelList.addNewChannel (channelName, panelTextColor, tab, textPanel.GetComponent<TextPanel>());

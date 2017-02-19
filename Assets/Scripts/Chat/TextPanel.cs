@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TextPanel : MonoBehaviour {
-	public Color textColor = Color.white;
+	private Color textColor = Color.white;
 
 	// config, move out
 	private static readonly uint MAX_HISTORY_NUMBER_LINES = 10;
@@ -19,6 +19,13 @@ public class TextPanel : MonoBehaviour {
 			insertNew(value, color);
 		} else {
 			updateExisting (value, color);
+		}
+	}
+
+	public void setTextColor(Color color) {
+		textColor = color;
+		foreach (var it in textFields) {
+			it.color = textColor;
 		}
 	}
 		

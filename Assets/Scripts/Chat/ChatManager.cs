@@ -10,6 +10,7 @@ public class ChatManager : MonoBehaviour {
 	[SerializeField] private TextPanelManager panelManager;
 	[SerializeField] private TabManager tabManager;
 	[SerializeField] private GameObject chatWindow;
+	[SerializeField] private CanvasGroup chatCanvasGroup;
 
 	private ChatWindowFactory chatFactory;
 	private ChatWindowList channelList;
@@ -54,7 +55,7 @@ public class ChatManager : MonoBehaviour {
 	}
 
 	public void renameRightClickedTab(string newName) {
-		string channelName = tabManager.rightClickedTab ().name;
+		string channelName = getRightClickedTabName ();
 		channelList.renameChatWindow (channelName, newName);
 	}
 
@@ -80,5 +81,27 @@ public class ChatManager : MonoBehaviour {
 	public void addOptionsMenuUnderCursor(Vector2 pos) {
 		chatWindow.SetActive (true);
 		chatWindow.GetComponent<RectTransform> ().position = new Vector3 (pos.x, pos.y, 1.0f);
+	}
+		
+	public void setScrollViewBgColor(Color panelColor) {
+		panelManager.setPanelBgColor (panelColor);
+	}
+
+	public void setOverlayTransparency(float alpha) {
+		chatCanvasGroup.alpha = alpha;
+	}
+
+	public void setPanelTextColor(Color color) {
+		string rightClickedTabName = getRightClickedTabName ();
+		panelManager.setPanelTextColor (color);
+	}
+
+	public void setRightClickedTabBgColor(Color color) {
+		string rightClickedTabName = getRightClickedTabName ();
+		tabManager.setRightClickedTabBgColor (color);
+	}
+
+	private string getRightClickedTabName () {
+		return tabManager.rightClickedTab ().name;
 	}
 }

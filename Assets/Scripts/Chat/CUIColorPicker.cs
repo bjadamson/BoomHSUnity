@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 public class CUIColorPicker : MonoBehaviour
 {
+	[SerializeField] private ChatManager chatManager;
     public Color Color { get { return _color; } set { Setup( value ); } }
+
     public void SetOnValueChangeCallback( Action<Color> onValueChange )
     {
         _onValueChange = onValueChange;
@@ -155,6 +157,16 @@ public class CUIColorPicker : MonoBehaviour
             }
         };
         _update = idle;
+
+		// custom
+		SetOnValueChangeCallback (delegate(Color colorUnderCursor) {
+			colorUnderCursor.r = Mathf.Abs(colorUnderCursor.r);
+			colorUnderCursor.g = Mathf.Abs(colorUnderCursor.g);
+			colorUnderCursor.b = Mathf.Abs(colorUnderCursor.b);
+			colorUnderCursor.a = Mathf.Abs(colorUnderCursor.a);
+			Debug.Log("color: '" + colorUnderCursor + "'");
+			chatManager.setScrollViewBgColor(colorUnderCursor);
+		});
     }
 
     public void SetRandomColor()

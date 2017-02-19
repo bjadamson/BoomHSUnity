@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class TextPanelManager : MonoBehaviour {
 	[SerializeField] private ScrollBackgroundAndHandle scrollBackground;
+	[SerializeField] private GameObject panelAnchor;
 
 	private IList<TextPanel> panes = new List<TextPanel> ();
 	private TextPanel activePane;
@@ -48,6 +49,14 @@ public class TextPanelManager : MonoBehaviour {
 			// only in else because we already refresh() inside makePanelActive()
 			refresh ();
 		}
+	}
+
+	public void setPanelBgColor(Color color) {
+		panelAnchor.GetComponent<Image> ().color = color;
+	}
+
+	public void setPanelTextColor(Color color) {
+		activePane.setTextColor(color);
 	}
 
 	#region Private Methods

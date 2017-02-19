@@ -99,6 +99,10 @@ public class TabManager : MonoBehaviour {
 		chatFactory.idCounter = tabs.Count;
 	}
 
+	public void setRightClickedTabBgColor(Color color) {
+		rightClicked.GetComponent<Image> ().color = color;
+	}
+
 	private string getActiveTabText() {
 		return activeTab.text ();
 	}
