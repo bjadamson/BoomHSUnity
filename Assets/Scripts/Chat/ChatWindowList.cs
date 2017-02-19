@@ -7,10 +7,12 @@ public class ChatWindowList {
 	private readonly IList<ChatWindow> chatWindows = new List<ChatWindow>();
 	private readonly TextPanelManager panelManager;
 	private readonly TabManager tabManager;
+	private readonly InputFieldManager inputFieldManager;
 
-	public ChatWindowList(TextPanelManager panelManager, TabManager tabManager) {
+	public ChatWindowList(TextPanelManager panelManager, TabManager tabManager, InputFieldManager inputFieldManager) {
 		this.panelManager = panelManager;
 		this.tabManager = tabManager;
+		this.inputFieldManager = inputFieldManager;
 	}
 
 	public void addNewChannel(string channelName, Color textColor, Tabs tab, TextPanel panel) {
@@ -45,6 +47,10 @@ public class ChatWindowList {
 	public void renameChatWindow(string channelName, string newName) {
 		ChatWindow cw = findChatWindow (channelName);
 		cw.rename (newName);
+
+		if (tabManager.rightClickedTab () == tabManager.selectedTab()) {
+			inputFieldManager.setPlaceholderText (newName + "...");
+		}
 	}
 
 	public void removeChatWindow(string channelName) {

@@ -5,14 +5,22 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MenuItemRename : MonoBehaviour {
-	[SerializeField] private MenuItemManager menuManager;
 	[SerializeField] private ChatManager chatManager;
+	[SerializeField] private GameObject chatOptionsWindow;
 	[SerializeField] private GameObject renamePanel;
+	[SerializeField] private InputField renameInputField;
 
 	private GameObject previouslySelected;
 
 	public void renameChannel() {
-		chatManager.renameRightClickedTab (menuManager.renameFieldText());
+		string channelName = renameInputField.text.Trim();
+		if (channelName.Length == 0) {
+			// Do nothing if the user didn't enter anything.
+			return;
+		}
+		chatManager.renameRightClickedTab (renameInputField.text);
+		renameInputField.text = string.Empty;
+		chatOptionsWindow.SetActive (false);
 	}
 
 	public void hideHighlight() {
@@ -21,11 +29,5 @@ public class MenuItemRename : MonoBehaviour {
 
 	public void showHighlight() {
 		renamePanel.SetActive (true);
-	}
-
-	public void hideTarget() {
-	}
-
-	public void showTarget() {
 	}
 }

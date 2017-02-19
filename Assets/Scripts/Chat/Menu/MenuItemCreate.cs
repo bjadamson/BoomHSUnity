@@ -3,28 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuItemCreate : MonoBehaviour, MenuItem {
+public class MenuItemCreate : MonoBehaviour {
 	[SerializeField] private MenuItemManager menuManager;
-	[SerializeField] private ChatWindowFactory chatWindowFactory;
 	[SerializeField] private GameObject chatOptionsWindow;
-
-	void Start() {
-		menuManager.addMenuItem (this);
-	}
+	[SerializeField] private ChatManager chatManager;
+	[SerializeField] private InputField createInputField;
 
 	public void createNewWindow() {
-		chatWindowFactory.createDefaultChatWindow ("New Channel");
+		string channelName = createInputField.text.Trim();
+		if (channelName.Length == 0) {
+			// Do nothing if the user didn't enter anything.
+			return;
+		}
+
+		createInputField.text = string.Empty;
+		chatManager.createChatWindow (channelName);
+
+		// Do this last
 		chatOptionsWindow.gameObject.SetActive (false);
-	}
-
-	public void hideHighlight () {
-	}
-
-	public void showHighlight () {
-	}
-
-	public void hideTarget() {
-	}
-	public void showTarget() {
 	}
 }

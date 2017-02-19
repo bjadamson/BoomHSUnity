@@ -13,10 +13,6 @@ public class MenuItemManager : MonoBehaviour {
 		menuItems.Add (menuItem);
 	}
 
-	public string renameFieldText() {
-		return renameWindowInputField.text;
-	}
-
 	public void onPointerEnterMenuItem(MenuItem menuItem) {
 		hideAllHighlights ();
 		menuItem.showHighlight ();

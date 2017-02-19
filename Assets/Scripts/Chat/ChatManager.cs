@@ -15,10 +15,14 @@ public class ChatManager : MonoBehaviour {
 	private ChatWindowList channelList;
 
 	void Start() {
-		channelList = new ChatWindowList (panelManager, tabManager);
+		channelList = new ChatWindowList (panelManager, tabManager, inputFieldManager);
 		chatFactory = GetComponent<ChatWindowFactory> ();
 		chatFactory.setChannelList (channelList);
 		chatFactory.createDefaultWindow ();
+	}
+
+	public void createChatWindow(string channelName) {
+		chatFactory.createDefaultChatWindow (channelName);
 	}
 
 	public bool userHasInputAnyCharacter() {
@@ -34,7 +38,7 @@ public class ChatManager : MonoBehaviour {
 	}
 
 	public void setPlaceholderText(string value) {
-		inputFieldManager.setPlaceholderText(value);
+		inputFieldManager.setPlaceholderText(value + "...");
 	}
 
 	public void showPanel(int panelId) {

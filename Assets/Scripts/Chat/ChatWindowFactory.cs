@@ -35,7 +35,7 @@ public class ChatWindowFactory : MonoBehaviour {
 		Color tabBgColor = Color.magenta;
 		Color panelTextColor = Color.white;
 
-		bool transparent = false;
+		bool transparent = true;
 		createNewChatPanel (name, transparent, tabBgColor, panelTextColor, channelList);
 	}
 

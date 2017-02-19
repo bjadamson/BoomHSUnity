@@ -6,15 +6,14 @@ using UnityEngine.UI;
 public class ChatWindow {
 	public readonly Tabs Tab;
 	public readonly TextPanel Panel;
-
-	private string name;
 	public Color TextColor;
 
 	public ChatWindow(string name, Color textColor, Tabs tab, TextPanel panel) {
-		this.name = name;
 		this.TextColor = textColor;
 		this.Tab = tab;
 		this.Panel = panel;
+
+		setName (name);
 	}
 
 	public void setTabText(string value) {
@@ -30,7 +29,7 @@ public class ChatWindow {
 	}
 
 	public void rename(string name) {
-		this.name = name;
+		this.Tab.gameObject.name = name;
 		setTabText (name);
 	}
 
@@ -40,6 +39,10 @@ public class ChatWindow {
 	}
 
 	public string getName() {
-		return this.name;
+		return this.Tab.gameObject.name;
+	}
+
+	private void setName(string value) {
+		this.Tab.gameObject.name = value;
 	}
 }

@@ -54,6 +54,7 @@ public class InputFieldManager : MonoBehaviour {
 	}
 	private void enableReadFromUserStdin() {
 		inputField.gameObject.SetActive (true);
+
 		transparencyManager.makeOpaque ();
 		pushSelected ();
 		inputField.Select ();
@@ -68,7 +69,7 @@ public class InputFieldManager : MonoBehaviour {
 		}
 		scrollBar.resetPosition ();
 
-		// lastly clear out input box field.
+		// clear out input box field.
 		inputField.text = string.Empty;
 	}
 

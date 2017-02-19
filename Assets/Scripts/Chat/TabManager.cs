@@ -8,7 +8,7 @@ public class TabManager : MonoBehaviour {
 	[SerializeField] private ChatWindowFactory chatFactory;
 
 	private IList<Tabs> tabs = new List<Tabs> ();
-	private Tabs selectedTab;
+	private Tabs activeTab;
 	private Tabs mousedOverTab;
 	private Tabs rightClicked;
 	private int activePanelId = 0;
@@ -38,7 +38,7 @@ public class TabManager : MonoBehaviour {
 	}
 
 	public void mouseOverTabExit(Tabs tab, int panelId) {
-		if (selectedTab != tab) {
+		if (activeTab != tab) {
 			mousedOverTab.makeTransparent ();
 		}
 
@@ -70,10 +70,14 @@ public class TabManager : MonoBehaviour {
 		return rightClicked;
 	}
 
+	public Tabs selectedTab() {
+		return activeTab;
+	}
+
 	public void removeTab(Tabs tab) {
 		this.tabs.Remove (tab);
-		if (selectedTab == tab) {
-			selectedTab = tabs [0];
+		if (activeTab == tab) {
+			activeTab = tabs [0];
 			activePanelId = tabs [0].panelId;
 		}
 		if (mousedOverTab == tab) {
@@ -96,7 +100,7 @@ public class TabManager : MonoBehaviour {
 	}
 
 	private string getActiveTabText() {
-		return selectedTab.text ();
+		return activeTab.text ();
 	}
 
 	private void makeAllTransparentExcluding(Tabs tab) {
@@ -108,11 +112,11 @@ public class TabManager : MonoBehaviour {
 	}
 
 	private void selectTab(Tabs tab) {
-		selectedTab = tab;
-		selectedTab.makeOpaque ();
+		activeTab = tab;
+		activeTab.makeOpaque ();
 	}
 
-	private void updatePlaceholderText () {
+	 private void updatePlaceholderText () {
 		string text = getActiveTabText ().ToLower();
 		string placeholderText = text + "...";
 		chatManager.setPlaceholderText (placeholderText);

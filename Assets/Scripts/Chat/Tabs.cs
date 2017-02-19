@@ -48,6 +48,6 @@ public class Tabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 	}
 
 	public string text() {
-		return gameObject.name;
+		return GetComponentInChildren<Text> ().text;
 	}
 }
