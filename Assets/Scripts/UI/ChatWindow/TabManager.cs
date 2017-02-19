@@ -18,11 +18,6 @@ namespace ui
 			private Tabs rightClicked;
 			private int activePanelId = 0;
 
-			void Start ()
-			{
-				updatePlaceholderText ();
-			}
-
 			public void addTab (Tabs tab)
 			{
 				tabs.Add (tab);
@@ -66,7 +61,7 @@ namespace ui
 				activePanelId = panelId;
 
 				chatManager.makePanelActive (panelId);
-				updatePlaceholderText ();
+				chatManager.updateUserInputPlaceholderText (tab.name);
 
 				// After we select the tab, move focus to back to the input field if it's active (user is in input mode)
 				chatManager.moveFocusToInputFieldIfActive ();
@@ -119,7 +114,7 @@ namespace ui
 				rightClicked.GetComponent<Image> ().color = color;
 			}
 
-			private string getActiveTabText ()
+			public string getActiveTabText ()
 			{
 				return activeTab.text ();
 			}
@@ -138,14 +133,6 @@ namespace ui
 				activeTab = tab;
 				activeTab.makeOpaque ();
 			}
-
-			private void updatePlaceholderText ()
-			{
-				string text = getActiveTabText ().ToLower ();
-				string placeholderText = text + "...";
-				chatManager.setPlaceholderText (placeholderText);
-			}
 		}
-
 	}
 }

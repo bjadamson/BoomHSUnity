@@ -17,6 +17,5 @@ namespace ui
 
 			void showTarget ();
 		}
-
 	}
 }

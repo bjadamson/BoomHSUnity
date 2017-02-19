@@ -46,6 +46,5 @@ namespace ui
 				menuManager.hideAllTargets ();
 			}
 		}
-
 	}
 }

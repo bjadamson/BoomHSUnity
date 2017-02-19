@@ -26,6 +26,8 @@ namespace ui
 				chatFactory = GetComponent<ChatWindowFactory> ();
 				chatFactory.setChannelList (channelList);
 				chatFactory.createDefaultWindow ();
+
+				updateUserInputPlaceholderText (tabManager.getActiveTabText ().ToLower ());
 			}
 
 			public void createChatWindow (string channelName)
@@ -41,16 +43,6 @@ namespace ui
 			public void moveFocusToInputFieldIfActive ()
 			{
 				inputFieldManager.selectOnlyIfActive ();
-			}
-
-			public string placeholderText ()
-			{
-				return inputFieldManager.getPlaceholderText ();
-			}
-
-			public void setPlaceholderText (string value)
-			{
-				inputFieldManager.setPlaceholderText (value + "...");
 			}
 
 			public void showPanel (int panelId)
@@ -129,11 +121,20 @@ namespace ui
 				tabManager.setRightClickedTabBgColor (color);
 			}
 
+			public void updateUserInputPlaceholderText(string channelName) {
+				string text = tabManager.getActiveTabText ().ToLower ();
+				this.setPlaceholderText (text + "...");
+			}
+
 			private string getRightClickedTabName ()
 			{
 				return tabManager.rightClickedTab ().name;
 			}
-		}
 
+			private void setPlaceholderText (string value)
+			{
+				inputFieldManager.setPlaceholderText (value);
+			}
+		}
 	}
 }
