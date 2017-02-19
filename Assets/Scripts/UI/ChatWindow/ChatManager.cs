@@ -18,13 +18,13 @@ namespace ui
 			[SerializeField] private CanvasGroup chatCanvasGroup;
 
 			private ChatWindowFactory chatFactory;
-			private ChatWindowList channelList;
+			private ChatModel channelModel;
 
 			void Start ()
 			{
-				channelList = new ChatWindowList (panelManager, tabManager, inputFieldManager);
+				channelModel = new ChatModel (panelManager, tabManager, inputFieldManager);
 				chatFactory = GetComponent<ChatWindowFactory> ();
-				chatFactory.setChannelList (channelList);
+				chatFactory.setChannelList (channelModel);
 				chatFactory.createDefaultWindow ();
 
 				updateUserInputPlaceholderText (tabManager.getActiveTabText ().ToLower ());
@@ -63,28 +63,28 @@ namespace ui
 			public void renameRightClickedTab (string newName)
 			{
 				string channelName = getRightClickedTabName ();
-				channelList.renameChatWindow (channelName, newName);
+				channelModel.renameChatWindow (channelName, newName);
 			}
 
 			public void renameChannel (string channelName, string newName)
 			{
-				channelList.renameChatWindow (channelName, newName);
+				channelModel.renameChatWindow (channelName, newName);
 			}
 
 			public void removeRightClickedTabWindow ()
 			{
 				string channelName = tabManager.rightClickedTab ().name;
-				channelList.removeChatWindow (channelName);
+				channelModel.removeChatWindow (channelName);
 			}
 
 			public void sendChatMessage (string channelName, string message)
 			{
-				channelList.sendMessage (channelName, message);
+				channelModel.sendMessage (channelName, message);
 
 				if (sendAllMessagesToGeneral && channelName != "general") {
 					// also send message to general channel, but do it using original channels TextColor
-					Color channelsTextColor = channelList.findChatWindow (channelName).TextColor;
-					channelList.sendMessage ("general", message, channelsTextColor);
+					Color channelsTextColor = channelModel.getChannelTextColor (channelName);
+					channelModel.sendMessage ("general", message, channelsTextColor);
 				}
 			}
 

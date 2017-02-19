@@ -7,21 +7,21 @@ namespace ui
 {
 	namespace chat_window
 	{
-		public class ChatWindowList
+		public class ChatModel
 		{
 			private readonly IList<ChatWindow> chatWindows = new List<ChatWindow> ();
 			private readonly TextPanelManager panelManager;
 			private readonly TabManager tabManager;
 			private readonly InputFieldManager inputFieldManager;
 
-			public ChatWindowList (TextPanelManager panelManager, TabManager tabManager, InputFieldManager inputFieldManager)
+			public ChatModel (TextPanelManager panelManager, TabManager tabManager, InputFieldManager inputFieldManager)
 			{
 				this.panelManager = panelManager;
 				this.tabManager = tabManager;
 				this.inputFieldManager = inputFieldManager;
 			}
 
-			public void addNewChannel (string channelName, Color textColor, Tabs tab, TextPanel panel)
+			public void addNewChannel (string channelName, Color textColor, TabView tab, TextPanel panel)
 			{
 				chatWindows.Add (new ChatWindow (channelName, textColor, tab, panel));
 			}
@@ -42,16 +42,10 @@ namespace ui
 				}
 			}
 
-			public ChatWindow findChatWindow (string channelName)
+			public Color getChannelTextColor (string channelName)
 			{
-				ChatWindow channel = null;
-				foreach (ChatWindow ch in chatWindows) {
-					if (ch.getName ().ToLower () == channelName.ToLower ()) {
-						channel = ch;
-						break;
-					}
-				}
-				return channel;
+				ChatWindow cw = findChatWindow (channelName);
+				return cw.TextColor;
 			}
 
 			public void renameChatWindow (string channelName, string newName)
@@ -75,7 +69,18 @@ namespace ui
 
 				chatWindows.Remove (cw);
 			}
-		}
 
+			private ChatWindow findChatWindow (string channelName)
+			{
+				ChatWindow channel = null;
+				foreach (ChatWindow ch in chatWindows) {
+					if (ch.getName ().ToLower () == channelName.ToLower ()) {
+						channel = ch;
+						break;
+					}
+				}
+				return channel;
+			}
+		}
 	}
 }

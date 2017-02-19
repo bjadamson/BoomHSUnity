@@ -9,11 +9,11 @@ namespace ui
 	{
 		public class ChatWindow
 		{
-			public readonly Tabs Tab;
+			public readonly TabView Tab;
 			public readonly TextPanel Panel;
 			public Color TextColor;
 
-			public ChatWindow (string name, Color textColor, Tabs tab, TextPanel panel)
+			public ChatWindow (string name, Color textColor, TabView tab, TextPanel panel)
 			{
 				this.TextColor = textColor;
 				this.Tab = tab;
@@ -24,7 +24,7 @@ namespace ui
 
 			public void setTabText (string value)
 			{
-				Tab.transform.FindChild ("Text").GetComponent<Text> ().text = value;
+				Tab.setText (value);
 			}
 
 			public void addChatEntry (string value)

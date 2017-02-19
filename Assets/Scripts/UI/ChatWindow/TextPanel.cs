@@ -73,6 +73,5 @@ namespace ui
 				lastField.color = textColor;
 			}
 		}
-
 	}
 }

@@ -12,13 +12,13 @@ namespace ui
 			[SerializeField] private ChatManager chatManager;
 			[SerializeField] private ChatWindowFactory chatFactory;
 
-			private IList<Tabs> tabs = new List<Tabs> ();
-			private Tabs activeTab;
-			private Tabs mousedOverTab;
-			private Tabs rightClicked;
+			private IList<TabView> tabs = new List<TabView> ();
+			private TabView activeTab;
+			private TabView mousedOverTab;
+			private TabView rightClicked;
 			private int activePanelId = 0;
 
-			public void addTab (Tabs tab)
+			public void addTab (TabView tab)
 			{
 				tabs.Add (tab);
 			}
@@ -29,7 +29,7 @@ namespace ui
 				selectTab (tabs [0]);
 			}
 
-			public void mouseOverTabEnter (Tabs tab, int panelId)
+			public void mouseOverTabEnter (TabView tab, int panelId)
 			{
 				if (chatManager.userHasInputAnyCharacter ()) {
 					// We don't do anything on mouse-over if the user has input any text.
@@ -41,7 +41,7 @@ namespace ui
 				chatManager.showPanel (panelId);
 			}
 
-			public void mouseOverTabExit (Tabs tab, int panelId)
+			public void mouseOverTabExit (TabView tab, int panelId)
 			{
 				if (activeTab != tab) {
 					mousedOverTab.makeTransparent ();
@@ -52,7 +52,7 @@ namespace ui
 				}
 			}
 
-			public void mouseLeftClickedOnTab (Tabs tab, int panelId)
+			public void mouseLeftClickedOnTab (TabView tab, int panelId)
 			{
 				makeAllTransparentExcluding (tab);
 				selectTab (tab);
@@ -67,23 +67,23 @@ namespace ui
 				chatManager.moveFocusToInputFieldIfActive ();
 			}
 
-			public void mouseRightClickedOnTab (Tabs tab, Vector2 pos)
+			public void mouseRightClickedOnTab (TabView tab, Vector2 pos)
 			{
 				rightClicked = tab;
 				chatManager.addOptionsMenuUnderCursor (pos);
 			}
 
-			public Tabs rightClickedTab ()
+			public TabView rightClickedTab ()
 			{
 				return rightClicked;
 			}
 
-			public Tabs selectedTab ()
+			public TabView selectedTab ()
 			{
 				return activeTab;
 			}
 
-			public void removeTab (Tabs tab)
+			public void removeTab (TabView tab)
 			{
 				this.tabs.Remove (tab);
 				if (activeTab == tab) {
@@ -119,16 +119,16 @@ namespace ui
 				return activeTab.text ();
 			}
 
-			private void makeAllTransparentExcluding (Tabs tab)
+			private void makeAllTransparentExcluding (TabView tab)
 			{
-				foreach (Tabs t in tabs) {
+				foreach (TabView t in tabs) {
 					if (t != tab) {
 						t.makeTransparent ();
 					}
 				}
 			}
 
-			private void selectTab (Tabs tab)
+			private void selectTab (TabView tab)
 			{
 				activeTab = tab;
 				activeTab.makeOpaque ();

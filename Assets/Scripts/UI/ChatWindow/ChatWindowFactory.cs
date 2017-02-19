@@ -14,20 +14,20 @@ namespace ui
 
 			[SerializeField] private TabManager tabManager;
 			[SerializeField] private TextPanelManager panelManager;
-			private ChatWindowList channelList;
+			private ChatModel channelModel;
 			public int idCounter = 0;
 
-			public void setChannelList (ChatWindowList channelList)
+			public void setChannelList (ChatModel channelList)
 			{
-				this.channelList = channelList;
+				this.channelModel = channelList;
 			}
 
 			public void createDefaultWindow ()
 			{
 				createGeneralChatPanel ();
-				channelList.sendMessage ("general", "Server version 0.");
-				channelList.sendMessage ("general", "Press 'enter' and then 'tab' to view chat commands.");
-				channelList.sendMessage ("general", "Welcome. Try not to die, k?");
+				channelModel.sendMessage ("general", "Server version 0.");
+				channelModel.sendMessage ("general", "Press 'enter' and then 'tab' to view chat commands.");
+				channelModel.sendMessage ("general", "Welcome. Try not to die, k?");
 
 				createWhisperChatPanel ();
 				createPartyChatPanel ();
@@ -44,7 +44,7 @@ namespace ui
 				Color panelTextColor = Color.white;
 
 				bool transparent = true;
-				createNewChatPanel (name, transparent, tabBgColor, panelTextColor, channelList);
+				createNewChatPanel (name, transparent, tabBgColor, panelTextColor, channelModel);
 			}
 
 			private void createGeneralChatPanel ()
@@ -54,7 +54,7 @@ namespace ui
 				Color panelTextColor = Color.white;
 
 				bool transparent = false;
-				createNewChatPanel (name, transparent, tabBgColor, panelTextColor, channelList);
+				createNewChatPanel (name, transparent, tabBgColor, panelTextColor, channelModel);
 			}
 
 			private void createWhisperChatPanel ()
@@ -62,7 +62,7 @@ namespace ui
 				string name = "Whisper";
 				Color tabBgColor = new Color (0.588f, 0.031f, 0.722f);
 				bool transparent = true;
-				createNewChatPanel (name, transparent, tabBgColor, tabBgColor, channelList);
+				createNewChatPanel (name, transparent, tabBgColor, tabBgColor, channelModel);
 			}
 
 			private void createPartyChatPanel ()
@@ -70,7 +70,7 @@ namespace ui
 				string name = "Group";
 				Color tabBgColor = new Color (0.388f, 0.796f, 1.0f);
 				bool transparent = true;
-				createNewChatPanel (name, transparent, tabBgColor, tabBgColor, channelList);
+				createNewChatPanel (name, transparent, tabBgColor, tabBgColor, channelModel);
 			}
 
 			private void createGuildChatPanel ()
@@ -78,7 +78,7 @@ namespace ui
 				string name = "Guild";
 				Color tabBgColor = new Color (0.271f, 1.0f, 0.486f);
 				bool transparent = true;
-				createNewChatPanel (name, transparent, tabBgColor, tabBgColor, channelList);
+				createNewChatPanel (name, transparent, tabBgColor, tabBgColor, channelModel);
 			}
 
 			private void createCombatLogChatPanel ()
@@ -86,10 +86,10 @@ namespace ui
 				string name = "Combat Log";
 				Color tabBgColor = new Color (1.0f, 0.337f, 0.337f);
 				bool transparent = true;
-				createNewChatPanel (name, transparent, tabBgColor, tabBgColor, channelList);
+				createNewChatPanel (name, transparent, tabBgColor, tabBgColor, channelModel);
 			}
 
-			private void createNewChatPanel (string channelName, bool transparent, Color tabBgColor, Color panelTextColor, ChatWindowList channelList)
+			private void createNewChatPanel (string channelName, bool transparent, Color tabBgColor, Color panelTextColor, ChatModel channelList)
 			{
 				GameObject newTab = new GameObject (channelName);
 				newTab.transform.SetParent (tabAnchor.transform);
@@ -139,7 +139,7 @@ namespace ui
 				text.resizeTextForBestFit = false;
 				text.color = Color.white;
 
-				Tabs tab = newTab.AddComponent<Tabs> ();
+				TabView tab = newTab.AddComponent<TabView> ();
 				tab.button = button;
 				tab.manager = tabManager;
 				tab.panelId = idCounter++;
@@ -176,7 +176,7 @@ namespace ui
 				panelManager.addPane (textPanel);
 
 				channelList.addNewChannel (channelName, panelTextColor, tab, textPanel.GetComponent<TextPanel> ());
-				tab.GetComponent<Tabs> ().initiallyTransparent = transparent;
+				tab.GetComponent<TabView> ().initiallyTransparent = transparent;
 			}
 		}
 

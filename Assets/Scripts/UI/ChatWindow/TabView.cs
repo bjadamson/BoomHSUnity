@@ -8,7 +8,7 @@ namespace ui
 {
 	namespace chat_window
 	{
-		public class Tabs : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+		public class TabView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 		{
 			[SerializeField] public TabManager manager;
 			public int panelId;
@@ -59,11 +59,14 @@ namespace ui
 				button.image.color = color;
 			}
 
+			public void setText(string value) {
+				GetComponentInChildren<Text> ().text = value;
+			}
+
 			public string text ()
 			{
 				return GetComponentInChildren<Text> ().text;
 			}
 		}
-
 	}
 }
