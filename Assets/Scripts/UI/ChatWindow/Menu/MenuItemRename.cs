@@ -10,7 +10,7 @@ namespace ui
 	{
 		public class MenuItemRename : MonoBehaviour
 		{
-			[SerializeField] private ChatManager chatManager;
+			[SerializeField] private ChatViewManager chatManager;
 			[SerializeField] private GameObject chatOptionsWindow;
 			[SerializeField] private GameObject renamePanel;
 			[SerializeField] private InputField renameInputField;

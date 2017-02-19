@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using ui.chat_window.scroll;
 
 namespace ui
 {
@@ -11,7 +12,7 @@ namespace ui
 		public class TransparencyManager : MonoBehaviour
 		{
 			[SerializeField] private CanvasGroup chatCanvasGroup;
-			[SerializeField] private ScrollBackgroundAndHandle scrollBackground;
+			[SerializeField] private ScrollViewManager scrollBackground;
 			[SerializeField] private float chatWindowCanvasTransparentAlpha = 0.55f;
 			[SerializeField] private float chatWindowCanvasOpaqueAlpha = 1.0f;
 

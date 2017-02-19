@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using ui.chat_window.tab;
 
 namespace ui
 {
@@ -12,8 +13,8 @@ namespace ui
 			[SerializeField] private GameObject tabAnchor;
 			[SerializeField] private GameObject panelAnchor;
 
-			[SerializeField] private TabManager tabManager;
-			[SerializeField] private TextPanelManager panelManager;
+			[SerializeField] private TabViewManager tabManager;
+			[SerializeField] private PanelViewManager panelManager;
 			private ChatModel channelModel;
 			public int idCounter = 0;
 
@@ -171,11 +172,11 @@ namespace ui
 				fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
 				fitter.verticalFit = ContentSizeFitter.FitMode.MinSize;
 
-				TextPanel textPanel = newPanel.AddComponent<TextPanel> ();
+				PanelView textPanel = newPanel.AddComponent<PanelView> ();
 				textPanel.setTextColor (panelTextColor);
 				panelManager.addPane (textPanel);
 
-				channelList.addNewChannel (channelName, panelTextColor, tab, textPanel.GetComponent<TextPanel> ());
+				channelList.addNewChannel (channelName, panelTextColor, tab, textPanel.GetComponent<PanelView> ());
 				tab.GetComponent<TabView> ().initiallyTransparent = transparent;
 			}
 		}

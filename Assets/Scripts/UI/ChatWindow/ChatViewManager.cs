@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using ui.chat_window.tab;
+using ui.chat_window.user_input;
 
 namespace ui
 {
 	namespace chat_window
 	{
-		public class ChatManager : MonoBehaviour
+		public class ChatViewManager : MonoBehaviour
 		{
 			[SerializeField] private bool sendAllMessagesToGeneral = true;
 			[SerializeField] private InputFieldManager inputFieldManager;
-			[SerializeField] private TextPanelManager panelManager;
-			[SerializeField] private TabManager tabManager;
+			[SerializeField] private PanelViewManager panelManager;
+			[SerializeField] private TabViewManager tabViewManager;
 			[SerializeField] private GameObject chatWindow;
 			[SerializeField] private CanvasGroup chatCanvasGroup;
 
@@ -22,12 +24,12 @@ namespace ui
 
 			void Start ()
 			{
-				channelModel = new ChatModel (panelManager, tabManager, inputFieldManager);
+				channelModel = new ChatModel (panelManager, tabViewManager, inputFieldManager);
 				chatFactory = GetComponent<ChatWindowFactory> ();
 				chatFactory.setChannelList (channelModel);
 				chatFactory.createDefaultWindow ();
 
-				updateUserInputPlaceholderText (tabManager.getActiveTabText ().ToLower ());
+				updateUserInputPlaceholderText (tabViewManager.getActiveTabText ().ToLower ());
 			}
 
 			public void createChatWindow (string channelName)
@@ -73,7 +75,7 @@ namespace ui
 
 			public void removeRightClickedTabWindow ()
 			{
-				string channelName = tabManager.rightClickedTab ().name;
+				string channelName = tabViewManager.rightClickedTab ().name;
 				channelModel.removeChatWindow (channelName);
 			}
 
@@ -118,17 +120,17 @@ namespace ui
 			public void setRightClickedTabBgColor (Color color)
 			{
 				string rightClickedTabName = getRightClickedTabName ();
-				tabManager.setRightClickedTabBgColor (color);
+				tabViewManager.setRightClickedTabBgColor (color);
 			}
 
 			public void updateUserInputPlaceholderText(string channelName) {
-				string text = tabManager.getActiveTabText ().ToLower ();
+				string text = tabViewManager.getActiveTabText ().ToLower ();
 				this.setPlaceholderText (text + "...");
 			}
 
 			private string getRightClickedTabName ()
 			{
-				return tabManager.rightClickedTab ().name;
+				return tabViewManager.rightClickedTab ().name;
 			}
 
 			private void setPlaceholderText (string value)

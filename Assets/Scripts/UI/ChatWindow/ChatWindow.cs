@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using ui.chat_window.tab;
 
 namespace ui
 {
@@ -10,10 +11,10 @@ namespace ui
 		public class ChatWindow
 		{
 			public readonly TabView Tab;
-			public readonly TextPanel Panel;
+			public readonly PanelView Panel;
 			public Color TextColor;
 
-			public ChatWindow (string name, Color textColor, TabView tab, TextPanel panel)
+			public ChatWindow (string name, Color textColor, TabView tab, PanelView panel)
 			{
 				this.TextColor = textColor;
 				this.Tab = tab;

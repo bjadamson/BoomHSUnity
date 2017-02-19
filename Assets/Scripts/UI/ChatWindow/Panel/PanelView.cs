@@ -7,7 +7,7 @@ namespace ui
 {
 	namespace chat_window
 	{
-		public class TextPanel : MonoBehaviour
+		public class PanelView : MonoBehaviour
 		{
 			private Color textColor = Color.white;
 

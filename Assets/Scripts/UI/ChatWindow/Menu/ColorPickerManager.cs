@@ -10,7 +10,7 @@ namespace ui
 		public class ColorPickerManager : MonoBehaviour
 		{
 			[SerializeField] private MenuItemManager menuManager;
-			[SerializeField] private ChatManager chatManager;
+			[SerializeField] private ChatViewManager chatManager;
 			[SerializeField] private ColorPicker colorPicker;
 
 			public void setCurrentTabBgColorToColorPicker ()

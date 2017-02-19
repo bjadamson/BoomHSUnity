@@ -11,7 +11,7 @@ using ui.chat_window;
 public class NetworkIO : MonoBehaviour, IDisposable {
 	private static readonly string VALUES = "ben: hi\nbob:sup\njessica:whatup\nbrain:what time is it pinky?\npinky:same time as it always is, it's time to take over the world.";
 	private static readonly float TIME_BETWEEN = 2.0f;
-	[SerializeField] private ui.chat_window.ChatManager chatManager;
+	[SerializeField] private ui.chat_window.ChatViewManager chatManager;
 
 	private StringReader generalInput;
 	private float timeLeft = TIME_BETWEEN;

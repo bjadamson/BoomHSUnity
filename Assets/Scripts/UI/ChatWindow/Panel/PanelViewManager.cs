@@ -2,27 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using ui.chat_window.scroll;
 
 namespace ui
 {
 	namespace chat_window
 	{
-		public class TextPanelManager : MonoBehaviour
+		public class PanelViewManager : MonoBehaviour
 		{
-			[SerializeField] private ScrollBackgroundAndHandle scrollBackground;
+			[SerializeField] private ScrollViewManager scrollViewManager;
 			[SerializeField] private GameObject panelAnchor;
 
-			private IList<TextPanel> panes = new List<TextPanel> ();
-			private TextPanel activePane;
-			private TextPanel mousedOverPane;
+			private IList<PanelView> panes = new List<PanelView> ();
+			private PanelView activePane;
+			private PanelView mousedOverPane;
 
-			public void addPane (TextPanel panel)
+			public void addPane (PanelView panel)
 			{
 				panes.Add (panel);
 
 				if (!activePane) {
 					activePane = panel;
-					scrollBackground.GetComponent<ScrollRect> ().content = activePane.GetComponent<RectTransform> ();
+					setScrollViewRectToActivePaneRect ();
 				}
 			}
 
@@ -42,7 +43,7 @@ namespace ui
 				hideAllPanels ();
 				show (mousedOverPane);
 
-				scrollBackground.GetComponent<ScrollRect> ().content = mousedOverPane.GetComponent<RectTransform> ();
+				setScrollViewRect (mousedOverPane.GetComponent<RectTransform> ());
 			}
 
 			public void makePanelActive (int id)
@@ -51,7 +52,7 @@ namespace ui
 				refresh ();
 			}
 
-			public void removePanel (TextPanel panel)
+			public void removePanel (PanelView panel)
 			{
 				this.panes.Remove (panel);
 				if (activePane == panel) {
@@ -76,26 +77,34 @@ namespace ui
 			{
 				hideAllPanels ();
 				show (activePane);
-				scrollBackground.GetComponent<ScrollRect> ().content = activePane.GetComponent<RectTransform> ();
+				setScrollViewRectToActivePaneRect ();
 			}
 
 			private void hideAllPanels ()
 			{
-				foreach (TextPanel pane in panes) {
+				foreach (PanelView pane in panes) {
 					hide (pane);
 				}
 			}
+				
+			void setScrollViewRectToActivePaneRect ()
+			{
+				setScrollViewRect(activePane.GetComponent<RectTransform> ());
+			}
 
-			private static void hide (TextPanel panel)
+			private void setScrollViewRect(RectTransform rect) {
+				scrollViewManager.setContentRect (rect);
+			}
+
+			private static void hide (PanelView panel)
 			{
 				panel.gameObject.SetActive (false);
 			}
 
-			private static void show (TextPanel panel)
+			private static void show (PanelView panel)
 			{
 				panel.gameObject.SetActive (true);
 			}
-
 		}
 	}
 }

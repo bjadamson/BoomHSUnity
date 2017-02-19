@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using ui.chat_window.tab;
+using ui.chat_window.user_input;
 
 namespace ui
 {
@@ -10,18 +12,18 @@ namespace ui
 		public class ChatModel
 		{
 			private readonly IList<ChatWindow> chatWindows = new List<ChatWindow> ();
-			private readonly TextPanelManager panelManager;
-			private readonly TabManager tabManager;
+			private readonly PanelViewManager panelManager;
+			private readonly TabViewManager tabManager;
 			private readonly InputFieldManager inputFieldManager;
 
-			public ChatModel (TextPanelManager panelManager, TabManager tabManager, InputFieldManager inputFieldManager)
+			public ChatModel (PanelViewManager panelManager, TabViewManager tabManager, InputFieldManager inputFieldManager)
 			{
 				this.panelManager = panelManager;
 				this.tabManager = tabManager;
 				this.inputFieldManager = inputFieldManager;
 			}
 
-			public void addNewChannel (string channelName, Color textColor, TabView tab, TextPanel panel)
+			public void addNewChannel (string channelName, Color textColor, TabView tab, PanelView panel)
 			{
 				chatWindows.Add (new ChatWindow (channelName, textColor, tab, panel));
 			}

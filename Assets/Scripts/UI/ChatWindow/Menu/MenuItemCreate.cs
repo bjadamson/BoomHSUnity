@@ -11,7 +11,7 @@ namespace ui
 		{
 			[SerializeField] private MenuItemManager menuManager;
 			[SerializeField] private GameObject chatOptionsWindow;
-			[SerializeField] private ChatManager chatManager;
+			[SerializeField] private ChatViewManager chatManager;
 			[SerializeField] private InputField createInputField;
 
 			public void createNewWindow ()
