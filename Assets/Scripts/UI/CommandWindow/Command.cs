@@ -7,7 +7,7 @@ namespace ui
 {
 	namespace command_window
 	{
-		public class SlashCommand
+		public class Command
 		{
 			private static readonly Color commandColor = new Color (0.902f, 1.0f, 0.0f);
 
@@ -16,7 +16,7 @@ namespace ui
 			private readonly string commandName;
 			private readonly int fontSize;
 
-			public SlashCommand (GameObject parent, string guiText, string name, string description, int fontSize)
+			public Command (GameObject parent, string guiText, string name, string description, int fontSize)
 			{
 				entry = new GameObject (guiText);
 				entryParent = parent;

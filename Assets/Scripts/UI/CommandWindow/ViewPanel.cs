@@ -15,7 +15,7 @@ namespace ui
 			[SerializeField] private Text emptyResultText;
 
 			[SerializeField] private InputField input;
-			private SlashCommandManager manager = new SlashCommandManager ();
+			private CommandDatabase commandDatabase = new CommandDatabase ();
 			private int row = 0;
 
 			void Start ()
@@ -40,13 +40,13 @@ namespace ui
 
 			private void addCommand (string name, string description)
 			{
-				string guiText = "Emote" + row;
+				string guiText = "Command" + row;
 				row++;
 
-				manager.add (new SlashCommand (commandAnchor, guiText, name, description, fontSize));
+				commandDatabase.add (new Command (commandAnchor, guiText, name, description, fontSize));
 			}
 
-			public void refresh ()
+			void Update ()
 			{
 				string userText = input.text.Trim ();
 				if (userText == string.Empty) {
@@ -56,13 +56,32 @@ namespace ui
 				if (userText.StartsWith ("/")) {
 					userText = userText.Remove (0, 1);
 				}
-				manager.showEntriesMatchingPrefix (userText);
 
-				bool atleastOneResult = manager.showingAtleastOne;
-				if (!atleastOneResult) {
+				IList<Command> matchingCommands = commandDatabase.getEntriesMatchingPrefix (userText);
+				showEntriesMatchingPrefix (userText);
+				hideAllEntries ();
+				showEntriesMatchingPrefix (userText);
+
+				if (matchingCommands.Count == 0) {
 					displayNoMatchingResult ();
 				} else {
 					hideNoMatchingResults ();
+				}
+			}
+
+			private void showEntriesMatchingPrefix (string prefix)
+			{
+				foreach (Command cmd in commandDatabase.getEntries()) {
+					if (cmd.name ().StartsWith (prefix)) {
+						cmd.show ();
+					}
+				}
+			}
+
+			private void hideAllEntries ()
+			{
+				foreach (Command cmd in commandDatabase.getEntries()) {
+					cmd.hide ();
 				}
 			}
 

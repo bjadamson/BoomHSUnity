@@ -30,7 +30,5 @@ namespace ui
 				emotePanel.SetActive (false);
 			}
 		}
-
-
 	}
 }
