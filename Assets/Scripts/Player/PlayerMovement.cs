@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	[SerializeField] private float multiplier = 150.0f;
 	[SerializeField] private UserIO userIO;
+	[SerializeField] private Camera kam;
 
 	void FixedUpdate () {
 		float horizontal = userIO.GetAxis ("Horizontal") * Time.deltaTime * multiplier;

@@ -6,11 +6,12 @@ public class WeaponSwap : MonoBehaviour {
 	[SerializeField] private GameObject backSlot;
 	[SerializeField] private GameObject equippedSlot;
 	[SerializeField] private GameObject weapon;
+	[SerializeField] private UserIO userIO;
 
 	void Update() {
-		if (Input.GetKeyDown (KeyCode.Alpha1)) {
+		if (userIO.GetKeyDown (KeyCode.Alpha1)) {
 			equip ();
-		} else if (Input.GetKeyDown (KeyCode.BackQuote)) {
+		} else if (userIO.GetKeyDown (KeyCode.BackQuote)) {
 			putAway ();
 		}
 	}

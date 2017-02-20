@@ -30,4 +30,12 @@ public class UserIO : MonoBehaviour {
 	public void toggleBlockingPlayerActions() {
 		blockingNonChatInput = !blockingNonChatInput;
 	}
+
+	public bool GetButtonDown(string name) {
+		return Input.GetButtonDown(name);
+	}
+
+	public bool GetButtonUp(string name) {
+		return Input.GetButtonUp(name);
+	}
 }
