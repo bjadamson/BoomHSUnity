@@ -17,7 +17,7 @@ namespace ui
 			{
 				[SerializeField] private ScrollViewManager scrollBar;
 				[SerializeField] private InputField inputField;
-				[SerializeField] private ChatViewManager chatManager;
+				[SerializeField] private ChatManager chatManager;
 				[SerializeField] private TransparencyManager transparencyManager;
 
 				private GameObject previouslySelected;

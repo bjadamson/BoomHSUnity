@@ -8,13 +8,13 @@ namespace ui
 {
 	namespace chat_window
 	{
-		public class ChatWindow
+		public class ChatWindowView
 		{
 			public readonly TabView Tab;
 			public readonly PanelView Panel;
 			public Color TextColor;
 
-			public ChatWindow (string name, Color textColor, TabView tab, PanelView panel)
+			public ChatWindowView (string name, Color textColor, TabView tab, PanelView panel)
 			{
 				this.TextColor = textColor;
 				this.Tab = tab;

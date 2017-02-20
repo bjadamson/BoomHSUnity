@@ -10,7 +10,7 @@ namespace ui
 {
 	namespace chat_window
 	{
-		public class ChatViewManager : MonoBehaviour
+		public class ChatManager : MonoBehaviour
 		{
 			[SerializeField] private bool sendAllMessagesToGeneral = true;
 			[SerializeField] private InputFieldManager inputFieldManager;
@@ -59,7 +59,16 @@ namespace ui
 
 			public void sendActiveChannelMessage (string message)
 			{
+				// here
 				panelManager.addEntry (message);
+
+				bool generalTabActive = panelManager.isGeneralPaneActive();
+				if (sendAllMessagesToGeneral && !generalTabActive)
+				{
+					// also send message to general channel, but do it using original channels TextColor
+					Color color = panelManager.getActiveChannelTextColor();
+					channelModel.sendMessage("general", message, color);
+				}
 			}
 
 			public void renameRightClickedTab (string newName)
@@ -83,10 +92,11 @@ namespace ui
 			{
 				channelModel.sendMessage (channelName, message);
 
-				if (sendAllMessagesToGeneral && channelName != "general") {
+				if (sendAllMessagesToGeneral && channelName != "general")
+				{
 					// also send message to general channel, but do it using original channels TextColor
-					Color channelsTextColor = channelModel.getChannelTextColor (channelName);
-					channelModel.sendMessage ("general", message, channelsTextColor);
+					Color channelsTextColor = channelModel.getChannelTextColor(channelName);
+					channelModel.sendMessage("general", message, channelsTextColor);
 				}
 			}
 

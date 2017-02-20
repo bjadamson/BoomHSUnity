@@ -11,7 +11,7 @@ namespace ui
 		{
 			public class TabViewManager : MonoBehaviour
 			{
-				[SerializeField] private ChatViewManager chatManager;
+				[SerializeField] private ChatManager chatManager;
 				[SerializeField] private ChatWindowFactory chatFactory;
 
 				private IList<TabView> tabs = new List<TabView> ();

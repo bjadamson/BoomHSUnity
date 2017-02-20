@@ -11,7 +11,7 @@ namespace ui
 	{
 		public class ChatModel
 		{
-			private readonly IList<ChatWindow> chatWindows = new List<ChatWindow> ();
+			private readonly IList<ChatWindowView> chatWindows = new List<ChatWindowView> ();
 			private readonly PanelViewManager panelManager;
 			private readonly TabViewManager tabManager;
 			private readonly InputFieldManager inputFieldManager;
@@ -25,12 +25,12 @@ namespace ui
 
 			public void addNewChannel (string channelName, Color textColor, TabView tab, PanelView panel)
 			{
-				chatWindows.Add (new ChatWindow (channelName, textColor, tab, panel));
+				chatWindows.Add (new ChatWindowView (channelName, textColor, tab, panel));
 			}
 
 			public void sendMessage (string channelName, string message)
 			{
-				ChatWindow cw = findChatWindow (channelName);
+				ChatWindowView cw = findChatWindow (channelName);
 				if (cw != null) {
 					cw.addChatEntry (message);
 				}
@@ -38,7 +38,7 @@ namespace ui
 
 			public void sendMessage (string channelName, string message, Color textColor)
 			{
-				ChatWindow cw = findChatWindow (channelName);
+				ChatWindowView cw = findChatWindow (channelName);
 				if (cw != null) {
 					cw.addChatEntry (message, textColor);
 				}
@@ -46,13 +46,13 @@ namespace ui
 
 			public Color getChannelTextColor (string channelName)
 			{
-				ChatWindow cw = findChatWindow (channelName);
+				ChatWindowView cw = findChatWindow (channelName);
 				return cw.TextColor;
 			}
 
 			public void renameChatWindow (string channelName, string newName)
 			{
-				ChatWindow cw = findChatWindow (channelName);
+				ChatWindowView cw = findChatWindow (channelName);
 				cw.rename (newName);
 
 				if (tabManager.rightClickedTab () == tabManager.selectedTab ()) {
@@ -62,7 +62,7 @@ namespace ui
 
 			public void removeChatWindow (string channelName)
 			{
-				ChatWindow cw = findChatWindow (channelName);
+				ChatWindowView cw = findChatWindow (channelName);
 
 				panelManager.removePanel (cw.Panel);
 				tabManager.removeTab (cw.Tab);
@@ -72,10 +72,10 @@ namespace ui
 				chatWindows.Remove (cw);
 			}
 
-			private ChatWindow findChatWindow (string channelName)
+			private ChatWindowView findChatWindow (string channelName)
 			{
-				ChatWindow channel = null;
-				foreach (ChatWindow ch in chatWindows) {
+				ChatWindowView channel = null;
+				foreach (ChatWindowView ch in chatWindows) {
 					if (ch.getName ().ToLower () == channelName.ToLower ()) {
 						channel = ch;
 						break;

@@ -12,7 +12,7 @@ namespace ui
 			private Color textColor = Color.white;
 
 			// config, move out
-			private static readonly uint MAX_HISTORY_NUMBER_LINES = 10;
+			private static readonly uint MAX_HISTORY_NUMBER_LINES = 50;
 			private IList<Text> textFields = new List<Text> ();
 
 			public void addEntry (string value)
@@ -35,6 +35,10 @@ namespace ui
 				foreach (var it in textFields) {
 					it.color = textColor;
 				}
+			}
+
+			public Color getTextColor() {
+				return this.textColor;
 			}
 
 			private void insertNew (string value, Color fontColor)

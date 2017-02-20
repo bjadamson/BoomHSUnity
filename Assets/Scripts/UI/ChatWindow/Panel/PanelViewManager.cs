@@ -32,6 +32,14 @@ namespace ui
 				makePanelActive (0);
 			}
 
+			public bool isGeneralPaneActive() {
+				return activePane == panes[0];
+			}
+
+			public Color getActiveChannelTextColor() {
+				return activePane.getTextColor();
+			}
+
 			public void addEntry (string value)
 			{
 				activePane.addEntry (value);

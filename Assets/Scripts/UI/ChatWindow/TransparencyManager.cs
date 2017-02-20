@@ -32,6 +32,5 @@ namespace ui
 				scrollBackground.setAlpha (scrollBarTransparentAlpha, scrollBarTransparentAlpha);
 			}
 		}
-
 	}
 }
