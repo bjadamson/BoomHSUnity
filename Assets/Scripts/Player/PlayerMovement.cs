@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-	[SerializeField]
-	private float multiplier = 150.0f;
+	[SerializeField] private float multiplier = 150.0f;
+	[SerializeField] private UserIO userIO;
 
 	void FixedUpdate () {
-		float horizontal = Input.GetAxis ("Horizontal") * Time.deltaTime * multiplier;
-		float vertical = Input.GetAxis("Vertical") * Time.deltaTime * multiplier;
+		float horizontal = userIO.GetAxis ("Horizontal") * Time.deltaTime * multiplier;
+		float vertical = userIO.GetAxis("Vertical") * Time.deltaTime * multiplier;
 
 		Vector3 movement = (transform.forward * vertical) + (transform.right * horizontal);
 		transform.Translate(movement, Space.World);

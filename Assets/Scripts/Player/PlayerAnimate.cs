@@ -4,20 +4,12 @@ using UnityEngine;
 
 public class PlayerAnimate : MonoBehaviour {
 
-	[SerializeField]
-	private Animator animator;
-
-	[SerializeField]
-	private float directionDampTime = 0.25f;
-
-	[SerializeField]
-	private ThirdPersonCamera tpCamera;
-
-	[SerializeField]
-	private float directionSpeed = 3.0f;
-
-	[SerializeField]
-	private float rotationDegreesPerSecond = 120f;
+	[SerializeField] private Animator animator;
+	[SerializeField] private float directionDampTime = 0.25f;
+	[SerializeField] private ThirdPersonCamera tpCamera;
+	[SerializeField] private float directionSpeed = 3.0f;
+	[SerializeField] private float rotationDegreesPerSecond = 120f;
+	[SerializeField] private UserIO userIO;
 
 	private float speed = 0.0f;
 	private float direction = 0.0f;
@@ -39,15 +31,15 @@ public class PlayerAnimate : MonoBehaviour {
 
 	void Update () {
 		stateInfo = animator.GetCurrentAnimatorStateInfo (0);
-		horizontal = Input.GetAxis ("Horizontal") * Time.deltaTime * 150.0f;
-		vertical = Input.GetAxis ("Vertical") * Time.deltaTime * 150.0f;
+		horizontal = userIO.GetAxis ("Horizontal") * Time.deltaTime * 150.0f;
+		vertical = userIO.GetAxis ("Vertical") * Time.deltaTime * 150.0f;
 
 		StickToWorldspace(transform, tpCamera.transform, ref direction, ref speed);
-		animator.SetBool("Jump", Input.GetKeyDown (KeyCode.Space));
+		animator.SetBool("Jump", userIO.GetKeyDown (KeyCode.Space));
 		animator.SetFloat ("Speed", speed);
-		animator.SetBool("Strafing", Mathf.Abs(Input.GetAxis("Horizontal")) > 0.25f);
-		animator.SetBool ("Crouching", Input.GetKey (KeyCode.LeftControl));
-		animator.SetBool ("Sprinting", Input.GetKey (KeyCode.LeftShift));
+		animator.SetBool("Strafing", Mathf.Abs(userIO.GetAxis("Horizontal")) > 0.25f);
+		animator.SetBool ("Crouching", userIO.GetKey (KeyCode.LeftControl));
+		animator.SetBool ("Sprinting", userIO.GetKey (KeyCode.LeftShift));
 	}
 
 	void FixedUpdate() {
