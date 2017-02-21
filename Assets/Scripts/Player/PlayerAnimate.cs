@@ -42,6 +42,20 @@ public class PlayerAnimate : MonoBehaviour {
 		animator.SetBool ("Sprinting", userIO.GetKey (KeyCode.LeftShift));
 	}
 
+	void toggleWeaponHolding() {
+		bool isHolding = animator.GetBool("HoldingGun");
+		animator.SetBool("HoldingGun", isHolding ^= true);
+	}
+
+	public void sheathWeapon() {
+		animator.SetBool("HoldingGun", false);
+	}
+
+	public void equipWeapon() {
+		animator.SetBool("HoldingGun", true);
+	}
+
+
 	void FixedUpdate() {
 		if (IsInLocomotion () && ((direction >= 0 && horizontal >= 0) || (direction < 0 && horizontal < 0))) {
 			Vector3 maxLerp = new Vector3 (0f, rotationDegreesPerSecond * (horizontal < 0f ? -1f : 1f), 0f);

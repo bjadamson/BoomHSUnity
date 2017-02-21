@@ -31,6 +31,10 @@ public class UserIO : MonoBehaviour {
 		blockingNonChatInput = !blockingNonChatInput;
 	}
 
+	public bool GetButton(string name) {
+		return Input.GetButton(name);
+	}
+
 	public bool GetButtonDown(string name) {
 		return Input.GetButtonDown(name);
 	}

@@ -1316,6 +1316,7 @@ ModelImporter:
     7400018: Human_female|CrouchWalk
     7400020: Human_female|Jump
     7400022: Human_female|CrouchDown
+    7400024: Human_female|StandingWithGun
     9500000: //RootNode
     13700000: Human_female_Body
     13700002: Human_female_Braid01
@@ -7949,6 +7950,946 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Human_female
+        weight: 1
+      - path: Human_female/Human_female:Gizmos
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Ball025
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Breast_L
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Breast_R
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Circle025
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_CircleChest
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_CircleHips
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_CircleSpine
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_CrownHips
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Cube025
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_FaceHead
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_FaceJaw
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Foot
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_FootIK
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Gaze
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Hand
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_HandIK
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Head
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Jaw
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Knuckle
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_LoLid
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Master
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Neck
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_RevFoot
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_RevToe
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Root
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Shoulder
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Toe
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_Tongue
+        weight: 1
+      - path: Human_female/Human_female:Gizmos/GZM_UpLid
+        weight: 1
+      - path: Human_female/master
+        weight: 1
+      - path: Human_female/master/ankle.L
+        weight: 1
+      - path: Human_female/master/ankle.L/ankle.L_end
+        weight: 1
+      - path: Human_female/master/ankle.R
+        weight: 1
+      - path: Human_female/master/ankle.R/ankle.R_end
+        weight: 1
+      - path: Human_female/master/foot.ik.L
+        weight: 1
+      - path: Human_female/master/foot.ik.L/toe.rev.L
+        weight: 1
+      - path: Human_female/master/foot.ik.L/toe.rev.L/foot.rev.L
+        weight: 1
+      - path: Human_female/master/foot.ik.L/toe.rev.L/foot.rev.L/ankle.ik.L
+        weight: 1
+      - path: Human_female/master/foot.ik.L/toe.rev.L/foot.rev.L/ankle.ik.L/knee.pt.ik.L
+        weight: 1
+      - path: Human_female/master/foot.ik.L/toe.rev.L/foot.rev.L/ankle.ik.L/knee.pt.ik.L/knee.pt.ik.L_end
+        weight: 1
+      - path: Human_female/master/foot.ik.L/toe.rev.L/foot.rev.L/foot.pt.ik.L
+        weight: 1
+      - path: Human_female/master/foot.ik.L/toe.rev.L/foot.rev.L/foot.pt.ik.L/foot.pt.ik.L_end
+        weight: 1
+      - path: Human_female/master/foot.ik.R
+        weight: 1
+      - path: Human_female/master/foot.ik.R/toe.rev.R
+        weight: 1
+      - path: Human_female/master/foot.ik.R/toe.rev.R/foot.rev.R
+        weight: 1
+      - path: Human_female/master/foot.ik.R/toe.rev.R/foot.rev.R/ankle.ik.R
+        weight: 1
+      - path: Human_female/master/foot.ik.R/toe.rev.R/foot.rev.R/ankle.ik.R/knee.pt.ik.R
+        weight: 1
+      - path: Human_female/master/foot.ik.R/toe.rev.R/foot.rev.R/ankle.ik.R/knee.pt.ik.R/knee.pt.ik.R_end
+        weight: 1
+      - path: Human_female/master/foot.ik.R/toe.rev.R/foot.rev.R/foot.pt.ik.R
+        weight: 1
+      - path: Human_female/master/foot.ik.R/toe.rev.R/foot.rev.R/foot.pt.ik.R/foot.pt.ik.R_end
+        weight: 1
+      - path: Human_female/master/gaze_parent
+        weight: 1
+      - path: Human_female/master/gaze_parent/gaze
+        weight: 1
+      - path: Human_female/master/gaze_parent/gaze/gaze_end
+        weight: 1
+      - path: Human_female/master/hand.ik.L
+        weight: 1
+      - path: Human_female/master/hand.ik.L/hand.ik.L_end
+        weight: 1
+      - path: Human_female/master/hand.ik.R
+        weight: 1
+      - path: Human_female/master/hand.ik.R/hand.ik.R_end
+        weight: 1
+      - path: Human_female/master/root
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/DEF-upper_arm.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/DEF-upper_arm.L/DEF-upper_arm.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.fk.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.fk.L/forearm.fk.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.fk.L/forearm.fk.L/hand.fk.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.fk.L/forearm.fk.L/hand.fk.L/hand.fk.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.ik.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.ik.L/elbow.link.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.ik.L/elbow.link.L/elbow.link.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.ik.L/forearm.ik.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.ik.L/forearm.ik.L/forearm.ik.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/DEF-elbow_fan.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/DEF-elbow_fan.L/DEF-elbow_fan.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/DEF-forearm.01.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/DEF-forearm.01.L/DEF-forearm.02.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/DEF-forearm.01.L/DEF-forearm.02.L/DEF-forearm.03.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/DEF-forearm.01.L/DEF-forearm.02.L/DEF-forearm.03.L/DEF-hand.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/DEF-forearm.01.L/DEF-forearm.02.L/DEF-forearm.03.L/DEF-hand.L/DEF-palm_ring.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/DEF-forearm.01.L/DEF-forearm.02.L/DEF-forearm.03.L/DEF-hand.L/DEF-palm_ring.L/DEF-palm_ring.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/DEF-palm_index.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/DEF-palm_index.L/DEF-palm_index.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/DEF-palm_middle.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/DEF-palm_middle.L/DEF-f_middle.01.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/DEF-palm_middle.L/DEF-f_middle.01.L/DEF-f_middle.01.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/DEF-palm_pinky.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/DEF-palm_pinky.L/DEF-f_pinky.01.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/DEF-palm_pinky.L/DEF-f_pinky.01.L/DEF-f_pinky.02.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/DEF-palm_pinky.L/DEF-f_pinky.01.L/DEF-f_pinky.02.L/DEF-f_pinky.02.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/DEF-thumb.01.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/DEF-thumb.01.L/DEF-thumb.02.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/DEF-thumb.01.L/DEF-thumb.02.L/DEF-thumb.02.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_index.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_index.L/DEF-f_index.01.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_index.L/DEF-f_index.01.L/DEF-f_index.02.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_index.L/DEF-f_index.01.L/DEF-f_index.02.L/DEF-f_index.02.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_index.L/f_index.01.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_index.L/f_index.01.L/f_index.02.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_index.L/f_index.01.L/f_index.02.L/DEF-f_index.03.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_index.L/f_index.01.L/f_index.02.L/DEF-f_index.03.L/DEF-f_index.03.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_index.L/f_index.01.L/f_index.02.L/f_index.03.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_index.L/f_index.01.L/f_index.02.L/f_index.03.L/f_index.03.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_index.L/index.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_index.L/index.L/index.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_middle.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_middle.L/f_middle.01.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_middle.L/f_middle.01.L/DEF-f_middle.02.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_middle.L/f_middle.01.L/DEF-f_middle.02.L/DEF-f_middle.03.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_middle.L/f_middle.01.L/DEF-f_middle.02.L/DEF-f_middle.03.L/DEF-f_middle.03.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_middle.L/f_middle.01.L/f_middle.02.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_middle.L/f_middle.01.L/f_middle.02.L/f_middle.03.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_middle.L/f_middle.01.L/f_middle.02.L/f_middle.03.L/f_middle.03.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_middle.L/middle.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_middle.L/middle.L/middle.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_pinky.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_pinky.L/f_pinky.01.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_pinky.L/f_pinky.01.L/f_pinky.02.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_pinky.L/f_pinky.01.L/f_pinky.02.L/DEF-f_pinky.03.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_pinky.L/f_pinky.01.L/f_pinky.02.L/DEF-f_pinky.03.L/DEF-f_pinky.03.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_pinky.L/f_pinky.01.L/f_pinky.02.L/f_pinky.03.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_pinky.L/f_pinky.01.L/f_pinky.02.L/f_pinky.03.L/f_pinky.03.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_pinky.L/pinky.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_pinky.L/pinky.L/pinky.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_ring.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_ring.L/DEF-f_ring.01.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_ring.L/DEF-f_ring.01.L/DEF-f_ring.02.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_ring.L/DEF-f_ring.01.L/DEF-f_ring.02.L/DEF-f_ring.02.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_ring.L/f_ring.01.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_ring.L/f_ring.01.L/f_ring.02.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_ring.L/f_ring.01.L/f_ring.02.L/DEF-f_ring.03.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_ring.L/f_ring.01.L/f_ring.02.L/DEF-f_ring.03.L/DEF-f_ring.03.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_ring.L/f_ring.01.L/f_ring.02.L/f_ring.03.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_ring.L/f_ring.01.L/f_ring.02.L/f_ring.03.L/f_ring.03.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_ring.L/ring.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/palm_ring.L/ring.L/ring.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/thumb.01.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L/DEF-thumb.03.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L/DEF-thumb.03.L/DEF-thumb.03.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L/thumb.03.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L/thumb.03.L/thumb.03.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.L/thumb.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm_X120.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/forearm_X120.L/forearm_X120.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/serratusIk.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/serratusIk.L/serratusIk.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/shoulderIk.L
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.L/arm_socket.L/upper_arm.L/shoulderIk.L/shoulderIk.L_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/DEF-upper_arm.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/DEF-upper_arm.R/DEF-upper_arm.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.fk.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.fk.R/forearm.fk.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.fk.R/forearm.fk.R/hand.fk.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.fk.R/forearm.fk.R/hand.fk.R/hand.fk.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.ik.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.ik.R/elbow.link.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.ik.R/elbow.link.R/elbow.link.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.ik.R/forearm.ik.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.ik.R/forearm.ik.R/forearm.ik.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/DEF-elbow_fan.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/DEF-elbow_fan.R/DEF-elbow_fan.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/DEF-forearm.01.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/DEF-forearm.01.R/DEF-forearm.02.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/DEF-forearm.01.R/DEF-forearm.02.R/DEF-forearm.03.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/DEF-forearm.01.R/DEF-forearm.02.R/DEF-forearm.03.R/DEF-hand.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/DEF-forearm.01.R/DEF-forearm.02.R/DEF-forearm.03.R/DEF-hand.R/DEF-palm_index.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/DEF-forearm.01.R/DEF-forearm.02.R/DEF-forearm.03.R/DEF-hand.R/DEF-palm_index.R/DEF-f_index.01.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/DEF-forearm.01.R/DEF-forearm.02.R/DEF-forearm.03.R/DEF-hand.R/DEF-palm_index.R/DEF-f_index.01.R/DEF-f_index.01.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/DEF-forearm.01.R/DEF-forearm.02.R/DEF-forearm.03.R/DEF-hand.R/DEF-palm_pinky.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/DEF-forearm.01.R/DEF-forearm.02.R/DEF-forearm.03.R/DEF-hand.R/DEF-palm_pinky.R/DEF-palm_pinky.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/DEF-palm_middle.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/DEF-palm_middle.R/DEF-palm_middle.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/DEF-palm_ring.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/DEF-palm_ring.R/DEF-f_ring.01.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/DEF-palm_ring.R/DEF-f_ring.01.R/DEF-f_ring.02.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/DEF-palm_ring.R/DEF-f_ring.01.R/DEF-f_ring.02.R/DEF-f_ring.03.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/DEF-palm_ring.R/DEF-f_ring.01.R/DEF-f_ring.02.R/DEF-f_ring.03.R/DEF-f_ring.03.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/DEF-thumb.01.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/DEF-thumb.01.R/DEF-thumb.02.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/DEF-thumb.01.R/DEF-thumb.02.R/DEF-thumb.02.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_index.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_index.R/f_index.01.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_index.R/f_index.01.R/DEF-f_index.02.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_index.R/f_index.01.R/DEF-f_index.02.R/DEF-f_index.03.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_index.R/f_index.01.R/DEF-f_index.02.R/DEF-f_index.03.R/DEF-f_index.03.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_index.R/f_index.01.R/f_index.02.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_index.R/f_index.01.R/f_index.02.R/f_index.03.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_index.R/f_index.01.R/f_index.02.R/f_index.03.R/f_index.03.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_index.R/index.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_index.R/index.R/index.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_middle.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_middle.R/DEF-f_middle.01.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_middle.R/DEF-f_middle.01.R/DEF-f_middle.02.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_middle.R/DEF-f_middle.01.R/DEF-f_middle.02.R/DEF-f_middle.03.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_middle.R/DEF-f_middle.01.R/DEF-f_middle.02.R/DEF-f_middle.03.R/DEF-f_middle.03.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_middle.R/f_middle.01.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_middle.R/f_middle.01.R/f_middle.02.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_middle.R/f_middle.01.R/f_middle.02.R/f_middle.03.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_middle.R/f_middle.01.R/f_middle.02.R/f_middle.03.R/f_middle.03.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_middle.R/middle.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_middle.R/middle.R/middle.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_pinky.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_pinky.R/DEF-f_pinky.01.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_pinky.R/DEF-f_pinky.01.R/DEF-f_pinky.02.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_pinky.R/DEF-f_pinky.01.R/DEF-f_pinky.02.R/DEF-f_pinky.03.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_pinky.R/DEF-f_pinky.01.R/DEF-f_pinky.02.R/DEF-f_pinky.03.R/DEF-f_pinky.03.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_pinky.R/f_pinky.01.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_pinky.R/f_pinky.01.R/f_pinky.02.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_pinky.R/f_pinky.01.R/f_pinky.02.R/f_pinky.03.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_pinky.R/f_pinky.01.R/f_pinky.02.R/f_pinky.03.R/f_pinky.03.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_pinky.R/pinky.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_pinky.R/pinky.R/pinky.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_ring.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_ring.R/f_ring.01.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_ring.R/f_ring.01.R/f_ring.02.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_ring.R/f_ring.01.R/f_ring.02.R/f_ring.03.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_ring.R/f_ring.01.R/f_ring.02.R/f_ring.03.R/f_ring.03.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_ring.R/ring.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/palm_ring.R/ring.R/ring.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/thumb.01.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R/DEF-thumb.03.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R/DEF-thumb.03.R/DEF-thumb.03.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R/thumb.03.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R/thumb.03.R/thumb.03.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.R/thumb.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm_X120.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/forearm_X120.R/forearm_X120.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/serratusIk.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/serratusIk.R/serratusIk.R_end
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/shoulderIk.R
+        weight: 1
+      - path: Human_female/master/root/arm_hinge.R/arm_socket.R/upper_arm.R/shoulderIk.R/shoulderIk.R_end
+        weight: 1
+      - path: Human_female/master/root/DEF-hips
+        weight: 1
+      - path: Human_female/master/root/DEF-hips/DEF-pelvis.R
+        weight: 1
+      - path: Human_female/master/root/DEF-hips/DEF-pelvis.R/DEF-pelvis.R_end
+        weight: 1
+      - path: Human_female/master/root/DEF-spine
+        weight: 1
+      - path: Human_female/master/root/DEF-spine/DEF-spine-1
+        weight: 1
+      - path: Human_female/master/root/DEF-spine/DEF-spine-1/DEF-spine-1_end
+        weight: 1
+      - path: Human_female/master/root/hips
+        weight: 1
+      - path: Human_female/master/root/hips/DEF-gluteus.L
+        weight: 1
+      - path: Human_female/master/root/hips/DEF-gluteus.L/DEF-gluteus.L_end
+        weight: 1
+      - path: Human_female/master/root/hips/DEF-gluteus.R
+        weight: 1
+      - path: Human_female/master/root/hips/DEF-gluteus.R/DEF-gluteus.R_end
+        weight: 1
+      - path: Human_female/master/root/hips/DEF-hip.L
+        weight: 1
+      - path: Human_female/master/root/hips/DEF-hip.L/DEF-hip.L_end
+        weight: 1
+      - path: Human_female/master/root/hips/DEF-hip.R
+        weight: 1
+      - path: Human_female/master/root/hips/DEF-hip.R/DEF-hip.R_end
+        weight: 1
+      - path: Human_female/master/root/hips/DEF-pelvis.L
+        weight: 1
+      - path: Human_female/master/root/hips/DEF-pelvis.L/DEF-pelvis.L_end
+        weight: 1
+      - path: Human_female/master/root/hips/pelvis.L
+        weight: 1
+      - path: Human_female/master/root/hips/pelvis.L/leg_base.L
+        weight: 1
+      - path: Human_female/master/root/hips/pelvis.L/leg_base.L/leg_base.L_end
+        weight: 1
+      - path: Human_female/master/root/hips/pelvis.R
+        weight: 1
+      - path: Human_female/master/root/hips/pelvis.R/leg_base.R
+        weight: 1
+      - path: Human_female/master/root/hips/pelvis.R/leg_base.R/leg_base.R_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/DEF-thigh.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/DEF-thigh.L/DEF-thigh.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.fk.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.fk.L/shin.fk.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.fk.L/shin.fk.L/foot.fk.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.fk.L/shin.fk.L/foot.fk.L/ball.marker.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.fk.L/shin.fk.L/foot.fk.L/ball.marker.L/ball.marker.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.fk.L/shin.fk.L/foot.fk.L/heel.marker.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.fk.L/shin.fk.L/foot.fk.L/heel.marker.L/heel.marker.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.fk.L/shin.fk.L/foot.fk.L/toe.fk.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.fk.L/shin.fk.L/foot.fk.L/toe.fk.L/toe.marker.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.fk.L/shin.fk.L/foot.fk.L/toe.fk.L/toe.marker.L/toe.marker.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.ik.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.ik.L/knee.link.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.ik.L/knee.link.L/knee.link.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.ik.L/shin.ik.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.ik.L/shin.ik.L/shin.ik.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/DEF-knee_fan.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/DEF-knee_fan.L/DEF-knee_fan.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/DEF-shin.01.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/DEF-shin.01.L/DEF-shin.02.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/DEF-shin.01.L/DEF-shin.02.L/DEF-shin.03.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/DEF-shin.01.L/DEF-shin.02.L/DEF-shin.03.L/DEF-foot.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/DEF-shin.01.L/DEF-shin.02.L/DEF-shin.03.L/DEF-foot.L/DEF-foot.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/gluteusIk.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/gluteusIk.L/gluteusIk.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/hipIk.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/hipIk.L/hipIk.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/shin.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/shin.L/foot.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/shin.L/foot.L/DEF-toe.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/shin.L/foot.L/DEF-toe.L/DEF-toe.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/shin.L/foot.L/toe.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/shin.L/foot.L/toe.L/toe.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/shin_X150.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh.L/shin_X150.L/shin_X150.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh_X-90.L
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.L/leg_socket.L/thigh_X-90.L/thigh_X-90.L_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/DEF-thigh.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/DEF-thigh.R/DEF-thigh.R_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.fk.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.fk.R/shin.fk.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.fk.R/shin.fk.R/foot.fk.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.fk.R/shin.fk.R/foot.fk.R/ball.marker.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.fk.R/shin.fk.R/foot.fk.R/ball.marker.R/ball.marker.R_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.fk.R/shin.fk.R/foot.fk.R/heel.marker.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.fk.R/shin.fk.R/foot.fk.R/heel.marker.R/heel.marker.R_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.fk.R/shin.fk.R/foot.fk.R/toe.fk.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.fk.R/shin.fk.R/foot.fk.R/toe.fk.R/toe.marker.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.fk.R/shin.fk.R/foot.fk.R/toe.fk.R/toe.marker.R/toe.marker.R_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.ik.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.ik.R/knee.link.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.ik.R/knee.link.R/knee.link.R_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.ik.R/shin.ik.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.ik.R/shin.ik.R/shin.ik.R_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/DEF-knee_fan.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/DEF-knee_fan.R/DEF-knee_fan.R_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/DEF-shin.01.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/DEF-shin.01.R/DEF-shin.02.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/DEF-shin.01.R/DEF-shin.02.R/DEF-shin.03.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/DEF-shin.01.R/DEF-shin.02.R/DEF-shin.03.R/DEF-foot.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/DEF-shin.01.R/DEF-shin.02.R/DEF-shin.03.R/DEF-foot.R/DEF-toe.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/DEF-shin.01.R/DEF-shin.02.R/DEF-shin.03.R/DEF-foot.R/DEF-toe.R/DEF-toe.R_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/gluteusIk.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/gluteusIk.R/gluteusIk.R_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/hipIk.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/hipIk.R/hipIk.R_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/shin.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/shin.R/foot.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/shin.R/foot.R/toe.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/shin.R/foot.R/toe.R/toe.R_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/shin_X150.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh.R/shin_X150.R/shin_X150.R_end
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh_X-90.R
+        weight: 1
+      - path: Human_female/master/root/leg_hinge.R/leg_socket.R/thigh_X-90.R/thigh_X-90.R_end
+        weight: 1
+      - path: Human_female/master/root/spine
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.L/DEF-deltoid.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.L/DEF-deltoid.L/DEF-deltoid.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.L/pectIk.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.L/pectIk.L/pectIk.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.L/shoulder01.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.L/shoulder01.L/arm_base.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.L/shoulder01.L/arm_base.L/arm_base.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.L/shoulder01.L/elbow.pt.ik.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.L/shoulder01.L/elbow.pt.ik.L/elbow.pt.ik.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.R/DEF-deltoid.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.R/DEF-deltoid.R/DEF-deltoid.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.R/pectIk.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.R/pectIk.R/pectIk.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.R/shoulder01.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.R/shoulder01.R/arm_base.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.R/shoulder01.R/arm_base.R/arm_base.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.R/shoulder01.R/elbow.pt.ik.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/clavicle.R/shoulder01.R/elbow.pt.ik.R/elbow.pt.ik.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/DEF-clavicle.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/DEF-clavicle.L/DEF-clavicle.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/DEF-sternum
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/DEF-sternum/DEF-sternum_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/DEF-neck-1
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/DEF-neck-1/DEF-neck-1_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/DEF-head
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/DEF-head/DEF-jaw
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/DEF-head/DEF-jaw/DEF-tongue_base
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/DEF-head/DEF-jaw/DEF-tongue_base/DEF-tongue_base_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/DEF-head/DEF-lolid.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/DEF-head/DEF-lolid.L/DEF-lolid.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/DEF-head/DEF-lolid.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/DEF-head/DEF-lolid.R/DEF-lolid.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/DEF-head/DEF-uplid.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/DEF-head/DEF-uplid.L/DEF-uplid.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/DEF-head/DEF-uplid.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/DEF-head/DEF-uplid.R/DEF-uplid.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/eye_parent.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/eye_parent.L/DEF-eye.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/eye_parent.L/DEF-eye.L/DEF-eye.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/eye_parent.L/eye.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/eye_parent.L/eye.L/eye.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/eye_parent.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/eye_parent.R/DEF-eye.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/eye_parent.R/DEF-eye.R/DEF-eye.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/eye_parent.R/eye.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/eye_parent.R/eye.R/eye.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/eyes
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/eyes/eyes_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/jaw
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/jaw/tongue_base
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/jaw/tongue_base/DEF-tongue_mid
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/jaw/tongue_base/DEF-tongue_mid/DEF-tongue_tip
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/jaw/tongue_base/DEF-tongue_mid/DEF-tongue_tip/DEF-tongue_tip_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/jaw/tongue_base/tongue_mid
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/jaw/tongue_base/tongue_mid/tongue_tip
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/jaw/tongue_base/tongue_mid/tongue_tip/tongue_tip_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/lolid.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/lolid.L/lolid.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/lolid.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/lolid.R/lolid.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/uplid.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/uplid.L/uplid.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/uplid.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/neck/neck-1/head/uplid.R/uplid.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/scap-parent.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/scap-parent.L/DEF-scapula.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/scap-parent.L/DEF-scapula.L/DEF-scapula.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/scap-parent.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/scap-parent.R/DEF-scapula.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/chest-1/scap-parent.R/DEF-scapula.R/DEF-scapula.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-pect.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-pect.L/breast.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-pect.L/breast.L/breast.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-pect.L/DEF-breast.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-pect.L/DEF-breast.L/DEF-breast.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-pect.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-pect.R/breast.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-pect.R/breast.R/breast.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-pect.R/DEF-breast.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-pect.R/DEF-breast.R/DEF-breast.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-serratus.L
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-serratus.L/DEF-serratus.L_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-serratus.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/chest/DEF-serratus.R/DEF-serratus.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/DEF-chest
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/DEF-chest/DEF-chest-1
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/DEF-chest/DEF-chest-1/DEF-clavicle.R
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/DEF-chest/DEF-chest-1/DEF-clavicle.R/DEF-clavicle.R_end
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/DEF-chest/DEF-chest-1/DEF-neck
+        weight: 1
+      - path: Human_female/master/root/spine/spine-1/DEF-chest/DEF-chest-1/DEF-neck/DEF-neck_end
+        weight: 1
+      - path: Human_female:Body
+        weight: 1
+      - path: Human_female:Braid01
+        weight: 1
+      - path: Human_female:Eyebrow007
+        weight: 1
+      - path: Human_female:Eyelashes03
+        weight: 1
+      - path: Human_female:Female_casualsuit01
+        weight: 1
+      - path: Human_female:Low-poly
+        weight: 1
+      - path: Human_female:Proxy
+        weight: 1
+      - path: Human_female:Teeth_base
+        weight: 1
+      - path: Human_female:Tongue01
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Human_female|StandingWithGun
+      takeName: Human_female|StandingWithGun
+      firstFrame: 0
+      lastFrame: 31
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

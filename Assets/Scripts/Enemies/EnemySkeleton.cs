@@ -3,22 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySkeleton : MonoBehaviour {
+	[SerializeField] private Transform playerTransform;
+	[SerializeField] private float followSpeed = 3.0f;
+	[SerializeField] private float followDistance = 10.0f;
+	[SerializeField] private float attackDistance = 5.0f;
+
 	private Animator anim;
-
-	[SerializeField]
-	private Transform playerTransform;
-
-	[SerializeField]
-	private float followSpeed = 3.0f;
-
-	[SerializeField]
-	private float followDistance = 10.0f;
-
-	[SerializeField]
-	private float attackDistance = 5.0f;
+	private AudioSource audioSource;
 
 	void Start () {
 		anim = GetComponent<Animator> ();
+		audioSource = GetComponent<AudioSource>();
 	}
 
 	void Update () {
@@ -28,6 +23,14 @@ public class EnemySkeleton : MonoBehaviour {
 			activeState (distance);
 		} else {
 			idleState ();
+		}
+	}
+
+	public void OnTriggerEnter(Collider collider) {
+		Destroy destroy = collider.gameObject.GetComponent<Destroy>();
+		if (destroy != null)
+		{
+			audioSource.Play();
 		}
 	}
 

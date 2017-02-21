@@ -6,11 +6,16 @@ namespace weapon
 {
 	public class WeaponSwap : MonoBehaviour
 	{
+		[SerializeField] private PlayerAnimate playerAnimator;
 		[SerializeField] private GameObject backSlot;
 		[SerializeField] private GameObject equippedSlot;
 		[SerializeField] private GameObject weapon;
 		[SerializeField] private UserIO userIO;
 		[SerializeField] private Camera kam;
+
+		void Start() {
+			playerAnimator = GetComponent<PlayerAnimate>();
+		}
 
 		void Update()
 		{
@@ -29,6 +34,7 @@ namespace weapon
 			weapon.transform.SetParent(equippedSlot.transform);
 			weapon.transform.localPosition = Vector3.zero;
 			weapon.transform.localRotation = Quaternion.identity * Quaternion.AngleAxis(180, Vector3.up);
+			playerAnimator.equipWeapon();
 		}
 
 		void putAway()
@@ -36,6 +42,7 @@ namespace weapon
 			weapon.transform.SetParent(backSlot.transform);
 			weapon.transform.localPosition = weapon.transform.parent.localPosition;
 			weapon.transform.localRotation = weapon.transform.parent.localRotation;
+			playerAnimator.sheathWeapon();
 		}
 	}
 

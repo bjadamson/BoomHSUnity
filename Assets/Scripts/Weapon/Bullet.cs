@@ -6,12 +6,12 @@ namespace weapon
 {
 	public class Bullet : MonoBehaviour
 	{
-		public float speed = 5.0f;
+		public float speed = 50.0f;
 
 		public Vector3 Forward = Vector3.zero;
 		void Update()
 		{
-			transform.position += Forward * Time.deltaTime * speed;
+			//transform.position += Forward * Time.deltaTime * speed;
 		}
 	}
 }
