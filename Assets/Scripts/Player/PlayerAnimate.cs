@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimate : MonoBehaviour {
-
 	[SerializeField] private Animator animator;
 	[SerializeField] private float directionDampTime = 0.25f;
 	[SerializeField] private ThirdPersonCamera tpCamera;
@@ -25,26 +24,20 @@ public class PlayerAnimate : MonoBehaviour {
 		if (animator.layerCount >= 2) {
 			animator.SetLayerWeight (1, 1);
 		}
-
 		m_locomotionId = Animator.StringToHash ("Base Layer.Locomotion");
 	}
 
-	void Update () {
+	void Update() {
 		stateInfo = animator.GetCurrentAnimatorStateInfo (0);
-		horizontal = userIO.GetAxis ("Horizontal") * Time.deltaTime * 150.0f;
-		vertical = userIO.GetAxis ("Vertical") * Time.deltaTime * 150.0f;
-
 		StickToWorldspace(transform, tpCamera.transform, ref direction, ref speed);
-		animator.SetBool("Jump", userIO.GetKeyDown (KeyCode.Space));
-		animator.SetFloat ("Speed", speed);
-		animator.SetBool("Strafing", Mathf.Abs(userIO.GetAxis("Horizontal")) > 0.25f);
-		animator.SetBool ("Crouching", userIO.GetKey (KeyCode.LeftControl));
-		animator.SetBool ("Sprinting", userIO.GetKey (KeyCode.LeftShift));
+		setSpeed (speed);
 	}
 
-	void toggleWeaponHolding() {
-		bool isHolding = animator.GetBool("HoldingGun");
-		animator.SetBool("HoldingGun", isHolding ^= true);
+	public void movementUpdates(float horizontal, float vertical, bool strafe) {
+		setJump(userIO.GetKeyDown (KeyCode.Space));
+		setStrafe (strafe);
+		setCrouch (userIO.GetKey (KeyCode.LeftControl));
+		setSprint (userIO.GetKey (KeyCode.LeftShift));
 	}
 
 	public void sheathWeapon() {
@@ -55,6 +48,25 @@ public class PlayerAnimate : MonoBehaviour {
 		animator.SetBool("HoldingGun", true);
 	}
 
+	public void setCrouch(bool value) {
+		animator.SetBool ("Crouching", value);
+	}
+
+	public void setJump(bool value) {
+		animator.SetBool("Jump", value);
+	}
+
+	public void setSpeed(float value) {
+		animator.SetFloat ("Speed", value);
+	}
+
+	public void setStrafe(bool value) {
+		animator.SetBool("Strafing", value);
+	}
+
+	public void setSprint(bool value) {
+		animator.SetBool ("Sprinting", value);
+	}
 
 	void FixedUpdate() {
 		if (IsInLocomotion () && ((direction >= 0 && horizontal >= 0) || (direction < 0 && horizontal < 0))) {
