@@ -103,7 +103,7 @@ namespace ui
 
 				newTab.AddComponent<CanvasRenderer> ();
 				Image image = newTab.AddComponent<Image> ();
-				image.sprite = Resources.Load<Sprite> ("UIButton");
+				image.sprite = Resources.Load<Sprite> ("UI/UIButton");
 				Debug.Assert (image.sprite != null);
 				image.color = tabBgColor;
 				image.type = Image.Type.Sliced;

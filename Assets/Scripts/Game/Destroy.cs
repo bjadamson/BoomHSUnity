@@ -7,7 +7,7 @@ public class Destroy : MonoBehaviour {
 	private ParticleSystem particleSystem;
 
 	void Start() {
-		particleSystem = Resources.Load<ParticleSystem>("Prefabs/Ultra Emissive Particles Shader/Prefabs/Sparks");
+		particleSystem = Resources.Load<ParticleSystem>("Effects/BulletSparks");
 		Debug.Assert(particleSystem != null);
 	}
 
