@@ -7,18 +7,21 @@ namespace weapon
 {
 	public class Weapon : MonoBehaviour
 	{
-		[SerializeField] public UserIO UserIO;
 		[SerializeField] public Camera Kamera;
 
 		[SerializeField] public float BulletDistance = 10.0f;
 		[SerializeField] public float BulletSpeed = 100.0f;
+		[SerializeField] public uint MaximumAmmoCount = 30;
 
 		public GameObject BulletShootAnchor;
+		public GameObject PlayerBackWeaponSlot;
+	
+		public uint AmmoCount = 5;
+
 		private AudioSource ShootSound;
-		private GameObject go;
 
 		void Start() {
-			go = (GameObject)Instantiate(Resources.Load("Weapons/Ak-47"), transform);
+			GameObject go = (GameObject)Instantiate(Resources.Load("Weapons/Ak-47"), transform);
 			Debug.Assert(go != null);
 			go.transform.SetParent(transform);
 
@@ -37,6 +40,10 @@ namespace weapon
 
 		public void shoot()
 		{
+			if (this.AmmoCount == 0)
+			{
+				return;
+			}
 			GameObject bulletGO = (GameObject)Instantiate(Resources.Load("Bullet"), BulletShootAnchor.transform.position, BulletShootAnchor.transform.rotation);
 			Debug.Assert(bulletGO != null);
 
@@ -49,6 +56,12 @@ namespace weapon
 
 			Debug.DrawRay(bulletGO.transform.position, bulletGO.transform.forward * 30, Color.yellow);
 			this.ShootSound.Play();
+
+			--this.AmmoCount;
+		}
+
+		public void reload() {
+			this.AmmoCount = this.MaximumAmmoCount;
 		}
 	}
 }

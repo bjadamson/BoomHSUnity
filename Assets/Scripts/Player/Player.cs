@@ -9,66 +9,95 @@ namespace player
 		[SerializeField] private UserIO userIO;
 		[SerializeField] private Camera kamera;
 		[SerializeField] public CrosshairControl CrosshairControl;
+		[SerializeField] private GameObject BackWeaponSlot0;
 		[SerializeField] private GameObject BackWeaponSlot1;
+		[SerializeField] private GameObject BackWeaponSlot2;
 
-		[SerializeField] private GameObject backSlot;
 		[SerializeField] private GameObject equippedSlot;
 
+
+		private WeaponFactory weaponFactory = new WeaponFactory();
 		private PlayerAnimate playerAnimator;
-		private Weapon weapon;
+		private Inventory inventory;
 		private CrosshairControl crosshairAnimator;
 
 		// state
-		private bool weaponEquipped = false;
+		private Weapon activeWeapon;
 
 		void Start() {
-			GameObject go = new GameObject("PlayerWeapon");
-			go.transform.SetParent(BackWeaponSlot1.transform);
-			go.transform.localPosition = Vector3.zero;
-			go.transform.localRotation = Quaternion.identity;
-			go.transform.localScale = Vector3.one;
-
+			inventory = gameObject.AddComponent<Inventory>();
 			playerAnimator = GetComponent<PlayerAnimate>();
 
-			weapon = go.AddComponent<Weapon>();
-			weapon.UserIO = this.userIO;
-			weapon.Kamera = this.kamera;
+			var weapon0 = weaponFactory.makeWeapon(BackWeaponSlot0, this.kamera);
+			inventory.addWeapon(weapon0);
+
+			var weapon1 = weaponFactory.makeWeapon(BackWeaponSlot1, this.kamera);
+			inventory.addWeapon(weapon1);
+
+			var weapon2 = weaponFactory.makeWeapon(BackWeaponSlot2, this.kamera);
+			inventory.addWeapon(weapon2);
 		}
 
 		void Update()
 		{
-			if (userIO.GetKeyDown(KeyCode.Alpha1))
+			if (userIO.GetKeyDown(KeyCode.BackQuote))
 			{
-				equipWeapon();
+				equipFists();
+				playerAnimator.sheathWeapon();
 			}
-			else if (userIO.GetKeyDown(KeyCode.BackQuote))
+			else if (userIO.GetKeyDown(KeyCode.Alpha1))
 			{
-				putAwayWeapon();
+				equipFists();
+				equipWeaponSlot(0);
 			}
-
-			if (userIO.GetButtonDown("Fire1") && weaponEquipped)
+			else if (userIO.GetKeyDown(KeyCode.Alpha2))
 			{
-				weapon.shoot();
+				equipFists();
+				equipWeaponSlot(1);
+			}
+			else if (userIO.GetKeyDown(KeyCode.Alpha3))
+			{
+				equipFists();
+				equipWeaponSlot(2);
+			}
+			else if (userIO.GetKeyDown(KeyCode.R))
+			{
+				reloadWeapon();
+			}
+				
+			if (userIO.GetButtonDown("Fire1") && (activeWeapon != null))
+			{
+				activeWeapon.shoot();
 				CrosshairControl.animate();
 			}
 		}
 
-		private void equipWeapon()
+		private void reloadWeapon() {
+			activeWeapon.reload();
+		}
+
+		private void equipWeaponSlot(int index)
 		{
-			weaponEquipped = true;
+			var weapon = inventory.getWeapon(index);
+			activeWeapon = weapon;
+
 			weapon.transform.SetParent(equippedSlot.transform);
 			weapon.transform.localPosition = Vector3.zero;
 			weapon.transform.localRotation = Quaternion.identity * Quaternion.AngleAxis(180, Vector3.up);
 			playerAnimator.equipWeapon();
 		}
 
-		private void putAwayWeapon()
+		private void equipFists()
 		{
-			weaponEquipped = false;
-			weapon.transform.SetParent(backSlot.transform);
-			weapon.transform.localPosition = weapon.transform.parent.localPosition;
-			weapon.transform.localRotation = weapon.transform.parent.localRotation;
-			playerAnimator.sheathWeapon();
+			if (activeWeapon == null)
+			{
+				return;
+			}
+			activeWeapon.transform.SetParent(activeWeapon.PlayerBackWeaponSlot.transform);
+			activeWeapon.transform.localPosition = Vector3.zero;
+			activeWeapon.transform.localRotation = Quaternion.identity;
+
+			activeWeapon = null;
 		}
 	}
 }

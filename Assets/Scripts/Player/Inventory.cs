@@ -7,8 +7,14 @@ namespace player
 {
 	public class Inventory : MonoBehaviour
 	{
-		// TODO: This doesn't belong here, at all.
-		private WeaponFactory weaponFactory = new WeaponFactory();
-		//private readonly IList<
+		private readonly IList<Weapon> weapons = new List<Weapon>();
+
+		public void addWeapon(Weapon weapon) {
+			weapons.Add(weapon);
+		}
+
+		public Weapon getWeapon(int index) {
+			return weapons[index];
+		}
 	}
 }
