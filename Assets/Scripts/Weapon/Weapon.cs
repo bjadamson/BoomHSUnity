@@ -13,6 +13,7 @@ namespace weapon
 		[SerializeField] public float BulletSpeed = 100.0f;
 		[SerializeField] public uint MaximumAmmoCount = 30;
 
+		public string PrefabPath;
 		public GameObject BulletShootAnchor;
 		public GameObject PlayerBackWeaponSlot;
 	
@@ -24,7 +25,7 @@ namespace weapon
 		private AudioSource ReloadSound;
 
 		void Start() {
-			GameObject go = (GameObject)Instantiate(Resources.Load("Weapons/Ak-47"), transform);
+			GameObject go = (GameObject)Instantiate(Resources.Load(PrefabPath), transform);
 			Debug.Assert(go != null);
 			go.transform.SetParent(transform);
 
@@ -73,20 +74,27 @@ namespace weapon
 			--this.AmmoCount;
 		}
 
-		public void tryReload() {
-			if (isClipFull())
-			{
-				this.ClipFull.Play();
-			}
-			else
-			{
-				this.ReloadSound.Play();
-				this.AmmoCount = this.MaximumAmmoCount;
-			}
+		public void playClipFullSound() {
+			this.ClipFull.Play();
+		}
+
+		public void playReloadAnimation() {
+			this.ReloadSound.Play();
+		}
+
+		public void reloadAmmo() {
+			this.AmmoCount = this.MaximumAmmoCount;
 		}
 
 		public bool isClipFull() {
 			return this.AmmoCount == this.MaximumAmmoCount;
+		}
+
+		public void stopAnimations() {
+			this.ClipEmptySound.Stop();
+			this.ClipFull.Stop();
+			this.ReloadSound.Stop();
+			this.ShootSound.Stop();
 		}
 	}
 }

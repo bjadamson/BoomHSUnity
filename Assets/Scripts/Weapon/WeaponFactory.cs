@@ -9,7 +9,7 @@ namespace weapon
 	{
 		private uint weaponId = 0;
 
-		public Weapon makeWeapon(GameObject parent, Camera kamera) {
+		public Weapon makeWeapon(GameObject parent, Camera kamera, string prefabPath) {
 			GameObject go = new GameObject("PlayerWeapon" + weaponId);
 			++weaponId;
 			go.transform.SetParent(parent.gameObject.transform);
@@ -18,6 +18,7 @@ namespace weapon
 			go.transform.localScale = Vector3.one;
 
 			var weapon = go.AddComponent<Weapon>();
+			weapon.PrefabPath = prefabPath;
 			weapon.Kamera = kamera;
 			weapon.PlayerBackWeaponSlot = parent;
 			return weapon;

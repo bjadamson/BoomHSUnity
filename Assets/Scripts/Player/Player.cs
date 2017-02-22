@@ -14,6 +14,7 @@ namespace player
 		[SerializeField] private GameObject BackWeaponSlot2;
 		[SerializeField] private GameObject equippedSlot;
 		[SerializeField] private GameObject guiAmmoPanel;
+		[SerializeField] private float reloadTime = 1.5f;
 
 		private WeaponFactory weaponFactory = new WeaponFactory();
 		private PlayerAnimate playerAnimator;
@@ -22,18 +23,20 @@ namespace player
 
 		// state
 		private Weapon activeWeapon;
+		private bool startedReloading = false;
+		private float timeWhenReloadingFinished = 0.0f;
 
 		void Start() {
 			inventory = gameObject.AddComponent<Inventory>();
 			playerAnimator = GetComponent<PlayerAnimate>();
 
-			var weapon0 = weaponFactory.makeWeapon(BackWeaponSlot0, this.kamera);
+			var weapon0 = weaponFactory.makeWeapon(BackWeaponSlot0, this.kamera, "Weapons/Ak-47");
 			inventory.addWeapon(weapon0);
 
-			var weapon1 = weaponFactory.makeWeapon(BackWeaponSlot1, this.kamera);
+			var weapon1 = weaponFactory.makeWeapon(BackWeaponSlot1, this.kamera, "Weapons/Ak-47");
 			inventory.addWeapon(weapon1);
 
-			var weapon2 = weaponFactory.makeWeapon(BackWeaponSlot2, this.kamera);
+			var weapon2 = weaponFactory.makeWeapon(BackWeaponSlot2, this.kamera, "Weapons/M4A1 Sopmod");
 			inventory.addWeapon(weapon2);
 		}
 
@@ -59,16 +62,46 @@ namespace player
 				equipFists();
 				equipWeaponSlot(2);
 			}
-			else if (userIO.GetKeyDown(KeyCode.R))
+				
+			if (userIO.GetKeyDown(KeyCode.R))
 			{
-				reloadWeapon();
+				if (isWeaponEquipped())
+				{
+					if (activeWeapon.isClipFull())
+					{
+						activeWeapon.playClipFullSound();
+					}
+					else if (!startedReloading)
+					{
+						startedReloading = true;
+						activeWeapon.playReloadAnimation();
+						timeWhenReloadingFinished = Time.time + reloadTime;
+					}
+				}
+			}
+			else if (startedReloading && isReloadingAnimationFinished())
+			{
+				stopReloading();
+				activeWeapon.reloadAmmo();
 			}
 				
-			if (userIO.GetButtonDown("Fire1") && (activeWeapon != null))
+			if (userIO.GetButtonDown("Fire1") && (activeWeapon != null) && !startedReloading)
 			{
 				activeWeapon.shoot();
 				CrosshairControl.animate();
 			}
+		}
+
+		private void stopReloading() {
+			startedReloading = false;
+			if (activeWeapon != null)
+			{
+				activeWeapon.stopAnimations();
+			}
+		}
+
+		private bool isReloadingAnimationFinished() {
+			return timeWhenReloadingFinished < Time.time;
 		}
 
 		public bool isWeaponEquipped() {
@@ -83,14 +116,6 @@ namespace player
 			return activeWeapon.MaximumAmmoCount;
 		}
 
-		private void reloadWeapon() {
-			if (!isWeaponEquipped())
-			{
-				return;
-			}
-			activeWeapon.tryReload();
-		}
-
 		private void equipWeaponSlot(int index)
 		{
 			var weapon = inventory.getWeapon(index);
@@ -99,6 +124,8 @@ namespace player
 			weapon.transform.SetParent(equippedSlot.transform);
 			weapon.transform.localPosition = Vector3.zero;
 			weapon.transform.localRotation = Quaternion.identity * Quaternion.AngleAxis(180, Vector3.up);
+
+			stopReloading();
 			playerAnimator.equipWeapon();
 		}
 
