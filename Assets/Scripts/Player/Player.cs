@@ -12,9 +12,8 @@ namespace player
 		[SerializeField] private GameObject BackWeaponSlot0;
 		[SerializeField] private GameObject BackWeaponSlot1;
 		[SerializeField] private GameObject BackWeaponSlot2;
-
 		[SerializeField] private GameObject equippedSlot;
-
+		[SerializeField] private GameObject guiAmmoPanel;
 
 		private WeaponFactory weaponFactory = new WeaponFactory();
 		private PlayerAnimate playerAnimator;
@@ -72,8 +71,20 @@ namespace player
 			}
 		}
 
+		public bool isWeaponEquipped() {
+			return null != activeWeapon;
+		}
+
+		public uint equippedWeaponAmmoCount() {
+			return activeWeapon.AmmoCount;
+		}
+
+		public uint equippedWeaponMaxAmmo() {
+			return activeWeapon.MaximumAmmoCount;
+		}
+
 		private void reloadWeapon() {
-			if (null == activeWeapon)
+			if (!isWeaponEquipped())
 			{
 				return;
 			}
@@ -93,7 +104,7 @@ namespace player
 
 		private void equipFists()
 		{
-			if (activeWeapon == null)
+			if (!isWeaponEquipped())
 			{
 				return;
 			}
