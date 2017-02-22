@@ -73,7 +73,11 @@ namespace player
 		}
 
 		private void reloadWeapon() {
-			activeWeapon.reload();
+			if (null == activeWeapon)
+			{
+				return;
+			}
+			activeWeapon.tryReload();
 		}
 
 		private void equipWeaponSlot(int index)

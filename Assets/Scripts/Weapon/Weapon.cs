@@ -19,6 +19,9 @@ namespace weapon
 		public uint AmmoCount = 5;
 
 		private AudioSource ShootSound;
+		private AudioSource ClipEmptySound;
+		private AudioSource ClipFull;
+		private AudioSource ReloadSound;
 
 		void Start() {
 			GameObject go = (GameObject)Instantiate(Resources.Load("Weapons/Ak-47"), transform);
@@ -34,14 +37,24 @@ namespace weapon
 			this.BulletShootAnchor.transform.localRotation = Quaternion.identity;
 			this.BulletShootAnchor.transform.localScale = Vector3.one;
 
+			this.ClipEmptySound = gameObject.AddComponent<AudioSource>();
+			this.ClipEmptySound.clip = Resources.Load<AudioClip>("audio/clip_empty");
+
+			this.ClipFull = gameObject.AddComponent<AudioSource>();
+			this.ClipFull.clip = Resources.Load<AudioClip>("audio/clip_full");
+
 			this.ShootSound = gameObject.AddComponent<AudioSource>();
 			this.ShootSound.clip = Resources.Load<AudioClip>("audio/gunshoot");
+
+			this.ReloadSound = gameObject.AddComponent<AudioSource>();
+			this.ReloadSound.clip = Resources.Load<AudioClip>("audio/reload");
 		}
 
 		public void shoot()
 		{
 			if (this.AmmoCount == 0)
 			{
+				this.ClipEmptySound.Play();
 				return;
 			}
 			GameObject bulletGO = (GameObject)Instantiate(Resources.Load("Bullet"), BulletShootAnchor.transform.position, BulletShootAnchor.transform.rotation);
@@ -60,8 +73,20 @@ namespace weapon
 			--this.AmmoCount;
 		}
 
-		public void reload() {
-			this.AmmoCount = this.MaximumAmmoCount;
+		public void tryReload() {
+			if (isClipFull())
+			{
+				this.ClipFull.Play();
+			}
+			else
+			{
+				this.ReloadSound.Play();
+				this.AmmoCount = this.MaximumAmmoCount;
+			}
+		}
+
+		public bool isClipFull() {
+			return this.AmmoCount == this.MaximumAmmoCount;
 		}
 	}
 }
