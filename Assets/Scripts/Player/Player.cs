@@ -9,7 +9,6 @@ namespace player
 		[SerializeField] private UserIO userIO;
 		[SerializeField] private Camera kamera;
 		[SerializeField] public CrosshairControl CrosshairControl;
-		[SerializeField] private AudioSource ShootGunAudioSource;
 		[SerializeField] private GameObject BackWeaponSlot1;
 
 		[SerializeField] private GameObject backSlot;
@@ -34,7 +33,6 @@ namespace player
 			weapon = go.AddComponent<Weapon>();
 			weapon.UserIO = this.userIO;
 			weapon.Kamera = this.kamera;
-			weapon.ShootSound = this.ShootGunAudioSource;
 		}
 
 		void Update()

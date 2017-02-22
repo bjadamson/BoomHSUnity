@@ -14,21 +14,25 @@ namespace weapon
 		[SerializeField] public float BulletSpeed = 100.0f;
 
 		public GameObject BulletShootAnchor;
-		public AudioSource ShootSound;
+		private AudioSource ShootSound;
 		private GameObject go;
 
 		void Start() {
 			go = (GameObject)Instantiate(Resources.Load("Weapons/Ak-47"), transform);
+			Debug.Assert(go != null);
+			go.transform.SetParent(transform);
 
 			float scaleFactor = 0.34203f;
 			go.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-			Debug.Assert(go != null);
-			go.transform.SetParent(transform);
+
 			this.BulletShootAnchor = new GameObject("BulletShootAnchor");
 			this.BulletShootAnchor.transform.SetParent(transform);
 			this.BulletShootAnchor.transform.localPosition = new Vector3(0.008f, 0, 0.265f);
 			this.BulletShootAnchor.transform.localRotation = Quaternion.identity;
 			this.BulletShootAnchor.transform.localScale = Vector3.one;
+
+			this.ShootSound = gameObject.AddComponent<AudioSource>();
+			this.ShootSound.clip = Resources.Load<AudioClip>("audio/gunshoot");
 		}
 
 		public void shoot()
