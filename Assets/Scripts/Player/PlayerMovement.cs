@@ -9,16 +9,21 @@ namespace player
 		[SerializeField] private float movementSpeed = 10.0f;
 		[SerializeField] private float jumpForce = 500.0f;
 		[SerializeField] private UserIO userIO;
-		[SerializeField] private Camera kam;
+
 		private PlayerAnimate animator;
+		private PlayerCrouchStand crouchStand;
+		private CapsuleCollider capsuleCollider;
 		private Rigidbody rigidBody;
 
 		private float timeUntilJumpingAllowed = 0.0f;
 		private float distanceToGround;
+		private bool isCrouching = false;
 
 		void Start()
 		{
 			animator = GetComponent<PlayerAnimate>();
+			capsuleCollider = GetComponent<CapsuleCollider>();
+			crouchStand = GetComponent<PlayerCrouchStand>();
 			rigidBody = GetComponent<Rigidbody>();
 			distanceToGround = GetComponent<Collider>().bounds.extents.y;
 		}
@@ -45,6 +50,7 @@ namespace player
 			{
 				Invoke("jump", 0.5f);
 			}
+			crouchStand.crouchStandOverTime(userIO.GetKey(KeyCode.LeftControl));
 		}
 
 		private void jump()
