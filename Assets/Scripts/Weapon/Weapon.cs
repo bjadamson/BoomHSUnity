@@ -96,5 +96,13 @@ namespace weapon
 			this.ReloadSound.Stop();
 			this.ShootSound.Stop();
 		}
+
+		public void hideFromFpsCamera() {
+			gameObject.layer = 8; // player layer
+		}
+
+		public void showToFpsCamera() {
+			gameObject.layer = 0;
+		}
 	}
 }

@@ -124,6 +124,7 @@ namespace player
 			weapon.transform.SetParent(equippedSlot.transform);
 			weapon.transform.localPosition = Vector3.zero;
 			weapon.transform.localRotation = Quaternion.identity * Quaternion.AngleAxis(180, Vector3.up);
+			weapon.showToFpsCamera();
 
 			stopReloading();
 			playerAnimator.equipWeapon();
@@ -138,6 +139,7 @@ namespace player
 			activeWeapon.transform.SetParent(activeWeapon.PlayerBackWeaponSlot.transform);
 			activeWeapon.transform.localPosition = Vector3.zero;
 			activeWeapon.transform.localRotation = Quaternion.identity;
+			activeWeapon.hideFromFpsCamera();
 
 			activeWeapon = null;
 		}
