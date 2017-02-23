@@ -7,7 +7,7 @@ namespace player
 	public class PlayerCrouchStand : MonoBehaviour
 	{
 		[SerializeField] private GameObject head;
-		[SerializeField] private float crouchingAmount = 0.47f;
+		[SerializeField] private float crouchingAmount = 0.8f;
 
 		private CapsuleCollider capsuleCollider;
 		private bool isCrouching = false;
