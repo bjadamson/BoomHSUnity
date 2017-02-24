@@ -7,7 +7,7 @@ public class ThirdPersonCamera : MonoBehaviour
 	[SerializeField] public Transform player;
 	[SerializeField] public Transform playerHead;
 	[SerializeField] private float smooth;
-	[SerializeField] private float mouseSensitivity = 5.0f;
+	private float mouseSensitivity = 1.0f;
 
 	private Vector3 cameraSmoothVelocity = Vector3.zero;
 	private bool freeLookMode = false;
@@ -34,8 +34,8 @@ public class ThirdPersonCamera : MonoBehaviour
 			transform.localRotation = prevRotation;
 		}
 		Vector2 mouseAxis = getMouseAxis();
-		verticalRot = mouseAxis.y * mouseSensitivity;
-		horizontalRot = mouseAxis.x * mouseSensitivity;
+		verticalRot = mouseAxis.y;
+		horizontalRot = mouseAxis.x;
 	}
 
 
@@ -66,37 +66,13 @@ public class ThirdPersonCamera : MonoBehaviour
 	private void normalTransformUpdate()
 	{
 		player.RotateAround(player.position, Vector3.up, horizontalRot);
+		transform.RotateAround(playerHead.position, playerHead.right, -verticalRot);
 
-		Vector3 verticalOrientation = Vector3.right;
-
-		Debug.DrawRay(playerHead.position, playerHead.right * 30, Color.red);
-		Debug.DrawRay(playerHead.position, playerHead.forward * 30, Color.green);
-		//transform.RotateAround(playerHead.position, verticalOrientation, verticalRot);
-
-		//if (withinThreshold(playerHead.up, transform.up))
-		//{
+		if (withinThreshold(transform.up, Vector3.up))
+		{
 			// Rotated too far, rotate back
-		//	transform.RotateAround(playerHead.position, verticalOrientation, -verticalRot);
-		//}
-
-		//Vector3 rot = transform.localRotation.eulerAngles;
-		//rot.x -= verticalRot;
-
-		//if (rot.x >= 0.0f && rot.x <= 360.0f)
-		//{
-		//	transform.localRotation = Quaternion.Euler(rot);
-		//}
-
-		//Vector3 pos = transform.localPosition;
-		//pos.y += (-verticalRot) / 100;
-		//transform.localPosition = pos;
-
-		//transform.RotateAround(playerHead.position, verticalOrientation, -verticalRot);
-		//if (withinThreshold(playerHead.up, transform.up))
-		//{
-			// Rotated too far, rotate back
-		//	transform.RotateAround(playerHead.position, verticalOrientation, verticalRot);
-		//}
+			transform.RotateAround(playerHead.position, playerHead.right, verticalRot);
+		}
 	}
 
 	private Vector2 getMouseAxis()
@@ -107,7 +83,7 @@ public class ThirdPersonCamera : MonoBehaviour
 		return new Vector2(horizontal * Time.deltaTime * multiplier, vertical * Time.deltaTime * multiplier);
 	}
 
-	private bool withinThreshold(Vector3 a, Vector3 b)
+	private static bool withinThreshold(Vector3 a, Vector3 b)
 	{
 		const float DELTA = 0.05f;
 		return Vector3.Dot(a, b) < DELTA;
