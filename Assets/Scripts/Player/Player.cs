@@ -7,6 +7,7 @@ namespace player
 {
 	public class Player : MonoBehaviour
 	{
+		[SerializeField] private GameObject PlayerGO;
 		[SerializeField] private UserIO userIO;
 		[SerializeField] private Camera kamera;
 		[SerializeField] private Freelook cameraFreelook;
@@ -48,7 +49,7 @@ namespace player
 			if (!cameraFreelook.IsFreelookModeActive())
 			{
 				// rotate around local axis
-				transform.RotateAround(transform.position, transform.up, Input.GetAxis("Mouse X") * 150 * Time.deltaTime);
+				PlayerGO.transform.RotateAround(PlayerGO.transform.position, PlayerGO.transform.up, Input.GetAxis("Mouse X") * 150 * Time.deltaTime);
 			}
 
 			if (userIO.GetKeyDown(KeyCode.BackQuote))

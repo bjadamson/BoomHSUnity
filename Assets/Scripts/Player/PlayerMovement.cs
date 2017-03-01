@@ -6,11 +6,12 @@ namespace player
 {
 	public class PlayerMovement : MonoBehaviour
 	{
+		[SerializeField] private GameObject PlayerGO;
 		[SerializeField] private float movementSpeed = 10.0f;
 		[SerializeField] private float jumpForce = 500.0f;
 		[SerializeField] private UserIO userIO;
 
-		private PlayerAnimate animator;
+		private PlayerAnimate playerAnimate;
 		private PlayerCrouchStand crouchStand;
 		private CapsuleCollider capsuleCollider;
 		private Rigidbody rigidBody;
@@ -21,11 +22,11 @@ namespace player
 
 		void Start()
 		{
-			animator = GetComponent<PlayerAnimate>();
-			capsuleCollider = GetComponent<CapsuleCollider>();
+			playerAnimate = GetComponent<PlayerAnimate>();
+			capsuleCollider = PlayerGO.GetComponent<CapsuleCollider>();
 			crouchStand = GetComponent<PlayerCrouchStand>();
-			rigidBody = GetComponent<Rigidbody>();
-			distanceToGround = GetComponent<Collider>().bounds.extents.y;
+			rigidBody = PlayerGO.GetComponent<Rigidbody>();
+			distanceToGround = PlayerGO.GetComponent<Collider>().bounds.extents.y;
 		}
 
 		void FixedUpdate()
@@ -37,14 +38,14 @@ namespace player
 			float horizontal = horizontalAxis * timeMultiplier;
 			float vertical = verticalAxis * timeMultiplier;
 
-			Vector3 movement = (transform.forward * vertical) + (transform.right * horizontal);
-			transform.Translate(movement, Space.World);
+			Vector3 movement = (PlayerGO.transform.forward * vertical) + (PlayerGO.transform.right * horizontal);
+			PlayerGO.transform.Translate(movement, Space.World);
 
 			bool strafeAnimation = Mathf.Abs(horizontalAxis) > 0.25f;
 			bool canJump = isOnGround() && (timeUntilJumpingAllowed < Time.time);
 			bool isJumping = userIO.GetKeyDown(KeyCode.Space) && canJump;
 
-			animator.updateAnimations(horizontal, vertical, verticalAxis, isJumping, strafeAnimation);
+			playerAnimate.updateAnimations(horizontal, vertical, verticalAxis, isJumping, strafeAnimation);
 
 			if (isJumping)
 			{

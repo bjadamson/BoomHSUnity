@@ -6,6 +6,7 @@ namespace player
 {
 	public class PlayerCrouchStand : MonoBehaviour
 	{
+		[SerializeField] private GameObject PlayerGO;
 		[SerializeField] private GameObject head;
 		[SerializeField] private float crouchingAmount = 0.8f;
 
@@ -14,7 +15,7 @@ namespace player
 
 		void Start()
 		{
-			capsuleCollider = GetComponent<CapsuleCollider>();
+			capsuleCollider = PlayerGO.GetComponent<CapsuleCollider>();
 		}
 
 		public void crouchStandOverTime(bool crouchPressed) {
