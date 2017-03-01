@@ -7,11 +7,6 @@ namespace weapon
 {
 	public class WeaponBehavior : MonoBehaviour
 	{
-		[SerializeField] public Camera Kamera;
-
-		[SerializeField] public float BulletDistance = 10.0f;
-		[SerializeField] public float BulletSpeed = 100.0f;
-
 		public string PrefabPath;
 		public GameObject BulletShootAnchor;
 		public GameObject PlayerBackWeaponSlot;
@@ -20,6 +15,8 @@ namespace weapon
 		private AudioSource ClipEmptySound;
 		private AudioSource ClipFull;
 		private AudioSource ReloadSound;
+
+		private ParticleSystem ParticleSystem;
 
 		void Start() {
 			GameObject go = (GameObject)Instantiate(Resources.Load(PrefabPath), transform);
@@ -46,20 +43,26 @@ namespace weapon
 
 			this.ReloadSound = gameObject.AddComponent<AudioSource>();
 			this.ReloadSound.clip = Resources.Load<AudioClip>("audio/reload");
+
+			ParticleSystem = Resources.Load<ParticleSystem>("Prefabs/Effects/MuzzleFlare");
+			Debug.Assert(ParticleSystem != null);
 		}
 
-		public void shoot()
+		public void shoot(float bulletDistance, float bulletSpeed)
 		{
-			GameObject bulletGO = (GameObject)Instantiate(Resources.Load("Bullet"), BulletShootAnchor.transform.position, BulletShootAnchor.transform.rotation);
+			GameObject bulletGO = (GameObject)Instantiate(Resources.Load("Prefabs/Bullet"), BulletShootAnchor.transform.position, BulletShootAnchor.transform.rotation);
 			Debug.Assert(bulletGO != null);
 
-			var pos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, this.BulletDistance);
-			Vector3 clickedLocationWorldSpace = this.Kamera.ScreenToWorldPoint(pos);
+			var mousePos = Input.mousePosition;
+			mousePos.z = bulletDistance;
+			Vector3 clickedLocationWorldSpace = Camera.main.ScreenToWorldPoint(mousePos);
 			bulletGO.transform.LookAt(clickedLocationWorldSpace);
 
 			Rigidbody rb = bulletGO.GetComponent<Rigidbody>();
-			rb.AddForce(bulletGO.transform.forward * BulletSpeed);
+			rb.AddForce(bulletGO.transform.forward * bulletSpeed);
 
+			BulletSparks.SpawnSparks(this.gameObject, this.ParticleSystem);
+			bulletGO.tag = "Bullet";
 			Debug.DrawRay(bulletGO.transform.position, bulletGO.transform.forward * 30, Color.yellow);
 			this.ShootSound.Play();
 		}

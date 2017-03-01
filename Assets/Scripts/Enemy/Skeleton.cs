@@ -50,8 +50,7 @@ namespace enemy
 				return;
 			}
 
-			Destroy destroy = collider.gameObject.GetComponent<Destroy>();
-			if (destroy != null)
+			if (collider.tag == "Bullet")
 			{
 				audioSource.Play();
 				Damage(25);
@@ -126,5 +125,4 @@ namespace enemy
 			Destroy(gameObject);
 		}
 	}
-
 }

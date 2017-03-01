@@ -11,8 +11,10 @@ namespace weapon
 		public readonly bool IsFullyAutomatic;
 		public readonly string Name;
 
+		public float BulletDistance = 100.0f;
+		public float BulletSpeed = 10.0f;
 		public readonly uint MaximumAmmoCount = 30;
-		public uint AmmoCount = 5;
+		public uint AmmoCount = 30;
 
 		public Weapon(WeaponBehavior weaponBehavior, string name, bool fullyAutomatic) {
 			this.WeaponBehavior = weaponBehavior;
@@ -28,7 +30,7 @@ namespace weapon
 				return;
 			}
 
-			this.WeaponBehavior.shoot();
+			this.WeaponBehavior.shoot(this.BulletDistance, this.BulletSpeed);
 			--this.AmmoCount;
 		}
 

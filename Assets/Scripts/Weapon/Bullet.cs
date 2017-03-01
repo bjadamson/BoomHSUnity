@@ -1,17 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-namespace weapon
+public class Bullet : MonoBehaviour
 {
-	public class Bullet : MonoBehaviour
-	{
-		public float speed = 50.0f;
+	public float LifetimeIfNoCollisions = 3.0f;
+	private float timeWhenToDestroy = 0.0f;
 
-		public Vector3 Forward = Vector3.zero;
-		void Update()
+	private ParticleSystem particleSystem;
+
+	void Start() {
+		timeWhenToDestroy = Time.time + LifetimeIfNoCollisions;
+
+		particleSystem = Resources.Load<ParticleSystem>("Prefabs/Effects/BulletHitSparks");
+		Debug.Assert(particleSystem != null);
+	}
+
+	void Update() {
+		if (timeWhenToDestroy > Time.time)
 		{
-			//transform.position += Forward * Time.deltaTime * speed;
+			return;
 		}
+
+		removeSelfFromScene();
+	}
+		
+	void OnTriggerEnter(Collider collider)
+	{
+		if (collider.tag == "Enemy")
+		{
+			BulletSparks.SpawnSparks(gameObject, this.particleSystem);
+		}
+	}
+
+	private void removeSelfFromScene() {
+		Destroy(gameObject);
 	}
 }

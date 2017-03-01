@@ -9,7 +9,6 @@ namespace player
 	{
 		[SerializeField] private GameObject PlayerGO;
 		[SerializeField] private UserIO userIO;
-		[SerializeField] private Camera kamera;
 		[SerializeField] private Freelook cameraFreelook;
 		[SerializeField] public CrosshairControl CrosshairControl;
 		[SerializeField] private GameObject BackWeaponSlot0;
@@ -37,13 +36,13 @@ namespace player
 			inventory = gameObject.AddComponent<Inventory>();
 			playerAnimator = GetComponent<PlayerAnimate>();
 
-			var weapon0 = weaponFactory.makeAk47(BackWeaponSlot0, this.kamera);
+			var weapon0 = weaponFactory.makeAk47(BackWeaponSlot0);
 			inventory.addWeapon(weapon0);
 
-			var weapon1 = weaponFactory.makeAk47(BackWeaponSlot1, this.kamera);
+			var weapon1 = weaponFactory.makeAk47(BackWeaponSlot1);
 			inventory.addWeapon(weapon1);
 
-			var weapon2 = weaponFactory.makeM4A1(BackWeaponSlot2, this.kamera);
+			var weapon2 = weaponFactory.makeM4A1(BackWeaponSlot2);
 			inventory.addWeapon(weapon2);
 		}
 
@@ -96,17 +95,20 @@ namespace player
 					stopReloading();
 					activeWeapon.reloadAmmo();
 				}
-				
-				if (userIO.GetButtonDown("Fire1") && !startedReloading)
+
+				if (!startedReloading)
 				{
-					shootWeapon();
-				}
-				else if (userIO.GetButton("Fire1") && activeWeapon.IsFullyAutomatic)
-				{
-					if (timeWhenCanContinueShooting <= Time.time)
+					if (userIO.GetButtonDown("Fire1") && !activeWeapon.IsFullyAutomatic)
 					{
 						shootWeapon();
-						timeWhenCanContinueShooting = Time.time + 0.2f;
+					}
+					else if (userIO.GetButton("Fire1") && activeWeapon.IsFullyAutomatic)
+					{
+						if (timeWhenCanContinueShooting <= Time.time)
+						{
+							shootWeapon();
+							timeWhenCanContinueShooting = Time.time + 0.2f;
+						}
 					}
 				}
 			}

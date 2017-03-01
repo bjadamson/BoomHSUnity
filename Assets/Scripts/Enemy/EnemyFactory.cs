@@ -36,8 +36,8 @@ namespace enemy
 			skeletonGO.transform.localRotation = Quaternion.identity;
 			skeletonGO.transform.localScale = Vector3.one * 10;
 
+			skeletonGO.tag = "Enemy";
 			skeletonGO.transform.position = transform.position;
-
 			skeletonGO.GetComponent<Skeleton>().PlayerTransform = playerTransform;
 
 			// always last
