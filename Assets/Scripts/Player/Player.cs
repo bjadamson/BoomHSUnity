@@ -34,13 +34,13 @@ namespace player
 			inventory = gameObject.AddComponent<Inventory>();
 			playerAnimator = GetComponent<PlayerAnimate>();
 
-			var weapon0 = weaponFactory.makeWeapon(BackWeaponSlot0, this.kamera, "Weapons/Ak-47");
+			var weapon0 = weaponFactory.makeWeapon(BackWeaponSlot0, this.kamera, "Prefabs/Weapons/Ak-47");
 			inventory.addWeapon(weapon0);
 
-			var weapon1 = weaponFactory.makeWeapon(BackWeaponSlot1, this.kamera, "Weapons/Ak-47");
+			var weapon1 = weaponFactory.makeWeapon(BackWeaponSlot1, this.kamera, "Prefabs/Weapons/Ak-47");
 			inventory.addWeapon(weapon1);
 
-			var weapon2 = weaponFactory.makeWeapon(BackWeaponSlot2, this.kamera, "Weapons/M4A1 Sopmod");
+			var weapon2 = weaponFactory.makeWeapon(BackWeaponSlot2, this.kamera, "Prefabs/Weapons/M4A1 Sopmod");
 			inventory.addWeapon(weapon2);
 		}
 
