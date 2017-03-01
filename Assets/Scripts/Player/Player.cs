@@ -29,18 +29,21 @@ namespace player
 		private bool startedReloading = false;
 		private float timeWhenReloadingFinished = 0.0f;
 
+		// todo: move
+		private float timeWhenCanContinueShooting = 0.0f;
+
 		void Start()
 		{
 			inventory = gameObject.AddComponent<Inventory>();
 			playerAnimator = GetComponent<PlayerAnimate>();
 
-			var weapon0 = weaponFactory.makeWeapon(BackWeaponSlot0, this.kamera, "Prefabs/Weapons/Ak-47");
+			var weapon0 = weaponFactory.makeAk47(BackWeaponSlot0, this.kamera);
 			inventory.addWeapon(weapon0);
 
-			var weapon1 = weaponFactory.makeWeapon(BackWeaponSlot1, this.kamera, "Prefabs/Weapons/Ak-47");
+			var weapon1 = weaponFactory.makeAk47(BackWeaponSlot1, this.kamera);
 			inventory.addWeapon(weapon1);
 
-			var weapon2 = weaponFactory.makeWeapon(BackWeaponSlot2, this.kamera, "Prefabs/Weapons/M4A1 Sopmod");
+			var weapon2 = weaponFactory.makeM4A1(BackWeaponSlot2, this.kamera);
 			inventory.addWeapon(weapon2);
 		}
 
@@ -96,10 +99,23 @@ namespace player
 				
 				if (userIO.GetButtonDown("Fire1") && !startedReloading)
 				{
-					activeWeapon.shoot();
-					CrosshairControl.animate();
+					shootWeapon();
+				}
+				else if (userIO.GetButton("Fire1") && activeWeapon.IsFullyAutomatic)
+				{
+					if (timeWhenCanContinueShooting <= Time.time)
+					{
+						shootWeapon();
+						timeWhenCanContinueShooting = Time.time + 0.2f;
+					}
 				}
 			}
+		}
+
+		private void shootWeapon()
+		{
+			activeWeapon.shoot();
+			CrosshairControl.animate();
 		}
 
 		private void stopReloading()
@@ -107,7 +123,7 @@ namespace player
 			startedReloading = false;
 			if (activeWeapon != null)
 			{
-				activeWeapon.stopAnimations();
+				activeWeapon.stopReloading();
 			}
 		}
 
@@ -133,13 +149,10 @@ namespace player
 
 		private void equipWeaponSlot(int index)
 		{
-			var weapon = inventory.getWeapon(index);
-			activeWeapon = weapon;
+			var weapon = inventory.getWeapon(index).WeaponBehavior;
+			activeWeapon = inventory.getWeapon(index);
 
-			weapon.transform.SetParent(equippedSlot.transform);
-			weapon.transform.localPosition = Vector3.zero;
-			weapon.transform.localRotation = Quaternion.identity * Quaternion.AngleAxis(180, Vector3.up);
-			weapon.showToFpsCamera();
+			activeWeapon.showToFpsCamera(equippedSlot.transform);
 
 			stopReloading();
 			playerAnimator.equipWeapon();
@@ -151,11 +164,7 @@ namespace player
 			{
 				return;
 			}
-			activeWeapon.transform.SetParent(activeWeapon.PlayerBackWeaponSlot.transform);
-			activeWeapon.transform.localPosition = Vector3.zero;
-			activeWeapon.transform.localRotation = Quaternion.identity;
 			activeWeapon.hideFromFpsCamera();
-
 			activeWeapon = null;
 		}
 	}

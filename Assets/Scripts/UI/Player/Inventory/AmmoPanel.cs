@@ -6,28 +6,32 @@ using player;
 
 namespace ui
 {
-	namespace inventory
+	namespace player
 	{
-		public class AmmoPanel : MonoBehaviour
+		namespace inventory
 		{
-			[SerializeField] private Player player;
-			[SerializeField] private Text ammoRemainingText;
+			public class AmmoPanel : MonoBehaviour
+			{
+				[SerializeField] private Player player;
+				[SerializeField] private Text ammoRemainingText;
 
-			void Update() {
-				if (!player.isWeaponEquipped())
+				void Update()
 				{
-					if (ammoRemainingText.gameObject.activeSelf)
+					if (!player.isWeaponEquipped())
 					{
-						ammoRemainingText.gameObject.SetActive(false);
+						if (ammoRemainingText.gameObject.activeSelf)
+						{
+							ammoRemainingText.gameObject.SetActive(false);
+						}
+						return;
 					}
-					return;
+					if (!ammoRemainingText.gameObject.activeSelf)
+					{
+						ammoRemainingText.gameObject.SetActive(true);
+					}
+					string value = player.equippedWeaponAmmoCount() + "/" + player.equippedWeaponMaxAmmo();
+					ammoRemainingText.text = value;
 				}
-				if (!ammoRemainingText.gameObject.activeSelf)
-				{
-					ammoRemainingText.gameObject.SetActive(true);
-				}
-				string value = player.equippedWeaponAmmoCount() + "/" + player.equippedWeaponMaxAmmo();
-				ammoRemainingText.text = value;
 			}
 		}
 	}

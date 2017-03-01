@@ -9,7 +9,15 @@ namespace weapon
 	{
 		private uint weaponId = 0;
 
-		public Weapon makeWeapon(GameObject parent, Camera kamera, string prefabPath) {
+		public Weapon makeAk47(GameObject parent, Camera kamera) {
+			return makeWeapon(parent, kamera, "Prefabs/Weapons/Ak-47", true);
+		}
+
+		public Weapon makeM4A1(GameObject parent, Camera kamera) {
+			return makeWeapon(parent, kamera, "Prefabs/Weapons/M4A1 Sopmod", false);
+		}
+
+		private Weapon makeWeapon(GameObject parent, Camera kamera, string prefabPath, bool fullyAutomatic) {
 			GameObject go = new GameObject("PlayerWeapon" + weaponId);
 			++weaponId;
 			go.transform.SetParent(parent.gameObject.transform);
@@ -17,11 +25,12 @@ namespace weapon
 			go.transform.localRotation = Quaternion.identity;
 			go.transform.localScale = Vector3.one;
 
-			var weapon = go.AddComponent<Weapon>();
-			weapon.PrefabPath = prefabPath;
-			weapon.Kamera = kamera;
-			weapon.PlayerBackWeaponSlot = parent;
-			return weapon;
+			var weaponBehavior = go.AddComponent<WeaponBehavior>();
+			weaponBehavior.PrefabPath = prefabPath;
+			weaponBehavior.Kamera = kamera;
+			weaponBehavior.PlayerBackWeaponSlot = parent;
+
+			return new Weapon(weaponBehavior, prefabPath, fullyAutomatic);
 		}
 	}
 }
