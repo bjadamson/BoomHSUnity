@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using camera;
 using weapon;
 
 namespace player
@@ -8,6 +9,7 @@ namespace player
 	{
 		[SerializeField] private UserIO userIO;
 		[SerializeField] private Camera kamera;
+		[SerializeField] private Freelook cameraFreelook;
 		[SerializeField] public CrosshairControl CrosshairControl;
 		[SerializeField] private GameObject BackWeaponSlot0;
 		[SerializeField] private GameObject BackWeaponSlot1;
@@ -26,7 +28,8 @@ namespace player
 		private bool startedReloading = false;
 		private float timeWhenReloadingFinished = 0.0f;
 
-		void Start() {
+		void Start()
+		{
 			inventory = gameObject.AddComponent<Inventory>();
 			playerAnimator = GetComponent<PlayerAnimate>();
 
@@ -42,6 +45,12 @@ namespace player
 
 		void Update()
 		{
+			if (!cameraFreelook.IsFreelookModeActive())
+			{
+				// rotate around local axis
+				transform.RotateAround(transform.position, transform.up, Input.GetAxis("Mouse X") * 150 * Time.deltaTime);
+			}
+
 			if (userIO.GetKeyDown(KeyCode.BackQuote))
 			{
 				equipFists();
@@ -62,10 +71,10 @@ namespace player
 				equipFists();
 				equipWeaponSlot(2);
 			}
-				
-			if (userIO.GetKeyDown(KeyCode.R))
+
+			if (isWeaponEquipped())
 			{
-				if (isWeaponEquipped())
+				if (userIO.GetKeyDown(KeyCode.R))
 				{
 					if (activeWeapon.isClipFull())
 					{
@@ -78,21 +87,22 @@ namespace player
 						timeWhenReloadingFinished = Time.time + reloadTime;
 					}
 				}
-			}
-			else if (startedReloading && isReloadingAnimationFinished())
-			{
-				stopReloading();
-				activeWeapon.reloadAmmo();
-			}
+				else if (startedReloading && isReloadingAnimationFinished())
+				{
+					stopReloading();
+					activeWeapon.reloadAmmo();
+				}
 				
-			if (userIO.GetButtonDown("Fire1") && (activeWeapon != null) && !startedReloading)
-			{
-				activeWeapon.shoot();
-				CrosshairControl.animate();
+				if (userIO.GetButtonDown("Fire1") && !startedReloading)
+				{
+					activeWeapon.shoot();
+					CrosshairControl.animate();
+				}
 			}
 		}
 
-		private void stopReloading() {
+		private void stopReloading()
+		{
 			startedReloading = false;
 			if (activeWeapon != null)
 			{
@@ -100,19 +110,23 @@ namespace player
 			}
 		}
 
-		private bool isReloadingAnimationFinished() {
+		private bool isReloadingAnimationFinished()
+		{
 			return timeWhenReloadingFinished < Time.time;
 		}
 
-		public bool isWeaponEquipped() {
+		public bool isWeaponEquipped()
+		{
 			return null != activeWeapon;
 		}
 
-		public uint equippedWeaponAmmoCount() {
+		public uint equippedWeaponAmmoCount()
+		{
 			return activeWeapon.AmmoCount;
 		}
 
-		public uint equippedWeaponMaxAmmo() {
+		public uint equippedWeaponMaxAmmo()
+		{
 			return activeWeapon.MaximumAmmoCount;
 		}
 

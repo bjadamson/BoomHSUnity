@@ -7,7 +7,7 @@ namespace camera
 	public class FollowPlayer : MonoBehaviour
 	{
 		[SerializeField] public Transform followTarget;
-		[SerializeField] private float followDistance = 3.0f;
+		[SerializeField] private float followDistance = 1.6f;
 
 		void Update()
 		{

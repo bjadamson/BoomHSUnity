@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using camera;
 
 namespace player
 {
@@ -8,7 +9,7 @@ namespace player
 	{
 		[SerializeField] private Animator animator;
 		[SerializeField] private float directionDampTime = 0.25f;
-		[SerializeField] private ThirdPersonCamera tpCamera;
+		[SerializeField] private ThirdPerson tpCamera;
 		[SerializeField] private float directionSpeed = 3.0f;
 		[SerializeField] private float rotationDegreesPerSecond = 120f;
 		[SerializeField] private UserIO userIO;
