@@ -59,8 +59,7 @@ namespace enemy
 				audioSource.Play();
 				Damage(25);
 
-				CrosshairControl.showHitIndicator();
-				CrosshairControl.hideHitIndicator();
+				CrosshairControl.showThenHideHitIndicator();
 			}
 		}
 

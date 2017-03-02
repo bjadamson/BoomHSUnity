@@ -24,15 +24,12 @@ namespace ui
 			anim.SetTrigger("Shoot");
 		}
 
-		public void showHitIndicator() {
+		public void showThenHideHitIndicator() {
 			hitIndicator.SetActive(true);
+			Invoke("hideHitIndicator", hitIndicatorVisibleTime);
 		}
 
-		public void hideHitIndicator() {
-			Invoke("hideHit", hitIndicatorVisibleTime);
-		}
-
-		private void hideHit() {
+		private void hideHitIndicator() {
 			hitIndicator.SetActive(false);
 		}
 	}

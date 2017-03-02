@@ -31,7 +31,7 @@ namespace player
 		private float timeWhenReloadingFinished = 0.0f;
 
 		// todo: move
-		private float timeWhenCanContinueShooting = 0.0f;
+		private float timeWhenCanContinueShootingFullyAuto = 0.0f;
 
 		void Start()
 		{
@@ -106,10 +106,10 @@ namespace player
 					}
 					else if (userIO.GetButton("Fire1") && activeWeapon.IsFullyAutomatic)
 					{
-						if (timeWhenCanContinueShooting <= Time.time)
+						if (timeWhenCanContinueShootingFullyAuto <= Time.time)
 						{
 							shootWeapon();
-							timeWhenCanContinueShooting = Time.time + 0.2f;
+							timeWhenCanContinueShootingFullyAuto = Time.time + 0.2f;
 						}
 					}
 				}
