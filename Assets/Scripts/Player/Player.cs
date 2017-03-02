@@ -3,6 +3,9 @@ using System.Collections;
 using camera;
 using weapon;
 
+// todo: move
+using ui;
+
 namespace player
 {
 	public class Player : MonoBehaviour
@@ -21,7 +24,6 @@ namespace player
 		private WeaponFactory weaponFactory = new WeaponFactory();
 		private PlayerAnimate playerAnimator;
 		private Inventory inventory;
-		private CrosshairControl crosshairAnimator;
 
 		// state
 		private Weapon activeWeapon;
@@ -117,7 +119,7 @@ namespace player
 		private void shootWeapon()
 		{
 			activeWeapon.shoot();
-			CrosshairControl.animate();
+			CrosshairControl.animateShooting();
 		}
 
 		private void stopReloading()

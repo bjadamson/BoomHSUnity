@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class Bullet : MonoBehaviour
 {
 	public float LifetimeIfNoCollisions = 3.0f;
+	public bool PiercingRound = false;
 	private float timeWhenToDestroy = 0.0f;
 
 	private ParticleSystem particleSystem;
@@ -31,6 +32,11 @@ public class Bullet : MonoBehaviour
 		if (collider.tag == "Enemy")
 		{
 			BulletSparks.SpawnSparks(gameObject, this.particleSystem);
+
+			if (!PiercingRound)
+			{
+				removeSelfFromScene();
+			}
 		}
 	}
 

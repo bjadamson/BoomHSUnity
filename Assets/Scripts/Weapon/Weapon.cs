@@ -8,18 +8,20 @@ namespace weapon
 	{
 		public readonly WeaponBehavior WeaponBehavior;
 		public readonly GameObject WeaponGO;
-		public readonly bool IsFullyAutomatic;
 		public readonly string Name;
+		public readonly bool IsFullyAutomatic;
+		public readonly bool UsesPiercingRounds;
 
 		public float BulletDistance = 100.0f;
 		public float BulletSpeed = 10.0f;
 		public readonly uint MaximumAmmoCount = 30;
 		public uint AmmoCount = 30;
 
-		public Weapon(WeaponBehavior weaponBehavior, string name, bool fullyAutomatic) {
+		public Weapon(WeaponBehavior weaponBehavior, string name, bool fullyAutomatic, bool piercingRounds) {
 			this.WeaponBehavior = weaponBehavior;
-			this.IsFullyAutomatic = fullyAutomatic;
 			this.Name = name;
+			this.IsFullyAutomatic = fullyAutomatic;
+			this.UsesPiercingRounds = piercingRounds;
 		}
 
 		public void shoot()
@@ -30,7 +32,7 @@ namespace weapon
 				return;
 			}
 
-			this.WeaponBehavior.shoot(this.BulletDistance, this.BulletSpeed);
+			this.WeaponBehavior.shoot(this.BulletDistance, this.BulletSpeed, this.UsesPiercingRounds);
 			--this.AmmoCount;
 		}
 

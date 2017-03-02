@@ -10,14 +10,18 @@ namespace weapon
 		private uint weaponId = 0;
 
 		public Weapon makeAk47(GameObject parent) {
-			return makeWeapon(parent, "Prefabs/Weapons/Ak-47", true);
+			bool fullyAutomatic = true;
+			bool piercingRounds = true;
+			return makeWeapon(parent, "Prefabs/Weapons/Ak-47", fullyAutomatic, piercingRounds);
 		}
 
 		public Weapon makeM4A1(GameObject parent) {
-			return makeWeapon(parent, "Prefabs/Weapons/M4A1 Sopmod", false);
+			bool fullyAutomatic = false;
+			bool piercingRounds = false;
+			return makeWeapon(parent, "Prefabs/Weapons/M4A1 Sopmod", fullyAutomatic, piercingRounds);
 		}
 
-		private Weapon makeWeapon(GameObject parent, string prefabPath, bool fullyAutomatic) {
+		private Weapon makeWeapon(GameObject parent, string prefabPath, bool fullyAutomatic, bool piercingRounds) {
 			GameObject go = new GameObject("PlayerWeapon" + weaponId);
 			++weaponId;
 			go.transform.SetParent(parent.gameObject.transform);
@@ -29,7 +33,7 @@ namespace weapon
 			weaponBehavior.PrefabPath = prefabPath;
 			weaponBehavior.PlayerBackWeaponSlot = parent;
 
-			return new Weapon(weaponBehavior, prefabPath, fullyAutomatic);
+			return new Weapon(weaponBehavior, prefabPath, fullyAutomatic, piercingRounds);
 		}
 	}
 }

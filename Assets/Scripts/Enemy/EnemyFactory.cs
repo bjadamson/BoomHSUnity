@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using ui;
+
 namespace enemy
 {
 	public class EnemyFactory : MonoBehaviour
 	{
 		[SerializeField] private float TimeBetweenSpawns = 0.8f;
-		[SerializeField] private Transform playerTransform;
+		[SerializeField] private Transform PlayerTransform;
+		[SerializeField] private CrosshairControl CrosshairControl;
 		[SerializeField] private GameObject DynamicRoot;
 
 		private float timeToSpawnNextEnemy = 0.0f;
@@ -38,7 +41,8 @@ namespace enemy
 
 			skeletonGO.tag = "Enemy";
 			skeletonGO.transform.position = transform.position;
-			skeletonGO.GetComponent<Skeleton>().PlayerTransform = playerTransform;
+			skeletonGO.GetComponent<Skeleton>().PlayerTransform = PlayerTransform;
+			skeletonGO.GetComponent<Skeleton>().CrosshairControl = CrosshairControl;
 
 			// always last
 			resetSpawnTimer();

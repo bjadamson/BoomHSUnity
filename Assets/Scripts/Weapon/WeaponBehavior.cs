@@ -48,7 +48,7 @@ namespace weapon
 			Debug.Assert(ParticleSystem != null);
 		}
 
-		public void shoot(float bulletDistance, float bulletSpeed)
+		public void shoot(float bulletDistance, float bulletSpeed, bool piercingRound)
 		{
 			GameObject bulletGO = (GameObject)Instantiate(Resources.Load("Prefabs/Bullet"), BulletShootAnchor.transform.position, BulletShootAnchor.transform.rotation);
 			Debug.Assert(bulletGO != null);
@@ -63,6 +63,9 @@ namespace weapon
 
 			BulletSparks.SpawnSparks(this.gameObject, this.ParticleSystem);
 			bulletGO.tag = "Bullet";
+
+			bulletGO.GetComponent<Bullet>().PiercingRound = piercingRound;
+
 			Debug.DrawRay(bulletGO.transform.position, bulletGO.transform.forward * 30, Color.yellow);
 			this.ShootSound.Play();
 		}

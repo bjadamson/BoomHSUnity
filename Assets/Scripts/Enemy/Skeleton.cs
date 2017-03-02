@@ -2,22 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// todo: move
+using ui;
+
 namespace enemy
 {
 	public class Skeleton : MonoBehaviour
 	{
-		[SerializeField] private float followSpeed = 3.0f;
-		[SerializeField] private float followDistance = 10.0f;
-		[SerializeField] private float attackDistance = 5.0f;
-		[SerializeField] private float stayOnGroundAfterDeath = 10.0f;
+		private float followSpeed = 3.0f;
+		private float followDistance = 10.0f;
+		private float attackDistance = 5.0f;
+		private float stayOnGroundAfterDeath = 10.0f;
+
+		public int Health = 100;
+		private bool isDeadOnGround = false;
 
 		private Animator anim;
 		private AudioSource audioSource;
 
-		private bool isDeadOnGround = false;
-
+		public CrosshairControl CrosshairControl;
 		public Transform PlayerTransform;
-		public int Health = 100;
 
 		void Start()
 		{
@@ -54,6 +58,9 @@ namespace enemy
 			{
 				audioSource.Play();
 				Damage(25);
+
+				CrosshairControl.showHitIndicator();
+				CrosshairControl.hideHitIndicator();
 			}
 		}
 
