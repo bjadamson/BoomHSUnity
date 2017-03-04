@@ -18,7 +18,8 @@ namespace weapon
 
 		private ParticleSystem ParticleSystem;
 
-		void Start() {
+		void Start()
+		{
 			GameObject go = (GameObject)Instantiate(Resources.Load(PrefabPath), transform);
 			Debug.Assert(go != null);
 			go.transform.SetParent(transform);
@@ -70,30 +71,36 @@ namespace weapon
 			this.ShootSound.Play();
 		}
 
-		public void playClipEmptySound() {
+		public void playClipEmptySound()
+		{
 			this.ClipEmptySound.Play();
 		}
 
-		public void playClipFullSound() {
+		public void playClipFullSound()
+		{
 			this.ClipFull.Play();
 		}
 
-		public void playReloadAnimation() {
+		public void playReloadAnimation()
+		{
 			this.ReloadSound.Play();
 		}
 
-		public void stopAnimations() {
+		public void stopAnimations()
+		{
 			this.ClipEmptySound.Stop();
 			this.ClipFull.Stop();
 			this.ReloadSound.Stop();
 			this.ShootSound.Stop();
 		}
 
-		public void hideFromFpsCamera() {
+		public void hideFromFpsCamera()
+		{
 			gameObject.layer = 8; // player layer
 		}
 
-		public void showToFpsCamera() {
+		public void showToFpsCamera()
+		{
 			gameObject.layer = 0;
 		}
 	}

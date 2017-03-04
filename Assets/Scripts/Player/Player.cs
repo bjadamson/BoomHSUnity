@@ -18,6 +18,7 @@ namespace player
 		[SerializeField] private GameObject BackWeaponSlot1;
 		[SerializeField] private GameObject BackWeaponSlot2;
 		[SerializeField] private GameObject equippedSlot;
+		[SerializeField] private GameObject equippedADSSlot;
 		[SerializeField] private GameObject guiAmmoPanel;
 		[SerializeField] private float reloadTime = 1.5f;
 
@@ -111,6 +112,17 @@ namespace player
 							shootWeapon();
 							timeWhenCanContinueShootingFullyAuto = Time.time + 0.2f;
 						}
+					}
+
+					if (userIO.GetButtonDown("Fire2"))
+					{
+						playerAnimator.setADS(true);
+						activeWeapon.reparent(equippedADSSlot);
+					}
+					else if (userIO.GetButtonUp("Fire2"))
+					{
+						playerAnimator.setADS(false);
+						activeWeapon.reparent(equippedSlot);
 					}
 				}
 			}

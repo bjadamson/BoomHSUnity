@@ -83,6 +83,11 @@ namespace player
 			animator.SetBool("Sprinting", value);
 		}
 
+		public void setADS(bool value)
+		{
+			animator.SetBool("ADS", value);
+		}
+
 		void FixedUpdate()
 		{
 			if (IsInLocomotion() && ((direction >= 0 && horizontal >= 0) || (direction < 0 && horizontal < 0)))

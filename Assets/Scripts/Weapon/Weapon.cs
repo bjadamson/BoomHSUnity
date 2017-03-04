@@ -7,7 +7,6 @@ namespace weapon
 	public class Weapon
 	{
 		public readonly WeaponBehavior WeaponBehavior;
-		public readonly GameObject WeaponGO;
 		public readonly string Name;
 		public readonly bool IsFullyAutomatic;
 		public readonly bool UsesPiercingRounds;
@@ -58,6 +57,13 @@ namespace weapon
 
 		public void playReloadAnimation() {
 			this.WeaponBehavior.playReloadAnimation();
+		}
+
+		public void reparent(GameObject parentGO) {
+			WeaponBehavior.transform.SetParent(parentGO.transform);
+			WeaponBehavior.transform.localPosition = Vector3.zero;
+			WeaponBehavior.transform.localRotation = Quaternion.identity;
+			WeaponBehavior.transform.localScale = Vector3.one;
 		}
 
 		public void showToFpsCamera(Transform parent) {
