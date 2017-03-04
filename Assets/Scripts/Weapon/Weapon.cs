@@ -63,7 +63,7 @@ namespace weapon
 		public void showToFpsCamera(Transform parent) {
 			this.WeaponBehavior.transform.SetParent(parent);
 			this.WeaponBehavior.transform.localPosition = Vector3.zero;
-			this.WeaponBehavior.transform.localRotation = Quaternion.identity * Quaternion.AngleAxis(180, Vector3.up);
+			this.WeaponBehavior.transform.localRotation = Quaternion.identity;;
 		}
 
 		public void hideFromFpsCamera() {
