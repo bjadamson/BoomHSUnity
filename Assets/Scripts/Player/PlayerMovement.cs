@@ -58,12 +58,14 @@ namespace player
 		private void jump()
 		{
 			rigidBody.AddForce(Vector3.up * jumpForce);
+
+			//timeUntilJumpingAllowed = Time.time + 1.0f;
 		}
 
 		private bool isOnGround()
 		{
 			// 0.1 offset deals with "irregularities" in the ground
-			return Physics.Raycast(transform.position, -Vector3.up, distanceToGround + 0.1f);
+			return Physics.Raycast(PlayerGO.transform.position, -Vector3.up, distanceToGround + 0.1f);
 		}
 	}
 }
