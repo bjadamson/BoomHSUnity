@@ -92,7 +92,10 @@ namespace player
 							timeWhenCanContinueShootingFullyAuto = Time.time + 0.2f;
 						}
 					}
+				}
 
+				if (!startedReloading)
+				{
 					if (userIO.GetButtonDown("Fire2"))
 					{
 						playerAnimator.setADS(true);
