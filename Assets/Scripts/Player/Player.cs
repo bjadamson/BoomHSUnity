@@ -56,28 +56,7 @@ namespace player
 				// rotate around local axis
 				PlayerGO.transform.RotateAround(PlayerGO.transform.position, PlayerGO.transform.up, Input.GetAxis("Mouse X") * 150 * Time.deltaTime);
 			}
-
-			if (userIO.GetKeyDown(KeyCode.BackQuote))
-			{
-				equipFists();
-				playerAnimator.sheathWeapon();
-			}
-			else if (userIO.GetKeyDown(KeyCode.Alpha1))
-			{
-				equipFists();
-				equipWeaponSlot(0);
-			}
-			else if (userIO.GetKeyDown(KeyCode.Alpha2))
-			{
-				equipFists();
-				equipWeaponSlot(1);
-			}
-			else if (userIO.GetKeyDown(KeyCode.Alpha3))
-			{
-				equipFists();
-				equipWeaponSlot(2);
-			}
-
+				
 			if (isWeaponEquipped())
 			{
 				if (userIO.GetKeyDown(KeyCode.R))
@@ -99,7 +78,7 @@ namespace player
 					activeWeapon.reloadAmmo();
 				}
 
-				if (!startedReloading)
+				if (!startedReloading && !cameraFreelook.IsFreelookModeActive())
 				{
 					if (userIO.GetButtonDown("Fire1") && !activeWeapon.IsFullyAutomatic)
 					{
@@ -125,6 +104,27 @@ namespace player
 						activeWeapon.reparent(equippedSlot);
 					}
 				}
+			}
+
+			if (userIO.GetKeyDown(KeyCode.BackQuote))
+			{
+				equipFists();
+				playerAnimator.sheathWeapon();
+			}
+			else if (userIO.GetKeyDown(KeyCode.Alpha1))
+			{
+				equipFists();
+				equipWeaponSlot(0);
+			}
+			else if (userIO.GetKeyDown(KeyCode.Alpha2))
+			{
+				equipFists();
+				equipWeaponSlot(1);
+			}
+			else if (userIO.GetKeyDown(KeyCode.Alpha3))
+			{
+				equipFists();
+				equipWeaponSlot(2);
 			}
 		}
 
