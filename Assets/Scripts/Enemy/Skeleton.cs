@@ -47,14 +47,14 @@ namespace enemy
 			}
 		}
 
-		public void OnTriggerEnter(Collider collider)
+		void OnCollisionEnter(Collision collision)
 		{
 			if (isDead())
 			{
 				return;
 			}
 
-			if (collider.tag == "Bullet")
+			if (collision.collider.tag == "Bullet")
 			{
 				audioSource.Play();
 				Damage(25);
@@ -121,6 +121,7 @@ namespace enemy
 			isDeadOnGround = true;
 
 			GetComponent<Rigidbody>().isKinematic = true;
+			GetComponent<CapsuleCollider>().enabled = false;
 			anim.SetTrigger("Death");
 			StartCoroutine(cleanup());
 		}

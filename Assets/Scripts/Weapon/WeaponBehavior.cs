@@ -29,7 +29,7 @@ namespace weapon
 
 			this.BulletShootAnchor = new GameObject("BulletShootAnchor");
 			this.BulletShootAnchor.transform.SetParent(transform);
-			this.BulletShootAnchor.transform.localPosition = new Vector3(0.008f, 0, 0.265f);
+			this.BulletShootAnchor.transform.localPosition = new Vector3(0.0f, 0.0337f, 0.3095f);
 			this.BulletShootAnchor.transform.localRotation = Quaternion.identity;
 			this.BulletShootAnchor.transform.localScale = Vector3.one;
 

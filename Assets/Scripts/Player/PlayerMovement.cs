@@ -43,7 +43,6 @@ namespace player
 
 			bool strafeLeft = horizontalAxis < 0f;
 			bool strafeRight = horizontalAxis > 0f;
-			Debug.Log("sl '" + strafeLeft + "', sr '" + strafeRight + "'");
 			bool canJump = isOnGround() && (timeUntilJumpingAllowed < Time.time);
 			bool isJumping = userIO.GetKeyDown(KeyCode.Space) && canJump;
 
