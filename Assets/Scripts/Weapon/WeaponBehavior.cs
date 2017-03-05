@@ -16,8 +16,6 @@ namespace weapon
 		private AudioSource ClipFull;
 		private AudioSource ReloadSound;
 
-		private ParticleSystem ParticleSystem;
-
 		void Start()
 		{
 			GameObject go = (GameObject)Instantiate(Resources.Load(PrefabPath), transform);
@@ -44,9 +42,6 @@ namespace weapon
 
 			this.ReloadSound = gameObject.AddComponent<AudioSource>();
 			this.ReloadSound.clip = Resources.Load<AudioClip>("audio/reload");
-
-			ParticleSystem = Resources.Load<ParticleSystem>("Prefabs/Effects/MuzzleFlare");
-			Debug.Assert(ParticleSystem != null);
 		}
 
 		public void shoot(float bulletDistance, float bulletSpeed, bool piercingRound)
@@ -62,9 +57,7 @@ namespace weapon
 			Rigidbody rb = bulletGO.GetComponent<Rigidbody>();
 			rb.AddForce(bulletGO.transform.forward * bulletSpeed);
 
-			BulletSparks.SpawnSparks(this.gameObject, this.ParticleSystem);
 			bulletGO.tag = "Bullet";
-
 			bulletGO.GetComponent<Bullet>().PiercingRound = piercingRound;
 
 			Debug.DrawRay(bulletGO.transform.position, bulletGO.transform.forward * 30, Color.yellow);
