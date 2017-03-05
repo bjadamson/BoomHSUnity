@@ -39,10 +39,10 @@ namespace player
 			stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 		}
 
-		public void updateAnimations(float horizontal, float vertical, float speed, bool jump, bool strafe)
+		public void updateAnimations(float horizontal, float vertical, float speed, bool jump, bool strafeLeft, bool strafeRight)
 		{
 			setJump(jump);
-			setStrafe(strafe);
+			setStrafe(strafeLeft, strafeRight);
 			setCrouch(userIO.GetKey(KeyCode.LeftControl));
 			setSprint(userIO.GetKey(KeyCode.LeftShift));
 			setSpeed(speed);
@@ -73,9 +73,11 @@ namespace player
 			animator.SetFloat("Speed", value);
 		}
 
-		public void setStrafe(bool value)
+		public void setStrafe(bool strafeLeft, bool strafeRight)
 		{
-			animator.SetBool("Strafing", value);
+			Debug.Assert((strafeLeft & strafeRight) != true);
+			animator.SetBool("StrafeLeft", strafeLeft);
+			animator.SetBool("StrafeRight", strafeRight);
 		}
 
 		public void setSprint(bool value)

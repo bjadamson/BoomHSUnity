@@ -41,15 +41,17 @@ namespace player
 			Vector3 movement = (PlayerGO.transform.forward * vertical) + (PlayerGO.transform.right * horizontal);
 			PlayerGO.transform.Translate(movement, Space.World);
 
-			bool strafeAnimation = Mathf.Abs(horizontalAxis) > 0.25f;
+			bool strafeLeft = horizontalAxis < 0f;
+			bool strafeRight = horizontalAxis > 0f;
+			Debug.Log("sl '" + strafeLeft + "', sr '" + strafeRight + "'");
 			bool canJump = isOnGround() && (timeUntilJumpingAllowed < Time.time);
 			bool isJumping = userIO.GetKeyDown(KeyCode.Space) && canJump;
 
-			playerAnimate.updateAnimations(horizontal, vertical, verticalAxis, isJumping, strafeAnimation);
+			playerAnimate.updateAnimations(horizontal, vertical, verticalAxis, isJumping, strafeLeft, strafeRight);
 
 			if (isJumping)
 			{
-				Invoke("jump", 0.5f);
+				jump();
 			}
 			crouchStand.crouchStandOverTime(userIO.GetKey(KeyCode.LeftControl));
 		}
