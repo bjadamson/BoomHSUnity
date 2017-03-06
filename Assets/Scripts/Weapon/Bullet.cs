@@ -37,8 +37,6 @@ public class Bullet : MonoBehaviour
 
 		if (collision.collider.tag == "Enemy")
 		{
-			//BulletSparks.SpawnSparks(gameObject, this.particleSystem);
-
 			if (!PiercingRound)
 			{
 				removeSelfFromScene();
