@@ -28,6 +28,7 @@ namespace player
 
 		// state
 		private Weapon activeWeapon;
+		private bool isADS = false;
 		private bool startedReloading = false;
 		private float timeWhenReloadingFinished = 0.0f;
 
@@ -98,36 +99,41 @@ namespace player
 				{
 					if (userIO.GetButtonDown("Fire2"))
 					{
+						isADS = true;
 						playerAnimator.setADS(true);
 						activeWeapon.reparent(equippedADSSlot);
 					}
 					else if (userIO.GetButtonUp("Fire2"))
 					{
+						isADS = false;
 						playerAnimator.setADS(false);
 						activeWeapon.reparent(equippedSlot);
 					}
 				}
 			}
 
-			if (userIO.GetKeyDown(KeyCode.BackQuote))
+			if (!isADS)
 			{
-				equipFists();
-				playerAnimator.sheathWeapon();
-			}
-			else if (userIO.GetKeyDown(KeyCode.Alpha1))
-			{
-				equipFists();
-				equipWeaponSlot(0);
-			}
-			else if (userIO.GetKeyDown(KeyCode.Alpha2))
-			{
-				equipFists();
-				equipWeaponSlot(1);
-			}
-			else if (userIO.GetKeyDown(KeyCode.Alpha3))
-			{
-				equipFists();
-				equipWeaponSlot(2);
+				if (userIO.GetKeyDown(KeyCode.BackQuote))
+				{
+					equipFists();
+					playerAnimator.sheathWeapon();
+				}
+				else if (userIO.GetKeyDown(KeyCode.Alpha1))
+				{
+					equipFists();
+					equipWeaponSlot(0);
+				}
+				else if (userIO.GetKeyDown(KeyCode.Alpha2))
+				{
+					equipFists();
+					equipWeaponSlot(1);
+				}
+				else if (userIO.GetKeyDown(KeyCode.Alpha3))
+				{
+					equipFists();
+					equipWeaponSlot(2);
+				}
 			}
 		}
 

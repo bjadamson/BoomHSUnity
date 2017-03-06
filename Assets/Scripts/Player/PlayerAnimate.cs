@@ -26,11 +26,6 @@ namespace player
 		void Start()
 		{
 			animator = PlayerGO.GetComponent<Animator>();
-
-			if (animator.layerCount >= 2)
-			{
-				animator.SetLayerWeight(1, 1);
-			}
 			m_locomotionId = Animator.StringToHash("Base Layer.Locomotion");
 		}
 
@@ -51,11 +46,15 @@ namespace player
 		public void sheathWeapon()
 		{
 			animator.SetBool("HoldingGun", false);
+			animator.SetLayerWeight(0, 1.0f);
+			animator.SetLayerWeight(1, 0.0f);
 		}
 
 		public void equipWeapon()
 		{
 			animator.SetBool("HoldingGun", true);
+			animator.SetLayerWeight(0, 0.0f);
+			animator.SetLayerWeight(1, 1.0f);
 		}
 
 		public void setCrouch(bool value)
