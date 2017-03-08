@@ -201,6 +201,7 @@ ModelImporter:
     7400022: StrafingRight
     7400024: WalkForward
     7400026: StandingIdleWeaponBored
+    7400028: Death
     9500000: //RootNode
     13700000: Human_female_Braid01
     13700002: Human_female_Eyebrow007
@@ -222,16 +223,22 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Crouch' has import animation warnings that might
-      lower retargeting quality:\nNote: Activate translation DOF on avatar to improve
-      retargeting quality.\n\t'chest1' is inbetween humanoid transforms and has rotation
-      animation that will be discarded.\n\nClip 'IdleJump' has import animation warnings
+    animationImportWarnings: "\nClip 'Default Take' has import animation warnings
       that might lower retargeting quality:\nNote: Activate translation DOF on avatar
       to improve retargeting quality.\n\t'chest1' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\nClip 'StandingIdle' has
-      import animation warnings that might lower retargeting quality:\nNote: Activate
+      and has rotation animation that will be discarded.\n\nClip 'Crouch' has import
+      animation warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'chest1' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\nClip 'Death'
+      has import animation warnings that might lower retargeting quality:\nNote: Activate
       translation DOF on avatar to improve retargeting quality.\n\t'chest1' is inbetween
       humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'IdleJump' has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'chest1'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'StandingIdle' has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'chest1'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
       'StandingIdleWeaponBored' has import animation warnings that might lower retargeting
       quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'chest1'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
@@ -2108,6 +2115,198 @@ ModelImporter:
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Human_female
+        weight: 1
+      - path: Human_female/hips
+        weight: 1
+      - path: Human_female/hips/Root_Bone
+        weight: 0
+      - path: Human_female/hips/spine
+        weight: 1
+      - path: Human_female/hips/spine/chest
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/neck
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/neck/head
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/neck/head/eye_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/neck/head/eye_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/neck/head/jaw
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/neck/head/jaw/tongue_base
+        weight: 0
+      - path: Human_female/hips/spine/chest/chest1/neck/head/jaw/tongue_base/tongue_mod
+        weight: 0
+      - path: Human_female/hips/spine/chest/chest1/neck/head/jaw/tongue_base/tongue_mod/tongue_tip
+        weight: 0
+      - path: Human_female/hips/spine/chest/chest1/neck/head/lolid_L
+        weight: 0
+      - path: Human_female/hips/spine/chest/chest1/neck/head/lolid_R
+        weight: 0
+      - path: Human_female/hips/spine/chest/chest1/neck/head/uplid_L
+        weight: 0
+      - path: Human_female/hips/spine/chest/chest1/neck/head/uplid_R
+        weight: 0
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/f_index_01_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L/f_index_03_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/f_middle_01_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/f_middle_01_L/f_middle_02_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/f_middle_01_L/f_middle_02_L/f_middle_03_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/f_pinky_01_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L/f_pinky_03_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/f_ring_01_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/f_ring_01_L/f_ring_02_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/f_ring_01_L/f_ring_02_L/f_ring_03_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/thumb_01_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/thumb_01_L/thumb_02_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_L/upper_arm_L/forearm_L/hand_L/thumb_01_L/thumb_02_L/thumb_03_L
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/f_index_01_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R/f_index_03_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/f_middle_01_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/f_middle_01_R/f_middle_02_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/f_middle_01_R/f_middle_02_R/f_middle_03_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/f_pinky_01_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R/f_pinky_03_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/f_ring_01_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/f_ring_01_R/f_ring_02_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/f_ring_01_R/f_ring_02_R/f_ring_03_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/thumb_01_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/thumb_01_R/thumb_02_R
+        weight: 1
+      - path: Human_female/hips/spine/chest/chest1/shoulder_R/upper_arm_R/forearm_R/hand_R/thumb_01_R/thumb_02_R/thumb_03_R
+        weight: 1
+      - path: Human_female/hips/thigh_L
+        weight: 1
+      - path: Human_female/hips/thigh_L/shin_L
+        weight: 1
+      - path: Human_female/hips/thigh_L/shin_L/foot_L
+        weight: 1
+      - path: Human_female/hips/thigh_L/shin_L/foot_L/toe_L
+        weight: 1
+      - path: Human_female/hips/thigh_R
+        weight: 1
+      - path: Human_female/hips/thigh_R/shin_R
+        weight: 1
+      - path: Human_female/hips/thigh_R/shin_R/foot_R
+        weight: 1
+      - path: Human_female/hips/thigh_R/shin_R/foot_R/toe_R
+        weight: 1
+      - path: Human_female/Left_Foot_IK
+        weight: 0
+      - path: Human_female/Left_Foot_IK/Left_Knee_IK
+        weight: 0
+      - path: Human_female/Right_Foot_IK
+        weight: 0
+      - path: Human_female/Right_Foot_IK/Right_Knee_IK
+        weight: 0
+      - path: Human_female_Braid01
+        weight: 0
+      - path: Human_female_Eyebrow007
+        weight: 0
+      - path: Human_female_Eyelashes03
+        weight: 0
+      - path: Human_female_Female_generic
+        weight: 0
+      - path: Human_female_Low-poly
+        weight: 0
+      - path: Human_female_Male_worksuit01
+        weight: 0
+      - path: Human_female_Shoes03
+        weight: 0
+      - path: Human_female_Teeth_base
+        weight: 0
+      - path: Human_female_Tongue01
+        weight: 0
+      - path: Weapon
+        weight: 0
+      - path: Weapon/Ak47Body
+        weight: 0
+      - path: Weapon/Ak47Mag
+        weight: 0
+      - path: Weapon/Cube_001
+        weight: 0
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Death
+      takeName: Death
+      firstFrame: -1
+      lastFrame: 99
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0

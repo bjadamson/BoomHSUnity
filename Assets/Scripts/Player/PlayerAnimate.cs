@@ -89,6 +89,11 @@ namespace player
 			animator.SetBool("ADS", value);
 		}
 
+		public void playDeathAnimation()
+		{
+			animator.SetTrigger("Dead");
+		}
+
 		void FixedUpdate()
 		{
 			if (IsInLocomotion() && ((direction >= 0 && horizontal >= 0) || (direction < 0 && horizontal < 0)))

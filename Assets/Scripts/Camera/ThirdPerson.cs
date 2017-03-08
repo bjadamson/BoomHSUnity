@@ -8,10 +8,12 @@ namespace camera
 	{
 		[SerializeField] public Transform player;
 		[SerializeField] public Transform playerHead;
-
 		private Freelook freelook;
+
+		// state
 		private float verticalRot = 0.0f;
 		private float horizontalRot = 0.0f;
+		private bool lockTransform_ = false;
 
 		void Start() {
 			freelook = GetComponentInParent<Freelook>();
@@ -27,10 +29,22 @@ namespace camera
 
 		void LateUpdate()
 		{
+			if (lockTransform_)
+			{
+				return;
+			}
 			if (!freelook.IsFreelookModeActive())
 			{
 				normalTransformUpdate();
 			}
+		}
+
+		public void lockTransform() {
+			lockTransform_ = true;
+		}
+
+		public void unlockTransform() {
+			lockTransform_ = false;
 		}
 
 		private void normalTransformUpdate()

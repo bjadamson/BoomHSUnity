@@ -12,7 +12,7 @@ namespace ui
 		{
 			public class AmmoPanel : MonoBehaviour
 			{
-				[SerializeField] private Player player;
+				[SerializeField] private PlayerBehavior player;
 				[SerializeField] private Text ammoRemainingText;
 
 				void Update()
