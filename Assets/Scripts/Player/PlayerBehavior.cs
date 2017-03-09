@@ -14,17 +14,23 @@ namespace player
 		[SerializeField] private UserIO userIO;
 		[SerializeField] private CameraController kameraController;
 		[SerializeField] public CrosshairControl CrosshairControl;
-		[SerializeField] private DeathBehavior deathBehavior;
+		[SerializeField] private DeathReviveBehavior deathBehavior;
 		[SerializeField] private GameObject BackWeaponSlot0;
 		[SerializeField] private GameObject BackWeaponSlot1;
 		[SerializeField] private GameObject BackWeaponSlot2;
 		[SerializeField] private GameObject equippedSlot;
 		[SerializeField] private GameObject equippedADSSlot;
 		[SerializeField] private GameObject guiAmmoPanel;
-		[SerializeField] private float reloadTime = 1.5f;
+
+		// constants
+		private readonly float TIME_FOR_REVIVE_ANIMATION = 4.0f;
+		private readonly float TIME_FOR_RELOAD = 1.5f;
 
 		private WeaponFactory weaponFactory = new WeaponFactory();
 		private PlayerAnimate playerAnimator;
+		private PlayerCrouchStand crouchStand;
+		private CapsuleCollider capsuleCollider;
+		private Rigidbody rigidBody;
 		private Inventory inventory;
 
 		// state
@@ -32,7 +38,15 @@ namespace player
 		private bool isADS = false;
 		private bool startedReloading = false;
 		private int health = 100;
+
+		private float timeWhenRevivingFinished = 0.0f;
 		private float timeWhenReloadingFinished = 0.0f;
+		private float jumpForce = 500.0f;
+		private float movementSpeed = 10.0f;
+
+		private float timeUntilJumpingAllowed = 0.0f;
+		private float distanceToGround;
+		private bool isCrouching = false;
 
 		// todo: move
 		private float timeWhenCanContinueShootingFullyAuto = 0.0f;
@@ -50,28 +64,32 @@ namespace player
 
 			var weapon2 = weaponFactory.makeM4A1(BackWeaponSlot2);
 			inventory.addWeapon(weapon2);
+
+			playerAnimator = GetComponent<PlayerAnimate>();
+			capsuleCollider = PlayerGO.GetComponent<CapsuleCollider>();
+			crouchStand = GetComponent<PlayerCrouchStand>();
+			rigidBody = PlayerGO.GetComponent<Rigidbody>();
+			distanceToGround = PlayerGO.GetComponent<Collider>().bounds.extents.y;
 		}
 
 		void Update()
 		{
 			if (userIO.GetKeyDown(KeyCode.K))
 			{
-				if (isDead())
+				if (isDead() && !isReviving())
 				{
-					return;
+					revive();
 				}
-				kill();
+				else
+				{
+					kill();
+				}
 			}
 			if (isDead())
 			{
 				return;
 			}
-			if (!kameraController.isFreelookMode())
-			{
-				// rotate around local axis
-				PlayerGO.transform.RotateAround(PlayerGO.transform.position, PlayerGO.transform.up, Input.GetAxis("Mouse X") * 150 * Time.deltaTime);
-			}
-				
+
 			if (isWeaponEquipped())
 			{
 				if (userIO.GetKeyDown(KeyCode.R))
@@ -84,7 +102,7 @@ namespace player
 					{
 						startedReloading = true;
 						activeWeapon.playReloadAnimation();
-						timeWhenReloadingFinished = Time.time + reloadTime;
+						timeWhenReloadingFinished = Time.time + TIME_FOR_RELOAD;
 					}
 				}
 				else if (startedReloading && isReloadingAnimationFinished())
@@ -151,17 +169,71 @@ namespace player
 			}
 		}
 
+		void FixedUpdate()
+		{
+			if (isDead() || isReviving())
+			{
+				return;
+			}
+			float horizontalAxis = userIO.GetAxis("Horizontal");
+			float verticalAxis = userIO.GetAxis("Vertical");
+
+			float timeMultiplier = Time.deltaTime * movementSpeed;
+			float horizontal = horizontalAxis * timeMultiplier;
+			float vertical = verticalAxis * timeMultiplier;
+
+			bool strafeLeft = horizontalAxis < 0f;
+			bool strafeRight = horizontalAxis > 0f;
+			bool canJump = isOnGround() && (timeUntilJumpingAllowed < Time.time);
+			bool isJumping = userIO.GetKeyDown(KeyCode.Space) && canJump;
+
+			playerAnimator.updateAnimations(horizontal, vertical, verticalAxis, isJumping, strafeLeft, strafeRight);
+			Vector3 movement = (PlayerGO.transform.forward * vertical) + (PlayerGO.transform.right * horizontal);
+			PlayerGO.transform.Translate(movement, Space.World);
+
+			if (isJumping)
+			{
+				jump();
+			}
+			crouchStand.crouchStandOverTime(userIO.GetKey(KeyCode.LeftControl));
+		}
+
+		private void jump()
+		{
+			rigidBody.AddForce(Vector3.up * jumpForce);
+		}
+
+		private bool isOnGround()
+		{
+			// 0.1 offset deals with "irregularities" in the ground
+			return Physics.Raycast(PlayerGO.transform.position, -Vector3.up, distanceToGround + 0.1f);
+		}
+
 		private void kill()
 		{
 			this.health = 0;
-			deathBehavior.enabled = true;
+			deathBehavior.setDead();
 			playerAnimator.playDeathAnimation();
 			kameraController.death();
+		}
+
+		private void revive()
+		{
+			this.health = 100;
+			deathBehavior.setAlive();
+			playerAnimator.playReviveAnimation();
+			kameraController.revive();
+
+			timeWhenRevivingFinished = Time.time + TIME_FOR_REVIVE_ANIMATION;
 		}
 
 		private bool isDead()
 		{
 			return health <= 0;
+		}
+
+		private bool isReviving() {
+			return timeWhenRevivingFinished >= Time.time;
 		}
 
 		private void shootWeapon()

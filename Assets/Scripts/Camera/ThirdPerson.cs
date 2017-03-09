@@ -6,8 +6,9 @@ namespace camera
 {
 	public class ThirdPerson : MonoBehaviour
 	{
-		[SerializeField] public Transform player;
-		[SerializeField] public Transform playerHead;
+		[SerializeField] public GameObject playerGO;
+		[SerializeField] public Transform playerModel;
+		[SerializeField] public Transform modelHead;
 		private Freelook freelook;
 
 		// state
@@ -15,16 +16,28 @@ namespace camera
 		private float horizontalRot = 0.0f;
 		private bool lockTransform_ = false;
 
-		void Start() {
+		void Start()
+		{
 			freelook = GetComponentInParent<Freelook>();
 			Debug.Assert(freelook != null);
 		}
 
 		void Update()
 		{
+			if (lockTransform_)
+			{
+				return;
+			}
+
 			Vector2 mouseAxis = getMouseAxis();
 			verticalRot = mouseAxis.y;
 			horizontalRot = mouseAxis.x;
+
+			if (!freelook.IsFreelookModeActive())
+			{
+				// rotate around local axis
+				playerGO.transform.RotateAround(playerGO.transform.position, playerGO.transform.up, Input.GetAxis("Mouse X") * 150 * Time.deltaTime);
+			}
 		}
 
 		void LateUpdate()
@@ -35,28 +48,29 @@ namespace camera
 			}
 			if (!freelook.IsFreelookModeActive())
 			{
-				normalTransformUpdate();
+				// 1) rotate the camera up/down
+				transform.RotateAround(modelHead.position, modelHead.right, -verticalRot);
+
+				// 2) If we rotated up/down too far, rotate back.
+				if (withinThreshold(transform.up, Vector3.up))
+				{
+					// Rotated too far, rotate back
+					transform.RotateAround(modelHead.position, modelHead.right, verticalRot);
+				}
+
+				// 3) The camera shouldn't ever rotate around the Z axis, that doesn't yield a good user experience.
+				transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0.0f);
 			}
 		}
 
-		public void lockTransform() {
+		public void lockTransform()
+		{
 			lockTransform_ = true;
 		}
 
-		public void unlockTransform() {
-			lockTransform_ = false;
-		}
-
-		private void normalTransformUpdate()
+		public void unlockTransform()
 		{
-			transform.RotateAround(playerHead.position, playerHead.right, -verticalRot);
-
-			if (withinThreshold(transform.up, Vector3.up))
-			{
-				// Rotated too far, rotate back
-				transform.RotateAround(playerHead.position, playerHead.right, verticalRot);
-			}
-			transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0.0f);
+			lockTransform_ = false;
 		}
 
 		private Vector2 getMouseAxis()

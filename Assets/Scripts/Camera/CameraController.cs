@@ -55,11 +55,19 @@ namespace camera
 			return freelookMode.IsFreelookModeActive();
 		}
 
+		public bool isFirstPerson() {
+			Debug.Assert(firstPerson.gameObject.activeSelf != thirdPerson.gameObject.activeSelf);
+			return firstPerson.gameObject.activeSelf;
+		}
+
 		public void death() {
-			third();
-			//firstPerson.gameObject.transform.rotation = playerHead.transform.rotation;
-			//firstPerson.lockTransform();
 			thirdPerson.lockTransform();
+			firstPerson.lockTransform();
+		}
+
+		public void revive() {
+			thirdPerson.unlockTransform();
+			firstPerson.unlockTransform();
 		}
 
 		public void first()
@@ -69,6 +77,8 @@ namespace camera
 
 			freelookMode.ActiveCamera = firstPerson.gameObject;
 			freelookMode.TargetObject = firstPerson.transform;
+
+			firstPerson.unlockTransform();
 		}
 
 		public void third()
@@ -78,6 +88,8 @@ namespace camera
 
 			freelookMode.ActiveCamera = thirdPerson.gameObject;
 			freelookMode.TargetObject = playerHead.transform;
+
+			thirdPerson.unlockTransform();
 		}
 
 		private GameObject getActiveCameraObject()

@@ -94,6 +94,10 @@ namespace player
 			animator.SetTrigger("Dead");
 		}
 
+		public void playReviveAnimation() {
+			animator.SetTrigger("Revive");
+		}
+
 		void FixedUpdate()
 		{
 			if (IsInLocomotion() && ((direction >= 0 && horizontal >= 0) || (direction < 0 && horizontal < 0)))
