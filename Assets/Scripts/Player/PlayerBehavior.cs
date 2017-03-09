@@ -26,6 +26,9 @@ namespace player
 		private readonly float TIME_FOR_REVIVE_ANIMATION = 4.0f;
 		private readonly float TIME_FOR_RELOAD = 1.5f;
 
+		private readonly float JUMP_FORCE = 1000.0f;
+		private readonly float MOVEMENT_SPEED = 10.0f;
+
 		private WeaponFactory weaponFactory = new WeaponFactory();
 		private PlayerAnimate playerAnimator;
 		private PlayerCrouchStand crouchStand;
@@ -41,8 +44,6 @@ namespace player
 
 		private float timeWhenRevivingFinished = 0.0f;
 		private float timeWhenReloadingFinished = 0.0f;
-		private float jumpForce = 500.0f;
-		private float movementSpeed = 10.0f;
 
 		private float timeUntilJumpingAllowed = 0.0f;
 		private float distanceToGround;
@@ -178,7 +179,7 @@ namespace player
 			float horizontalAxis = userIO.GetAxis("Horizontal");
 			float verticalAxis = userIO.GetAxis("Vertical");
 
-			float timeMultiplier = Time.deltaTime * movementSpeed;
+			float timeMultiplier = Time.deltaTime * MOVEMENT_SPEED;
 			float horizontal = horizontalAxis * timeMultiplier;
 			float vertical = verticalAxis * timeMultiplier;
 
@@ -187,7 +188,13 @@ namespace player
 			bool canJump = isOnGround() && (timeUntilJumpingAllowed < Time.time);
 			bool isJumping = userIO.GetKeyDown(KeyCode.Space) && canJump;
 
-			playerAnimator.updateAnimations(horizontal, vertical, verticalAxis, isJumping, strafeLeft, strafeRight);
+			bool isCrouch = userIO.GetKey(KeyCode.LeftControl);
+			bool isSprint = userIO.GetKey(KeyCode.LeftShift);
+			float speed = Mathf.Abs(verticalAxis);
+
+			playerAnimator.updateAnimations(horizontal, vertical, speed, isJumping, strafeLeft, strafeRight, isCrouch, isSprint);
+			crouchStand.crouchStandOverTime(isCrouch);
+
 			Vector3 movement = (PlayerGO.transform.forward * vertical) + (PlayerGO.transform.right * horizontal);
 			PlayerGO.transform.Translate(movement, Space.World);
 
@@ -195,12 +202,13 @@ namespace player
 			{
 				jump();
 			}
-			crouchStand.crouchStandOverTime(userIO.GetKey(KeyCode.LeftControl));
 		}
 
 		private void jump()
 		{
-			rigidBody.AddForce(Vector3.up * jumpForce);
+			rigidBody.AddForce(Vector3.up * JUMP_FORCE, ForceMode.Impulse);
+
+			// TODO: adjust capsule collider for duration of jump, so we can jump up on things.
 		}
 
 		private bool isOnGround()

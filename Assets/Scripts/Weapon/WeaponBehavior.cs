@@ -39,6 +39,7 @@ namespace weapon
 
 			this.ShootSound = gameObject.AddComponent<AudioSource>();
 			this.ShootSound.clip = Resources.Load<AudioClip>("audio/gunshoot");
+			this.ShootSound.volume = 0.15f;
 
 			this.ReloadSound = gameObject.AddComponent<AudioSource>();
 			this.ReloadSound.clip = Resources.Load<AudioClip>("audio/reload");
@@ -55,12 +56,12 @@ namespace weapon
 			bulletGO.transform.LookAt(clickedLocationWorldSpace);
 
 			Rigidbody rb = bulletGO.GetComponent<Rigidbody>();
-			rb.AddForce(bulletGO.transform.forward * bulletSpeed);
+			rb.AddForce(bulletGO.transform.forward * bulletSpeed, ForceMode.Impulse);
 
 			bulletGO.tag = "Bullet";
 			bulletGO.GetComponent<Bullet>().PiercingRound = piercingRound;
 
-			Debug.DrawRay(bulletGO.transform.position, bulletGO.transform.forward * 30, Color.yellow);
+			Debug.DrawRay(bulletGO.transform.position, bulletGO.transform.forward * 30, Color.green);
 			this.ShootSound.Play();
 		}
 

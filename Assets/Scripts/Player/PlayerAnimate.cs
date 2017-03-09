@@ -34,12 +34,12 @@ namespace player
 			stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 		}
 
-		public void updateAnimations(float horizontal, float vertical, float speed, bool jump, bool strafeLeft, bool strafeRight)
+		public void updateAnimations(float horizontal, float vertical, float speed, bool jump, bool strafeLeft, bool strafeRight, bool crouch, bool sprint)
 		{
 			setJump(jump);
 			setStrafe(strafeLeft, strafeRight);
-			setCrouch(userIO.GetKey(KeyCode.LeftControl));
-			setSprint(userIO.GetKey(KeyCode.LeftShift));
+			setCrouch(crouch);
+			setSprint(sprint);
 			setSpeed(speed);
 		}
 

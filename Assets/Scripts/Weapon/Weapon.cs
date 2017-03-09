@@ -12,7 +12,7 @@ namespace weapon
 		public readonly bool UsesPiercingRounds;
 
 		public float BulletDistance = 1000.0f;
-		public float BulletSpeed = 200.0f;
+		public float BulletSpeed = 5.0f;
 		public readonly uint MaximumAmmoCount = 30;
 		public uint AmmoCount = 30;
 
