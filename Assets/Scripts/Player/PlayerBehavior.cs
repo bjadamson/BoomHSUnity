@@ -31,7 +31,7 @@ namespace player
 
 		private WeaponFactory weaponFactory = new WeaponFactory();
 		private PlayerAnimate playerAnimator;
-		private PlayerCrouchStand crouchStand;
+		private CrouchStand crouchStand;
 		private CapsuleCollider capsuleCollider;
 		private Rigidbody rigidBody;
 		private Inventory inventory;
@@ -68,7 +68,7 @@ namespace player
 
 			playerAnimator = GetComponent<PlayerAnimate>();
 			capsuleCollider = PlayerGO.GetComponent<CapsuleCollider>();
-			crouchStand = GetComponent<PlayerCrouchStand>();
+			crouchStand = GetComponent<CrouchStand>();
 			rigidBody = PlayerGO.GetComponent<Rigidbody>();
 			distanceToGround = PlayerGO.GetComponent<Collider>().bounds.extents.y;
 		}
@@ -193,7 +193,7 @@ namespace player
 			float speed = Mathf.Abs(verticalAxis);
 
 			playerAnimator.updateAnimations(horizontal, vertical, speed, isJumping, strafeLeft, strafeRight, isCrouch, isSprint);
-			crouchStand.crouchStandOverTime(isCrouch);
+			crouchStand.crouchDownOrStandUp(isCrouch);
 
 			Vector3 movement = (PlayerGO.transform.forward * vertical) + (PlayerGO.transform.right * horizontal);
 			PlayerGO.transform.Translate(movement, Space.World);

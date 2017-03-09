@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace player
 {
-	public class PlayerCrouchStand : MonoBehaviour
+	public class CrouchStand : MonoBehaviour
 	{
 		[SerializeField] private GameObject PlayerGO;
 		[SerializeField] private GameObject head;
@@ -18,16 +18,16 @@ namespace player
 			capsuleCollider = PlayerGO.GetComponent<CapsuleCollider>();
 		}
 
-		public void crouchStandOverTime(bool crouchPressed) {
-			if (!isCrouching && !crouchPressed)
+		public void crouchDownOrStandUp(bool toCrouch) {
+			if (!isCrouching && !toCrouch)
 			{
 				return;
 			}
-			else if (crouchPressed && !isCrouching)
+			else if (toCrouch && !isCrouching)
 			{
 				crouch();
 			}
-			else if (isCrouching && !crouchPressed)
+			else if (isCrouching && !toCrouch)
 			{
 				standup();
 			}
