@@ -121,8 +121,7 @@ namespace player
 			playerAnimator.equipWeapon();
 
 			// 6) Finally update the inventory UI icon
-			uiManager.setItem(index, weapon.IconSprite);
-			uiManager.setItemAlpha(index, 1.0f);
+			uiManager.setItem(index, weapon.Icon, 1.0f);
 		}
 
 		public void shootIfAppropriate(bool fire1Pressed, bool fire1HeldDown)

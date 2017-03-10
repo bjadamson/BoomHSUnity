@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-using ui.player.inventory;
+using ui.inventory;
 using player;
 
 namespace ui
@@ -30,13 +30,7 @@ namespace ui
 		[SerializeField] private Image[] buffIcons;
 
 		// inventory panel
-		[SerializeField] private Image[] inventoryIcons;
-		[SerializeField] private Text[] inventoryKeybingShortcutText;
-
-		void Start()
-		{
-			Debug.Assert(inventoryIcons.Length == inventoryKeybingShortcutText.Length);
-		}
+		[SerializeField] private InventoryItem[] inventoryItems;
 
 		void Update()
 		{
@@ -87,19 +81,17 @@ namespace ui
 			expMajorSlider.value = value;
 		}
 
-		public void setItem(int index, Sprite icon)
+		public void setItem(int index, Sprite icon, float alpha)
 		{
-			Debug.Assert(index < inventoryIcons.Length);
-			inventoryIcons[index].sprite = icon;
-		}
+			Debug.Assert(index < inventoryItems.Length);
+			var item = inventoryItems[index];
+			var button = item.ImageButton;
+			button.image.sprite = icon;
+			item.InventoryId = index;
 
-		public void setItemAlpha(int index, float alpha)
-		{
-			Debug.Assert(index < inventoryIcons.Length);
-			var icon = inventoryIcons[index];
-			var color = icon.color;
+			var color = button.colors.normalColor;
 			color.a = alpha;
-			icon.color = color;
+			button.image.color = color;
 		}
 
 		public void setBuffIcon(int index, Image icon)

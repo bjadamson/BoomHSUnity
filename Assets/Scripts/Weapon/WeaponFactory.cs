@@ -39,8 +39,8 @@ namespace weapon
 
 			var weaponBehavior = go.GetComponent<WeaponBehavior>();
 			weaponBehavior.PrefabPath = pathPrefix + "Guns/" + prefabWeaponName;
-			weaponBehavior.IconSprite = Resources.Load<Sprite>("Textures/UI/" + iconName);
-			Debug.Assert(weaponBehavior.IconSprite != null);
+			weaponBehavior.Icon = Resources.Load<Sprite>("Textures/UI/" + iconName);
+			Debug.Assert(weaponBehavior.Icon != null);
 
 			return new WeaponModel(weaponBehavior, prefabWeaponName, fullyAutomatic, piercingRounds);
 		}

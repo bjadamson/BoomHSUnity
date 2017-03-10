@@ -9,7 +9,7 @@ namespace weapon
 	public class WeaponBehavior : MonoBehaviour
 	{
 		public string PrefabPath;
-		public Sprite IconSprite;
+		public Sprite Icon;
 		[SerializeField] private AudioSource ShootSound;
 		[SerializeField] private AudioSource ClipEmptySound;
 		[SerializeField] private AudioSource ClipFull;
