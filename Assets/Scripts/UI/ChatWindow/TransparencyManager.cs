@@ -34,6 +34,9 @@ namespace ui
 				// renders ontop of the scroll view.
 				tabAnchor.transform.SetParent(tabAnchorParent.transform);
 				tabAnchor.transform.SetSiblingIndex(0);
+				tabAnchor.transform.localPosition = Vector3.zero;
+				tabAnchor.transform.localRotation = Quaternion.identity;
+				tabAnchor.transform.localScale = Vector3.one;
 			}
 
 			public void makeTransparent ()
