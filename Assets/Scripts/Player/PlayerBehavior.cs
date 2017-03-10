@@ -45,14 +45,14 @@ namespace player
 
 			float distanceToGround = PlayerGO.GetComponent<Collider>().bounds.extents.y;
 
-			var weapon0 = weaponFactory.makeAk47();
+			var weapon0 = weaponFactory.makeM4A1();
 			weapon0.EquippedPosition = 0;
 			var weapon1 = weaponFactory.makeAk47();
 			weapon1.EquippedPosition = 1;
 			var weapon2 = weaponFactory.makeM4A1();
 			weapon2.EquippedPosition = 2;
 
-			playerModel = new PlayerStateModel(distanceToGround, weapon0, weapon1, weapon2);
+			playerModel = new PlayerStateModel(distanceToGround, uiManager, weapon0, weapon1, weapon2);
 			playerModel.equipWeaponSlot(0, playerAnimator, WeaponSlotsGOs);
 			playerModel.equipWeaponSlot(1, playerAnimator, WeaponSlotsGOs);
 			playerModel.equipWeaponSlot(2, playerAnimator, WeaponSlotsGOs);

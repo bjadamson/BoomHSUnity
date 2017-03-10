@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using weapon;
+using ui;
 
 namespace player
 {
@@ -34,9 +35,13 @@ namespace player
 		// storage
 		private Inventory inventory = new Inventory();
 
-		internal PlayerStateModel(float distance, WeaponModel w0, WeaponModel w1, WeaponModel w2)
+		// ui
+		private readonly UIManager uiManager;
+
+		internal PlayerStateModel(float distance, UIManager uiMgr, WeaponModel w0, WeaponModel w1, WeaponModel w2)
 		{
 			DistanceToGround = distance;
+			uiManager = uiMgr;
 
 			inventory.addWeapon(w0);
 			inventory.addWeapon(w1);
@@ -110,8 +115,11 @@ namespace player
 			var equippedWeaponSlot = weaponSlotsGOs.EquippedRHS;
 			activeWeaponModel.reparentUnderGO(equippedWeaponSlot);
 
-			// 4) Finally instruct the animator to equip the weapon
+			// 4) instruct the animator to equip the weapon
 			playerAnimator.equipWeapon();
+
+			// 5) Finally update the inventory UI icon
+			uiManager.setItem(index, weapon.IconSprite);
 		}
 
 		public void shootIfAppropriate(bool fire1Pressed, bool fire1HeldDown)

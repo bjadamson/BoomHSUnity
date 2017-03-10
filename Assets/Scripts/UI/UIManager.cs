@@ -87,10 +87,10 @@ namespace ui
 			expMajorSlider.value = value;
 		}
 
-		public void setItem(int index, Image icon)
+		public void setItem(int index, Sprite icon)
 		{
 			Debug.Assert(index < inventoryIcons.Length);
-			inventoryIcons[index] = icon;
+			inventoryIcons[index].sprite = icon;
 		}
 
 		public void setBuffIcon(int index, Image icon)

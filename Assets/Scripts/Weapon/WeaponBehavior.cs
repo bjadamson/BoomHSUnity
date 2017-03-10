@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using player;
 
 namespace weapon
@@ -8,6 +9,7 @@ namespace weapon
 	public class WeaponBehavior : MonoBehaviour
 	{
 		public string PrefabPath;
+		public Sprite IconSprite;
 		[SerializeField] private AudioSource ShootSound;
 		[SerializeField] private AudioSource ClipEmptySound;
 		[SerializeField] private AudioSource ClipFull;
@@ -36,7 +38,6 @@ namespace weapon
 			Rigidbody rb = bulletGO.GetComponent<Rigidbody>();
 			rb.AddForce(bulletGO.transform.forward * bulletSpeed, ForceMode.Impulse);
 
-			bulletGO.tag = "Bullet";
 			bulletGO.GetComponent<Bullet>().PiercingRound = piercingRound;
 
 			Debug.DrawRay(bulletGO.transform.position, bulletGO.transform.forward * 30, Color.green);
