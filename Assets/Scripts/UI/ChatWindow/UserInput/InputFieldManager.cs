@@ -18,6 +18,7 @@ namespace ui
 				[SerializeField] private ScrollViewManager scrollBar;
 				[SerializeField] private InputField inputField;
 				[SerializeField] private ChatManager chatManager;
+				[SerializeField] private GameObject commandPanel;
 				[SerializeField] private TransparencyManager transparencyManager;
 				[SerializeField] private UserIO userIO;
 
@@ -25,9 +26,6 @@ namespace ui
 
 				void Start()
 				{
-					//inputField.gameObject.SetActive(false); // Initially input-field is hidden.
-					//transparencyManager.makeTransparent();
-
 					disableReadFromUserStdin(false);
 				}
 
@@ -75,11 +73,26 @@ namespace ui
 						userIO.toggleBlockingPlayerActions();
 						disableReadFromUserStdin(true);
 					}
+
+					if (Input.GetKeyDown(KeyCode.Tab))
+					{
+						toggleCommandPanel();
+					}
 				}
 
 				public bool isReadingChatInputFromStdin()
 				{
 					return inputField.gameObject.activeSelf;
+				}
+
+				private void toggleCommandPanel()
+				{
+					commandPanel.SetActive(!commandPanel.activeSelf);
+				}
+
+				private void hideCommandPanel()
+				{
+					commandPanel.SetActive(false);
 				}
 
 				private void enableReadFromUserStdin()
@@ -104,6 +117,8 @@ namespace ui
 
 					// clear out input box field.
 					inputField.text = string.Empty;
+
+					hideCommandPanel();
 				}
 
 				private void pushSelected()

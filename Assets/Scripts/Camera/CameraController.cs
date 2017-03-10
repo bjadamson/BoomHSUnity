@@ -6,6 +6,7 @@ namespace camera
 {
 	public class CameraController : MonoBehaviour
 	{
+		[SerializeField] private UserIO userIO;
 		[SerializeField] private ThirdPerson thirdPerson;
 		[SerializeField] private FirstPerson firstPerson;
 
@@ -27,7 +28,7 @@ namespace camera
 		{
 			if (!freelookMode.IsFreelookModeActive())
 			{
-				if (Input.GetKeyDown(KeyCode.T))
+				if (userIO.GetKeyDown(KeyCode.T))
 				{
 					if (firstPerson.gameObject.activeSelf)
 					{
