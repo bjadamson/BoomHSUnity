@@ -15,13 +15,16 @@ namespace player
 		[SerializeField] private float rotationDegreesPerSecond = 120f;
 		[SerializeField] private UserIO userIO;
 
-		private float speed = 0.0f;
 		private float direction = 0.0f;
 		private float horizontal = 0.0f;
 		private float vertical = 0.0f;
 		private AnimatorStateInfo stateInfo;
 
 		private int m_locomotionId;
+
+		// TODO: BUG
+		// direction is never updated anymore, after we got rid of that joystrick to direction function from earlier.
+		// however direction is used in FixedUpdate(), decide what to do.
 
 		void Start()
 		{
@@ -34,8 +37,11 @@ namespace player
 			stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 		}
 
-		public void updateAnimations(float horizontal, float vertical, float speed, bool jump, bool strafeLeft, bool strafeRight, bool crouch, bool sprint)
+		public void updateAnimations(float h, float v, float speed, bool jump, bool strafeLeft, bool strafeRight, bool crouch, bool sprint)
 		{
+			horizontal = h;
+			vertical = v;
+
 			setJump(jump);
 			setStrafe(strafeLeft, strafeRight);
 			setCrouch(crouch);
@@ -94,7 +100,8 @@ namespace player
 			animator.SetTrigger("Dead");
 		}
 
-		public void playReviveAnimation() {
+		public void playReviveAnimation()
+		{
 			animator.SetTrigger("Revive");
 		}
 

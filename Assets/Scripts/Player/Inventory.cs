@@ -5,15 +5,17 @@ using weapon;
 
 namespace player
 {
-	public class Inventory : MonoBehaviour
+	public class Inventory
 	{
-		private readonly IList<Weapon> weapons = new List<Weapon>();
+		private readonly IList<WeaponModel> weapons = new List<WeaponModel>();
 
-		public void addWeapon(Weapon weapon) {
+		public void addWeapon(WeaponModel weapon)
+		{
 			weapons.Add(weapon);
 		}
 
-		public Weapon getWeapon(int index) {
+		public WeaponModel getWeapon(int index)
+		{
 			return weapons[index];
 		}
 	}

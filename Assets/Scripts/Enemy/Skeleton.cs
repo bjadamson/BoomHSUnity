@@ -20,7 +20,7 @@ namespace enemy
 		private Animator anim;
 		private AudioSource audioSource;
 
-		public CrosshairControl CrosshairControl;
+		public UIManager uiManager;
 		public Transform PlayerTransform;
 
 		void Start()
@@ -59,7 +59,7 @@ namespace enemy
 				audioSource.Play();
 				Damage(25);
 
-				CrosshairControl.showThenHideHitIndicator();
+				uiManager.showThenHideHitIndicator();
 			}
 		}
 

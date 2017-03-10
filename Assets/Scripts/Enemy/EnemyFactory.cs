@@ -10,7 +10,7 @@ namespace enemy
 	{
 		[SerializeField] private float TimeBetweenSpawns = 0.8f;
 		[SerializeField] private Transform PlayerTransform;
-		[SerializeField] private CrosshairControl CrosshairControl;
+		[SerializeField] private UIManager uiManager;
 		[SerializeField] private GameObject DynamicRoot;
 
 		private float timeToSpawnNextEnemy = 0.0f;
@@ -42,7 +42,7 @@ namespace enemy
 			skeletonGO.tag = "Enemy";
 			skeletonGO.transform.position = transform.position;
 			skeletonGO.GetComponent<Skeleton>().PlayerTransform = PlayerTransform;
-			skeletonGO.GetComponent<Skeleton>().CrosshairControl = CrosshairControl;
+			skeletonGO.GetComponent<Skeleton>().uiManager = uiManager;
 
 			// always last
 			resetSpawnTimer();

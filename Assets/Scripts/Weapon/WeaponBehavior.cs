@@ -9,7 +9,6 @@ namespace weapon
 	{
 		public string PrefabPath;
 		public GameObject BulletShootAnchor;
-		public GameObject PlayerBackWeaponSlot;
 
 		private AudioSource ShootSound;
 		private AudioSource ClipEmptySound;
@@ -88,14 +87,14 @@ namespace weapon
 			this.ShootSound.Stop();
 		}
 
-		public void hideFromFpsCamera()
-		{
-			gameObject.layer = 8; // player layer
-		}
+		//public void hideFromFpsCamera()
+		//{
+		//	gameObject.layer = 8; // player layer
+		//}
 
-		public void showToFpsCamera()
-		{
-			gameObject.layer = 0;
-		}
+		//public void showToFpsCamera()
+		//{
+		//	gameObject.layer = 0;
+		//}
 	}
 }

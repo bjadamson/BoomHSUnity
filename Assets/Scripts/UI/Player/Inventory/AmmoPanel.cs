@@ -12,25 +12,27 @@ namespace ui
 		{
 			public class AmmoPanel : MonoBehaviour
 			{
-				[SerializeField] private PlayerBehavior player;
-				[SerializeField] private Text ammoRemainingText;
+				[SerializeField] private PlayerBehavior PlayerBehavior;
+				private Text AmmoRemainingText;
+				private Image AmmoImage;
 
-				void Update()
+				void Start()
 				{
-					if (!player.isWeaponEquipped())
-					{
-						if (ammoRemainingText.gameObject.activeSelf)
-						{
-							ammoRemainingText.gameObject.SetActive(false);
-						}
-						return;
-					}
-					if (!ammoRemainingText.gameObject.activeSelf)
-					{
-						ammoRemainingText.gameObject.SetActive(true);
-					}
-					string value = player.equippedWeaponAmmoCount() + "/" + player.equippedWeaponMaxAmmo();
-					ammoRemainingText.text = value;
+					AmmoRemainingText = GetComponentInChildren<Text>();
+					Debug.Assert(AmmoRemainingText != null);
+
+					AmmoImage = GetComponentInChildren<Image>();
+					Debug.Assert(AmmoImage != null);
+				}
+
+				public void setText(string value)
+				{
+					AmmoRemainingText.text = value;
+				}
+
+				public void setImage(Image value)
+				{
+					AmmoImage = value;
 				}
 			}
 		}

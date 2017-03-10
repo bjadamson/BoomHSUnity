@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using ui.player.inventory;
+using player;
+
 namespace ui
 {
 	public class UIManager : MonoBehaviour
 	{
+		// Player
+		[SerializeField] private PlayerBehavior playerBehavior;
+
+		// ui-elements
 		// player panel
 		[SerializeField] private Slider healthSlider;
 		[SerializeField] private Slider manaSlider;
@@ -14,8 +21,10 @@ namespace ui
 		[SerializeField] private Slider expMajorSlider;
 
 		// ammo panel
-		[SerializeField] private Text ammoCountText;
-		[SerializeField] private Image ammoIcon;
+		[SerializeField] private AmmoPanel ammoPanel;
+
+		// crosshair panel
+		[SerializeField] private HitIndicator HitIndicator;
 
 		// buff panel
 		[SerializeField] private Image[] buffIcons;
@@ -29,14 +38,27 @@ namespace ui
 			Debug.Assert(inventoryIcons.Length == inventoryKeybingShortcutText.Length);
 		}
 
+		void Update()
+		{
+			if (playerBehavior.isWeaponEquipped())
+			{
+				ammoPanel.gameObject.SetActive(true);
+				setAmmo(playerBehavior.equippedWeaponAmmoCount(), playerBehavior.equippedWeaponMaxAmmo());
+			}
+			else
+			{
+				ammoPanel.gameObject.SetActive(false);
+			}
+		}
+
 		public void setAmmo(int magazineCount, int magazineMax)
 		{
-			ammoCountText.text = magazineCount + " / " + magazineMax;
+			ammoPanel.setText(magazineCount + " / " + magazineMax);
 		}
 
 		public void setAmmoIcon(Image icon)
 		{
-			ammoIcon = icon;
+			ammoPanel.setImage(icon);
 		}
 
 		public void setHealth(int value)
@@ -75,6 +97,11 @@ namespace ui
 		{
 			Debug.Assert(index < buffIcons.Length);
 			buffIcons[index] = icon;
+		}
+
+		public void showThenHideHitIndicator()
+		{
+			this.HitIndicator.showThenHideHitIndicator();
 		}
 	}
 }
