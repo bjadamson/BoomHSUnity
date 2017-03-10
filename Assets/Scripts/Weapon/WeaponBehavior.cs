@@ -8,40 +8,19 @@ namespace weapon
 	public class WeaponBehavior : MonoBehaviour
 	{
 		public string PrefabPath;
-		public GameObject BulletShootAnchor;
-
-		private AudioSource ShootSound;
-		private AudioSource ClipEmptySound;
-		private AudioSource ClipFull;
-		private AudioSource ReloadSound;
+		[SerializeField] private AudioSource ShootSound;
+		[SerializeField] private AudioSource ClipEmptySound;
+		[SerializeField] private AudioSource ClipFull;
+		[SerializeField] private AudioSource ReloadSound;
+		[SerializeField] private GameObject BulletShootAnchor;
+		[SerializeField] private float ScaleFactor;
 
 		void Start()
 		{
 			GameObject go = (GameObject)Instantiate(Resources.Load(PrefabPath), transform);
 			Debug.Assert(go != null);
 			go.transform.SetParent(transform);
-
-			float scaleFactor = 0.34203f;
-			go.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-
-			this.BulletShootAnchor = new GameObject("BulletShootAnchor");
-			this.BulletShootAnchor.transform.SetParent(transform);
-			this.BulletShootAnchor.transform.localPosition = new Vector3(0.0f, 0.0337f, 0.3095f);
-			this.BulletShootAnchor.transform.localRotation = Quaternion.identity;
-			this.BulletShootAnchor.transform.localScale = Vector3.one;
-
-			this.ClipEmptySound = gameObject.AddComponent<AudioSource>();
-			this.ClipEmptySound.clip = Resources.Load<AudioClip>("audio/clip_empty");
-
-			this.ClipFull = gameObject.AddComponent<AudioSource>();
-			this.ClipFull.clip = Resources.Load<AudioClip>("audio/clip_full");
-
-			this.ShootSound = gameObject.AddComponent<AudioSource>();
-			this.ShootSound.clip = Resources.Load<AudioClip>("audio/gunshoot");
-			this.ShootSound.volume = 0.15f;
-
-			this.ReloadSound = gameObject.AddComponent<AudioSource>();
-			this.ReloadSound.clip = Resources.Load<AudioClip>("audio/reload");
+			go.transform.localScale = new Vector3(ScaleFactor, ScaleFactor, ScaleFactor);
 		}
 
 		public void shoot(float bulletDistance, float bulletSpeed, bool piercingRound)

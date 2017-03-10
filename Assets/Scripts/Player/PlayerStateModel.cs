@@ -3,7 +3,7 @@ using weapon;
 
 namespace player
 {
-	public class PlayerModel
+	public class PlayerStateModel
 	{
 		// constants
 		private readonly float TIME_FOR_REVIVE_ANIMATION = 3.0f;
@@ -34,7 +34,7 @@ namespace player
 		// storage
 		private Inventory inventory = new Inventory();
 
-		internal PlayerModel(float distance, WeaponModel w0, WeaponModel w1, WeaponModel w2)
+		internal PlayerStateModel(float distance, WeaponModel w0, WeaponModel w1, WeaponModel w2)
 		{
 			DistanceToGround = distance;
 

@@ -17,7 +17,7 @@ namespace weapon
 
 		// state
 		public int AmmoCount = 30;
-		public int? EquippedPosition;
+		public int? EquippedPosition = null;
 
 		public WeaponModel(WeaponBehavior weaponBehavior, string name, bool fullyAutomatic, bool piercingRounds)
 		{

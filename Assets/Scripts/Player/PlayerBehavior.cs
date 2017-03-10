@@ -29,7 +29,7 @@ namespace player
 		private Rigidbody rigidBody;
 
 		// state
-		private PlayerModel playerModel;
+		private PlayerStateModel playerModel;
 
 		void Start()
 		{
@@ -52,7 +52,7 @@ namespace player
 			var weapon2 = weaponFactory.makeM4A1();
 			weapon2.EquippedPosition = 2;
 
-			playerModel = new PlayerModel(distanceToGround, weapon0, weapon1, weapon2);
+			playerModel = new PlayerStateModel(distanceToGround, weapon0, weapon1, weapon2);
 			playerModel.equipWeaponSlot(0, playerAnimator, WeaponSlotsGOs);
 			playerModel.equipWeaponSlot(1, playerAnimator, WeaponSlotsGOs);
 			playerModel.equipWeaponSlot(2, playerAnimator, WeaponSlotsGOs);
