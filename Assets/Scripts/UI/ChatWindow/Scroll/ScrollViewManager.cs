@@ -44,6 +44,31 @@ namespace ui
 				public void setContentRect(RectTransform rect) {
 					scrollRect.content = rect;
 				}
+
+				public void hideEverything() {
+					hideImage(scrollHandleBackground);
+					hideImage(scrollHandle);
+					hideImage(scrollViewBackground);
+				}
+
+				public void showEverything()
+				{
+					showImage(scrollHandleBackground);
+					showImage(scrollHandle);
+					showImage(scrollViewBackground);
+				}
+
+				private static void hideImage(Image img) {
+					var color = img.color;
+					color.a = 0.0f;
+					img.color = color;
+				}
+
+				private static void showImage(Image img) {
+					var color = img.color;
+					color.a = 1.0f;
+					img.color = color;
+				}
 			}
 		}
 	}

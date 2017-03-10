@@ -92,13 +92,12 @@ namespace player
 			activeWeaponModel.reparentUnderGO(backSlotGO);
 			activeWeaponModel = null;
 
+			// 5) Animate putting away the weapon.
 			playerAnimator.sheathWeapon();
 		}
 
 		public void equipWeaponSlot(int index, PlayerAnimate playerAnimator, WeaponSlotGameObjects weaponSlotsGOs)
 		{
-			unequipEquippedWeapon(playerAnimator, weaponSlotsGOs);
-
 			// 1) If reloading, stop.
 			startedReloading = false;
 			if (activeWeaponModel != null)
@@ -106,20 +105,24 @@ namespace player
 				activeWeaponModel.stopReloadingAnimation();
 			}
 
-			// 2) Find the active weapon by index.
+			// 2) Move the equipped weapon to the player's back.
+			unequipEquippedWeapon(playerAnimator, weaponSlotsGOs);
+
+			// 3) Find the active weapon by index.
 			var weapon = inventory.getWeapon(index).WeaponBehavior;
 			Debug.Assert(weapon != null);
 			activeWeaponModel = inventory.getWeapon(index);
 
-			// 3) Reparent the active weapon GO to the equipped weapon slot GO.
+			// 4) Reparent the active weapon GO to the equipped weapon slot GO.
 			var equippedWeaponSlot = weaponSlotsGOs.EquippedRHS;
 			activeWeaponModel.reparentUnderGO(equippedWeaponSlot);
 
-			// 4) instruct the animator to equip the weapon
+			// 5) instruct the animator to equip the weapon
 			playerAnimator.equipWeapon();
 
-			// 5) Finally update the inventory UI icon
+			// 6) Finally update the inventory UI icon
 			uiManager.setItem(index, weapon.IconSprite);
+			uiManager.setItemAlpha(index, 1.0f);
 		}
 
 		public void shootIfAppropriate(bool fire1Pressed, bool fire1HeldDown)

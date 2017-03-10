@@ -16,6 +16,9 @@ namespace ui
 			[SerializeField] private float chatWindowCanvasTransparentAlpha = 0.55f;
 			[SerializeField] private float chatWindowCanvasOpaqueAlpha = 1.0f;
 
+			[SerializeField] private GameObject tabAnchor;
+			[SerializeField] private GameObject tabAnchorParent;
+
 			[SerializeField] private float scrollBarTransparentAlpha = 0.55f;
 			[SerializeField] private float scrollBarOpaqueAlpha = 1.0f;
 			[SerializeField] private float scrollViewOpaqueAlpha = 0.80f;
@@ -24,12 +27,22 @@ namespace ui
 			{
 				chatCanvasGroup.alpha = chatWindowCanvasOpaqueAlpha;
 				scrollBackground.setAlpha (scrollBarOpaqueAlpha, scrollViewOpaqueAlpha);
+
+				scrollBackground.showEverything();
+
+				// Here we insert the tabAnchor back into the hierarchy, but ensure that it is the "first" child so it
+				// renders ontop of the scroll view.
+				tabAnchor.transform.SetParent(tabAnchorParent.transform);
+				tabAnchor.transform.SetSiblingIndex(0);
 			}
 
 			public void makeTransparent ()
 			{
 				chatCanvasGroup.alpha = chatWindowCanvasTransparentAlpha;
 				scrollBackground.setAlpha (scrollBarTransparentAlpha, scrollBarTransparentAlpha);
+
+				scrollBackground.hideEverything();
+				tabAnchor.transform.SetParent(null);
 			}
 		}
 	}

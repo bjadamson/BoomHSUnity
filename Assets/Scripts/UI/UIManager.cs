@@ -93,6 +93,15 @@ namespace ui
 			inventoryIcons[index].sprite = icon;
 		}
 
+		public void setItemAlpha(int index, float alpha)
+		{
+			Debug.Assert(index < inventoryIcons.Length);
+			var icon = inventoryIcons[index];
+			var color = icon.color;
+			color.a = alpha;
+			icon.color = color;
+		}
+
 		public void setBuffIcon(int index, Image icon)
 		{
 			Debug.Assert(index < buffIcons.Length);

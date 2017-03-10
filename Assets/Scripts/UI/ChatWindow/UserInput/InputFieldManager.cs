@@ -25,8 +25,10 @@ namespace ui
 
 				void Start()
 				{
-					inputField.gameObject.SetActive(false); // Initially input-field is hidden.
-					transparencyManager.makeTransparent();
+					//inputField.gameObject.SetActive(false); // Initially input-field is hidden.
+					//transparencyManager.makeTransparent();
+
+					disableReadFromUserStdin(false);
 				}
 
 				public bool isEmpty()
