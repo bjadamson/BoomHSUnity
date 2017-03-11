@@ -6,6 +6,8 @@ namespace camera
 {
 	public class Freelook : MonoBehaviour
 	{
+		[SerializeField] private UserIO userIO;
+
 		private float horizontalRot = 0.0f;
 		private Vector3 anchorDirectionRightVector = Vector3.zero;
 
@@ -31,7 +33,7 @@ namespace camera
 
 		void Update()
 		{
-			Vector2 mouseAxis = getMouseAxis();
+			Vector2 mouseAxis = userIO.GetMouseAxis();
 			horizontalRot = mouseAxis.x;
 		}
 
@@ -56,14 +58,6 @@ namespace camera
 		{
 			const float DELTA = 0.05f;
 			return Vector3.Dot(a, b) < DELTA;
-		}
-
-		private Vector2 getMouseAxis()
-		{
-			const float multiplier = 150.0f;
-			float horizontal = Input.GetAxis("Mouse X");
-			float vertical = Input.GetAxis("Mouse Y");
-			return new Vector2(horizontal * Time.deltaTime * multiplier, vertical * Time.deltaTime * multiplier);
 		}
 	}
 }

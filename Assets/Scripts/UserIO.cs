@@ -42,4 +42,14 @@ public class UserIO : MonoBehaviour {
 	public bool GetButtonUp(string name) {
 		return blockingNonChatInput ? false : Input.GetButtonUp(name);
 	}
+
+	public Vector2 GetMouseAxis()
+	{
+		const float mouseSensitivity = 2.0f;
+		float horizontal = Input.GetAxis("Mouse X");
+		float vertical = Input.GetAxis("Mouse Y");
+
+		float multiplier = mouseSensitivity;
+		return new Vector2(horizontal * multiplier, vertical * multiplier);
+	}
 }

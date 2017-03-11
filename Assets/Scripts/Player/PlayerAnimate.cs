@@ -7,7 +7,6 @@ namespace player
 {
 	public class PlayerAnimate : MonoBehaviour
 	{
-		[SerializeField] private GameObject PlayerGO;
 		[SerializeField] private Animator animator;
 		[SerializeField] private float directionDampTime = 0.25f;
 		[SerializeField] private ThirdPerson tpCamera;
@@ -28,7 +27,7 @@ namespace player
 
 		void Start()
 		{
-			animator = PlayerGO.GetComponent<Animator>();
+			animator = GetComponent<Animator>();
 			m_locomotionId = Animator.StringToHash("Base Layer.Locomotion");
 		}
 
@@ -112,7 +111,7 @@ namespace player
 				Vector3 maxLerp = new Vector3(0f, rotationDegreesPerSecond * (horizontal < 0f ? -1f : 1f), 0f);
 				Vector3 rotationAmount = Vector3.Lerp(Vector3.zero, maxLerp, Mathf.Abs(horizontal));
 				Quaternion deltaRotation = Quaternion.Euler(rotationAmount * Time.deltaTime);
-				PlayerGO.transform.rotation = transform.rotation * deltaRotation;
+				transform.rotation = transform.rotation * deltaRotation;
 			}
 		}
 

@@ -12,7 +12,7 @@ namespace camera
 
 		[SerializeField] private GameObject player;
 		[SerializeField] private GameObject playerHead;
-
+		[SerializeField] private FollowPlayer thirdPersonFollowPlayer;
 		private Freelook freelookMode;
 
 		void Start()
@@ -91,6 +91,16 @@ namespace camera
 			freelookMode.TargetObject = playerHead.transform;
 
 			thirdPerson.unlockTransform();
+		}
+
+		public void adsZoomIn()
+		{
+			thirdPersonFollowPlayer.zoomIn();
+		}
+
+		public void adsZoomOut()
+		{
+			thirdPersonFollowPlayer.zoomOut();
 		}
 
 		private GameObject getActiveCameraObject()

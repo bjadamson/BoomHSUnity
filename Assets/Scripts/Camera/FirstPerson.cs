@@ -6,6 +6,7 @@ namespace camera
 {
 	public class FirstPerson : MonoBehaviour
 	{
+		[SerializeField] private UserIO userIO;
 		[SerializeField] public GameObject playerGO;
 		[SerializeField] public Transform player;
 		[SerializeField] public Transform head;
@@ -29,9 +30,9 @@ namespace camera
 				return;
 			}
 
-			Vector2 mouseAxis = getMouseAxis();
-			horizontalRot = mouseAxis.x;// * mouseSensitivity;
-			verticalRot = mouseAxis.y;// * mouseSensitivity;
+			Vector2 mouseAxis = userIO.GetMouseAxis();
+			horizontalRot = mouseAxis.x;
+			verticalRot = mouseAxis.y;
 
 			if (!freelook.IsFreelookModeActive())
 			{
@@ -79,14 +80,6 @@ namespace camera
 				// 4) The camera shouldn't ever rotate around the Z axis, that doesn't yield a good user experience.
 				transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0.0f);
 			}
-		}
-
-		private Vector2 getMouseAxis()
-		{
-			const float multiplier = 150.0f;
-			float horizontal = Input.GetAxis("Mouse X");
-			float vertical = Input.GetAxis("Mouse Y");
-			return new Vector2(horizontal * Time.deltaTime * multiplier, vertical * Time.deltaTime * multiplier);
 		}
 
 		private static bool withinThreshold(Vector3 a, Vector3 b)

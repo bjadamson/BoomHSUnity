@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using weapon;
+using camera;
 using ui;
 
 namespace player
@@ -9,6 +11,9 @@ namespace player
 		// constants
 		private readonly float TIME_FOR_REVIVE_ANIMATION = 3.0f;
 		private readonly float TIME_FOR_RELOAD = 1.5f;
+
+		// camera
+		private readonly CameraController kameraController;
 
 		// environment
 		public readonly float DistanceToGround;
@@ -38,10 +43,11 @@ namespace player
 		// ui
 		private readonly UIManager uiManager;
 
-		internal PlayerStateModel(float distance, UIManager uiMgr)
+		internal PlayerStateModel(float distance, UIManager uiMgr, CameraController camController)
 		{
 			DistanceToGround = distance;
 			uiManager = uiMgr;
+			this.kameraController = camController;
 		}
 
 		public void addWeapon(WeaponModel w) {
@@ -153,12 +159,14 @@ namespace player
 					isPlayerADS = true;
 					playerAnimator.setADS(true);
 					activeWeaponModel.reparentUnderGO(equippedADS);
+					kameraController.adsZoomIn();
 				}
 				else if (fire2Up)
 				{
 					isPlayerADS = false;
 					playerAnimator.setADS(false);
 					activeWeaponModel.reparentUnderGO(equippedRHS);
+					kameraController.adsZoomOut();
 				}
 			}
 		}

@@ -10,11 +10,10 @@ namespace player
 {
 	public class PlayerBehavior : MonoBehaviour
 	{
-		[SerializeField] private GameObject PlayerGO;
-		[SerializeField] private UserIO userIO;
-		[SerializeField] private CameraController kameraController;
 		[SerializeField] private DeathReviveBehavior deathBehavior;
+		[SerializeField] private CameraController kameraController;
 		[SerializeField] private UIManager uiManager;
+		[SerializeField] private UserIO userIO;
 
 		private WeaponSlotGameObjects WeaponSlotsGOs;
 
@@ -30,6 +29,7 @@ namespace player
 
 		// state
 		private PlayerStateModel playerModel;
+		private bool isFalling = false;
 
 		void Start()
 		{
@@ -39,12 +39,15 @@ namespace player
 			Debug.Assert(WeaponSlotsGOs != null);
 
 			playerAnimator = GetComponent<PlayerAnimate>();
-			capsuleCollider = PlayerGO.GetComponent<CapsuleCollider>();
+			capsuleCollider = GetComponent<CapsuleCollider>();
 			crouchStand = GetComponent<CrouchStand>();
-			rigidBody = PlayerGO.GetComponent<Rigidbody>();
+			rigidBody = GetComponent<Rigidbody>();
 
-			float distanceToGround = PlayerGO.GetComponent<Collider>().bounds.extents.y;
-			playerModel = new PlayerStateModel(distanceToGround, uiManager);
+			float distanceToGround = GetComponent<Collider>().bounds.extents.y;
+			playerModel = new PlayerStateModel(distanceToGround, uiManager, kameraController);
+
+			// hack for now, we need to wait until after all MonoBehavior Start() methods have been invoked before calling this..
+			Invoke("spawnItems", 0.1f);
 		}
 
 		private void spawnItems()
@@ -55,7 +58,6 @@ namespace player
 			weapon1.EquippedPosition = 1;
 			var weapon2 = weaponFactory.makeM4A1();
 			weapon2.EquippedPosition = 2;
-
 
 			playerModel.addWeapon(weapon0);
 			playerModel.addWeapon(weapon1);
@@ -118,6 +120,55 @@ namespace player
 			}
 		}
 
+		void FixedUpdate()
+		{
+			if (playerModel.isDead() || playerModel.isReviving())
+			{
+				return;
+			}
+			float horizontalAxis = userIO.GetAxis("Horizontal");
+			float verticalAxis = userIO.GetAxis("Vertical");
+
+			float timeMultiplier = Time.deltaTime * MOVEMENT_SPEED;
+			float horizontal = horizontalAxis * timeMultiplier;
+			float vertical = verticalAxis * timeMultiplier;
+
+			bool onGround = isOnGround(transform, playerModel.DistanceToGround);
+			bool strafeLeft = horizontalAxis < 0f;
+			bool strafeRight = horizontalAxis > 0f;
+			Debug.Assert(strafeLeft == false || strafeRight == false);
+
+			bool canJump = playerModel.canJump(onGround);
+			bool isJumping = userIO.GetKeyDown(KeyCode.Space) && canJump;
+
+			bool isCrouch = userIO.GetKey(KeyCode.LeftControl);
+			bool isSprint = userIO.GetKey(KeyCode.LeftShift);
+			float forwardBackwardSpeed = onGround ? Mathf.Abs(verticalAxis) : 0.0f;
+
+			playerAnimator.updateAnimations(horizontal, vertical, forwardBackwardSpeed, isJumping, strafeLeft, strafeRight, isCrouch, isSprint);
+			crouchStand.crouchDownOrStandUp(isCrouch);
+
+			if (isJumping)
+			{
+				jump();
+			}
+			float inGroundMultiplier = onGround ? 1000 : 500;
+			float multiplier = isSprint ? inGroundMultiplier * 2 : inGroundMultiplier;
+			rigidBody.AddForce(transform.forward * multiplier * vertical, ForceMode.Acceleration);
+			rigidBody.AddForce(transform.right * multiplier * horizontal, ForceMode.Acceleration);
+		}
+
+		void OnCollisionEnter(Collision collision)
+		{
+			var what = collision.collider.gameObject;
+
+			// Bug waiting to happen but right now we only want to work with the terrain w/regards to jumping.
+			if (what.name == "Terrain")
+			{
+				isFalling = false;
+			}
+		}
+
 		public bool isWeaponEquipped()
 		{
 			return playerModel.isWeaponEquipped();
@@ -148,46 +199,10 @@ namespace player
 			}
 		}
 
-		void FixedUpdate()
-		{
-			if (playerModel.isDead() || playerModel.isReviving())
-			{
-				return;
-			}
-			float horizontalAxis = userIO.GetAxis("Horizontal");
-			float verticalAxis = userIO.GetAxis("Vertical");
-
-			float timeMultiplier = Time.deltaTime * MOVEMENT_SPEED;
-			float horizontal = horizontalAxis * timeMultiplier;
-			float vertical = verticalAxis * timeMultiplier;
-
-			bool strafeLeft = horizontalAxis < 0f;
-			bool strafeRight = horizontalAxis > 0f;
-
-
-			bool onGround = isOnGround(PlayerGO.transform, playerModel.DistanceToGround);
-			bool canJump = playerModel.canJump(onGround);
-			bool isJumping = userIO.GetKeyDown(KeyCode.Space) && canJump;
-
-			bool isCrouch = userIO.GetKey(KeyCode.LeftControl);
-			bool isSprint = userIO.GetKey(KeyCode.LeftShift);
-			float speed = Mathf.Abs(verticalAxis);
-
-			playerAnimator.updateAnimations(horizontal, vertical, speed, isJumping, strafeLeft, strafeRight, isCrouch, isSprint);
-			crouchStand.crouchDownOrStandUp(isCrouch);
-
-			Vector3 movement = (PlayerGO.transform.forward * vertical) + (PlayerGO.transform.right * horizontal);
-			PlayerGO.transform.Translate(movement, Space.World);
-
-			if (isJumping)
-			{
-				jump();
-			}
-		}
-
 		private void jump()
 		{
 			rigidBody.AddForce(Vector3.up * JUMP_FORCE, ForceMode.Impulse);
+			isFalling = true;
 			// TODO: adjust capsule collider for duration of jump, so we can jump up on things.
 		}
 

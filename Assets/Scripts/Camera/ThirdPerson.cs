@@ -6,9 +6,11 @@ namespace camera
 {
 	public class ThirdPerson : MonoBehaviour
 	{
+		[SerializeField] private UserIO userIO;
 		[SerializeField] public GameObject playerGO;
 		[SerializeField] public Transform playerModel;
 		[SerializeField] public Transform modelHead;
+		[SerializeField] public float MouseSensitivity;
 		private Freelook freelook;
 
 		// state
@@ -29,14 +31,14 @@ namespace camera
 				return;
 			}
 
-			Vector2 mouseAxis = getMouseAxis();
+			Vector2 mouseAxis = userIO.GetMouseAxis();
 			verticalRot = mouseAxis.y;
 			horizontalRot = mouseAxis.x;
 
 			if (!freelook.IsFreelookModeActive())
 			{
 				// rotate around local axis
-				playerGO.transform.RotateAround(playerGO.transform.position, playerGO.transform.up, Input.GetAxis("Mouse X") * 150 * Time.deltaTime);
+				playerGO.transform.RotateAround(playerGO.transform.position, playerGO.transform.up, horizontalRot);
 			}
 		}
 
@@ -71,14 +73,6 @@ namespace camera
 		public void unlockTransform()
 		{
 			lockTransform_ = false;
-		}
-
-		private Vector2 getMouseAxis()
-		{
-			const float multiplier = 150.0f;
-			float horizontal = Input.GetAxis("Mouse X");
-			float vertical = Input.GetAxis("Mouse Y");
-			return new Vector2(horizontal * Time.deltaTime * multiplier, vertical * Time.deltaTime * multiplier);
 		}
 
 		private static bool withinThreshold(Vector3 a, Vector3 b)
