@@ -18,7 +18,7 @@ namespace player
 		private WeaponSlotGameObjects WeaponSlotsGOs;
 
 		// constants
-		private readonly float JUMP_FORCE = 1000.0f;
+		private readonly float JUMP_FORCE = 660.0f;
 		private readonly float MOVEMENT_SPEED = 10.0f;
 
 		private WeaponFactory weaponFactory = new WeaponFactory();
@@ -138,8 +138,7 @@ namespace player
 			bool strafeRight = horizontalAxis > 0f;
 			Debug.Assert(strafeLeft == false || strafeRight == false);
 
-			bool canJump = playerModel.canJump(onGround);
-			bool isJumping = userIO.GetKeyDown(KeyCode.Space) && canJump;
+			bool isJumping = userIO.GetKeyDown(KeyCode.Space) && onGround;
 
 			bool isCrouch = userIO.GetKey(KeyCode.LeftControl);
 			bool isSprint = userIO.GetKey(KeyCode.LeftShift);
@@ -225,7 +224,7 @@ namespace player
 		private bool isOnGround(Transform playerTransform, float distanceToGround)
 		{
 			// 0.1 offset deals with "irregularities" in the ground
-			return Physics.Raycast(playerTransform.position, -Vector3.up, distanceToGround + 0.1f);
+			return Physics.Raycast(playerTransform.position, -Vector3.up, distanceToGround + 0.01f);
 		}
 	}
 }

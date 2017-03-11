@@ -31,9 +31,6 @@ namespace player
 		// life/death
 		private float timeWhenRevivingFinished = 0.0f;
 
-		// movement
-		private float timeUntilJumpingAllowed = 0.0f;
-
 		// camera
 		private bool isFreelookMode = false;
 
@@ -180,11 +177,6 @@ namespace player
 		{
 			health = 100;
 			timeWhenRevivingFinished = Time.time + TIME_FOR_REVIVE_ANIMATION;
-		}
-
-		public bool canJump(bool isOnGround)
-		{
-			return isOnGround && (timeUntilJumpingAllowed < Time.time);
 		}
 
 		public bool isDead()
