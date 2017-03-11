@@ -38,14 +38,14 @@ namespace player
 		// ui
 		private readonly UIManager uiManager;
 
-		internal PlayerStateModel(float distance, UIManager uiMgr, WeaponModel w0, WeaponModel w1, WeaponModel w2)
+		internal PlayerStateModel(float distance, UIManager uiMgr)
 		{
 			DistanceToGround = distance;
 			uiManager = uiMgr;
+		}
 
-			inventory.addWeapon(w0);
-			inventory.addWeapon(w1);
-			inventory.addWeapon(w2);
+		public void addWeapon(WeaponModel w) {
+			inventory.addWeapon(w);
 		}
 
 		public void maybeReload(bool reloadKeyPressed)

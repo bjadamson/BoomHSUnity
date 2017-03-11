@@ -44,7 +44,11 @@ namespace player
 			rigidBody = PlayerGO.GetComponent<Rigidbody>();
 
 			float distanceToGround = PlayerGO.GetComponent<Collider>().bounds.extents.y;
+			playerModel = new PlayerStateModel(distanceToGround, uiManager);
+		}
 
+		private void spawnItems()
+		{
 			var weapon0 = weaponFactory.makeM4A1();
 			weapon0.EquippedPosition = 0;
 			var weapon1 = weaponFactory.makeAk47();
@@ -52,7 +56,11 @@ namespace player
 			var weapon2 = weaponFactory.makeM4A1();
 			weapon2.EquippedPosition = 2;
 
-			playerModel = new PlayerStateModel(distanceToGround, uiManager, weapon0, weapon1, weapon2);
+
+			playerModel.addWeapon(weapon0);
+			playerModel.addWeapon(weapon1);
+			playerModel.addWeapon(weapon2);
+
 			playerModel.equipWeaponSlot(0, playerAnimator, WeaponSlotsGOs);
 			playerModel.equipWeaponSlot(1, playerAnimator, WeaponSlotsGOs);
 			playerModel.equipWeaponSlot(2, playerAnimator, WeaponSlotsGOs);
@@ -62,6 +70,10 @@ namespace player
 
 		void Update()
 		{
+			if (userIO.GetKeyDown(KeyCode.P))
+			{
+				spawnItems();
+			}
 			maybeToggleIsDead(userIO.GetKeyDown(KeyCode.K));
 			if (playerModel.isDead())
 			{
