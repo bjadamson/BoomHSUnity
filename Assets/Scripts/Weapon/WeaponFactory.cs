@@ -11,21 +11,22 @@ namespace weapon
 	{
 		private uint weaponId = 0;
 
-		public WeaponModel makeAk47()
+		public WeaponModel makeAk47(int? equippedPosition)
 		{
 			bool fullyAutomatic = true;
 			bool piercingRounds = true;
-			return makeWeapon("Ak-47", "AkInventoryIcon", fullyAutomatic, piercingRounds);
+			return makeWeapon("Ak-47", "Ak-47", "AkInventoryIcon", fullyAutomatic, piercingRounds, equippedPosition);
 		}
 
-		public WeaponModel makeM4A1()
+		public WeaponModel makeM4A1(int? equippedPosition)
 		{
 			bool fullyAutomatic = false;
 			bool piercingRounds = false;
-			return makeWeapon("M4A1 Sopmod", "ArInventoryIcon", fullyAutomatic, piercingRounds);
+			return makeWeapon("M4A1", "M4A1 Sopmod", "ArInventoryIcon", fullyAutomatic, piercingRounds, equippedPosition);
 		}
 
-		private WeaponModel makeWeapon(string prefabWeaponName, string iconName, bool fullyAutomatic, bool piercingRounds)
+		private WeaponModel makeWeapon(string weaponName, string prefabWeaponName, string iconName, bool fullyAutomatic, bool piercingRounds,
+		                               int? equippedPosition)
 		{
 			string pathPrefix = "Prefabs/Weapons/";
 			GameObject go = (GameObject)MonoBehaviour.Instantiate(Resources.Load(pathPrefix + "PlayerWeapon"));
@@ -42,7 +43,8 @@ namespace weapon
 			weaponBehavior.Icon = Resources.Load<Sprite>("Textures/UI/" + iconName);
 			Debug.Assert(weaponBehavior.Icon != null);
 
-			return new WeaponModel(weaponBehavior, prefabWeaponName, fullyAutomatic, piercingRounds);
+			var state = new WeaponState(weaponName, true, fullyAutomatic, piercingRounds, 1000, 350, 30);
+			return new WeaponModel(weaponBehavior, state);
 		}
 	}
 }

@@ -52,12 +52,9 @@ namespace player
 
 		private void spawnItems()
 		{
-			var weapon0 = weaponFactory.makeM4A1();
-			weapon0.EquippedPosition = 0;
-			var weapon1 = weaponFactory.makeAk47();
-			weapon1.EquippedPosition = 1;
-			var weapon2 = weaponFactory.makeM4A1();
-			weapon2.EquippedPosition = 2;
+			var weapon0 = weaponFactory.makeM4A1(0);
+			var weapon1 = weaponFactory.makeAk47(1);
+			var weapon2 = weaponFactory.makeM4A1(2);
 
 			playerModel.addWeapon(weapon0);
 			playerModel.addWeapon(weapon1);

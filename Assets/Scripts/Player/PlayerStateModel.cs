@@ -23,7 +23,6 @@ namespace player
 		private bool isPlayerADS = false;
 		private bool startedReloading = false;
 		private float timeWhenReloadingFinished = 0.0f;
-		private float timeWhenCanContinueShootingFullyAuto = 0.0f;
 
 		// stats
 		private int health = 100;
@@ -69,7 +68,7 @@ namespace player
 			else if (startedReloading && isReloadingAnimationFinished())
 			{
 				activeWeaponModel.stopReloadingAnimation();
-				activeWeaponModel.setAmmoCountMaximum();
+				activeWeaponModel.reload();
 
 				startedReloading = false;
 			}
@@ -84,7 +83,7 @@ namespace player
 			}
 
 			// 2) Find the index for the weapon on the player's back.
-			var index = activeWeaponModel.EquippedPosition;
+			var index = inventory.itemPosition(activeWeaponModel);
 
 			// 3) Confirm that we only ever unequip items that have been equipped
 			Debug.Assert(index != null);
@@ -133,18 +132,7 @@ namespace player
 			{
 				return;
 			}
-			if (fire1Pressed && !activeWeaponModel.IsFullyAutomatic)
-			{
-				activeWeaponModel.shoot();
-			}
-			else if (fire1HeldDown && activeWeaponModel.IsFullyAutomatic)
-			{
-				if (timeWhenCanContinueShootingFullyAuto <= Time.time)
-				{
-					activeWeaponModel.shoot();
-					timeWhenCanContinueShootingFullyAuto = Time.time + 0.2f;
-				}
-			}
+			activeWeaponModel.shootIfAble(fire1Pressed, fire1HeldDown);
 		}
 
 		public void adsIfAppropriate(bool fire2Down, bool fire2Up, PlayerAnimate playerAnimator, GameObject equippedADS, GameObject equippedRHS)
@@ -206,7 +194,7 @@ namespace player
 
 		public int equippedWeaponMaxAmmo()
 		{
-			return activeWeaponModel.MaximumAmmoCount;
+			return activeWeaponModel.MaxAmmoCount;
 		}
 
 		#region Private Methods

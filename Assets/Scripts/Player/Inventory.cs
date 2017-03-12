@@ -18,5 +18,18 @@ namespace player
 		{
 			return weapons[index];
 		}
+
+		public int? itemPosition(WeaponModel model)
+		{
+			for (int i = 0; i < weapons.Count; ++i)
+			{
+				var item = weapons[i];
+				if (item == model)
+				{
+					return i;
+				}
+			}
+			return null;
+		}
 	}
 }
