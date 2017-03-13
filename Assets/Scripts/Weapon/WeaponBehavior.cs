@@ -19,6 +19,11 @@ namespace weapon
 
 		void Start()
 		{
+			if (PrefabPath == null)
+			{
+				// Item doesn't have a model
+				return;
+			}
 			GameObject go = (GameObject)Instantiate(Resources.Load(PrefabPath), transform);
 			Debug.Assert(go != null);
 			go.transform.SetParent(transform);
@@ -27,6 +32,7 @@ namespace weapon
 
 		public void shoot(float bulletDistance, float bulletSpeed, bool piercingRound)
 		{
+			Debug.Assert(PrefabPath != null);
 			GameObject bulletGO = (GameObject)Instantiate(Resources.Load("Prefabs/Bullet"), BulletShootAnchor.transform.position, BulletShootAnchor.transform.rotation);
 			Debug.Assert(bulletGO != null);
 
@@ -54,7 +60,7 @@ namespace weapon
 			this.ClipFull.Play();
 		}
 
-		public void playReloadAnimation()
+		public void playReloadSound()
 		{
 			this.ReloadSound.Play();
 		}

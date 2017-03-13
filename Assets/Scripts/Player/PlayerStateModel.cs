@@ -34,20 +34,29 @@ namespace player
 		private bool isFreelookMode = false;
 
 		// storage
-		private Inventory inventory = new Inventory();
+		private readonly Inventory inventory;
 
 		// ui
 		private readonly UIManager uiManager;
 
-		internal PlayerStateModel(float distance, UIManager uiMgr, CameraController camController)
+		internal PlayerStateModel(float distance, Inventory inventory, UIManager uiMgr, CameraController camController)
 		{
-			DistanceToGround = distance;
-			uiManager = uiMgr;
+			this.DistanceToGround = distance;
+			this.inventory = inventory;
+			this.uiManager = uiMgr;
 			this.kameraController = camController;
 		}
 
-		public void addWeapon(WeaponModel w) {
-			inventory.addWeapon(w);
+		public void addWeapon(WeaponModel w, int? equippedPosition) {
+			if (equippedPosition.HasValue)
+			{
+				inventory.equipItem(w, equippedPosition.Value);
+			}
+			else
+			{
+				Debug.Assert(0 == 1);
+				//inventory.addWeapon(w);
+			}
 		}
 
 		public void maybeReload(bool reloadKeyPressed)
@@ -81,13 +90,17 @@ namespace player
 			{
 				return;
 			}
-
+				
 			// 2) Find the index for the weapon on the player's back.
-			var index = inventory.itemPosition(activeWeaponModel);
+			var equippedItemIndex = inventory.equippedItemPositionOnBody(activeWeaponModel);
+			if (equippedItemIndex == null)
+			{
+				return;
+			}
 
-			// 3) Confirm that we only ever unequip items that have been equipped
-			Debug.Assert(index != null);
-			var backSlotGO = weaponSlotsGOs.BackWeaponSlots[index.Value];
+			// 3) Confirm that we only ever unequip items that our inventory is aware of.
+			Debug.Assert(equippedItemIndex != null);
+			var backSlotGO = weaponSlotsGOs.BackWeaponSlots[equippedItemIndex.Value];
 			Debug.Assert(backSlotGO != null);
 
 			// 4) Reparent the equipped weapon to the back slot.
@@ -111,9 +124,9 @@ namespace player
 			unequipEquippedWeapon(playerAnimator, weaponSlotsGOs);
 
 			// 3) Find the active weapon by index.
-			var weapon = inventory.getWeapon(index).WeaponBehavior;
+			var weapon = inventory.getEquippedItem(index).WeaponBehavior;
 			Debug.Assert(weapon != null);
-			activeWeaponModel = inventory.getWeapon(index);
+			activeWeaponModel = inventory.getEquippedItem(index);
 
 			// 4) Reparent the active weapon GO to the equipped weapon slot GO.
 			var equippedWeaponSlot = weaponSlotsGOs.EquippedRHS;

@@ -15,17 +15,28 @@ namespace weapon
 		{
 			bool fullyAutomatic = true;
 			bool piercingRounds = true;
-			return makeWeapon("Ak-47", "Ak-47", "AkInventoryIcon", fullyAutomatic, piercingRounds, equippedPosition);
+			bool usesBullets = true;
+			return makeWeapon("Ak-47", "Ak-47", "AkInventoryIcon", usesBullets, fullyAutomatic, piercingRounds, equippedPosition);
 		}
 
 		public WeaponModel makeM4A1(int? equippedPosition)
 		{
 			bool fullyAutomatic = false;
 			bool piercingRounds = false;
-			return makeWeapon("M4A1", "M4A1 Sopmod", "ArInventoryIcon", fullyAutomatic, piercingRounds, equippedPosition);
+			bool usesBullets = true;
+			return makeWeapon("M4A1", "M4A1 Sopmod", "ArInventoryIcon", usesBullets, fullyAutomatic, piercingRounds, equippedPosition);
 		}
 
-		private WeaponModel makeWeapon(string weaponName, string prefabWeaponName, string iconName, bool fullyAutomatic, bool piercingRounds,
+		public WeaponModel makeFists(int? equippedPosition)
+		{
+			bool fullyAutomatic = false;
+			bool piercingRounds = false;
+			bool usesBullets = false;
+			string pathToPrefab = null;
+			return makeWeapon("Fists", pathToPrefab, "FistInventoryIcon", usesBullets, fullyAutomatic, piercingRounds, equippedPosition);
+		}
+
+		private WeaponModel makeWeapon(string weaponName, string prefabWeaponName, string iconName, bool usesBullets, bool fullyAutomatic, bool piercingRounds,
 		                               int? equippedPosition)
 		{
 			string pathPrefix = "Prefabs/Weapons/";
@@ -39,11 +50,19 @@ namespace weapon
 			go.transform.localScale = Vector3.one;
 
 			var weaponBehavior = go.GetComponent<WeaponBehavior>();
-			weaponBehavior.PrefabPath = pathPrefix + "Guns/" + prefabWeaponName;
+			if (prefabWeaponName != null)
+			{
+				weaponBehavior.PrefabPath = pathPrefix + "Guns/" + prefabWeaponName;
+			}
+			else
+			{
+				weaponBehavior.PrefabPath = null;
+			}
+
 			weaponBehavior.Icon = Resources.Load<Sprite>("Textures/UI/" + iconName);
 			Debug.Assert(weaponBehavior.Icon != null);
 
-			var state = new WeaponState(weaponName, true, fullyAutomatic, piercingRounds, 1000, 350, 30);
+			var state = new WeaponState(weaponName, usesBullets, fullyAutomatic, piercingRounds, 1000, 350, 30);
 			return new WeaponModel(weaponBehavior, state);
 		}
 	}

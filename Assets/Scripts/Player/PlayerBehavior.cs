@@ -25,6 +25,7 @@ namespace player
 		private PlayerAnimate playerAnimator;
 		private CrouchStand crouchStand;
 		private CapsuleCollider capsuleCollider;
+		private Inventory inventory;
 		private Rigidbody rigidBody;
 
 		// state
@@ -35,8 +36,12 @@ namespace player
 		{
 			playerAnimator = GetComponent<PlayerAnimate>();
 			Debug.Assert(playerAnimator != null);
+
 			WeaponSlotsGOs = GetComponent<WeaponSlotGameObjects>();
 			Debug.Assert(WeaponSlotsGOs != null);
+
+			this.inventory = GetComponent<Inventory>();
+			Debug.Assert(inventory != null);
 
 			playerAnimator = GetComponent<PlayerAnimate>();
 			capsuleCollider = GetComponent<CapsuleCollider>();
@@ -44,7 +49,7 @@ namespace player
 			rigidBody = GetComponent<Rigidbody>();
 
 			float distanceToGround = GetComponent<Collider>().bounds.extents.y;
-			playerModel = new PlayerStateModel(distanceToGround, uiManager, kameraController);
+			playerModel = new PlayerStateModel(distanceToGround, inventory, uiManager, kameraController);
 
 			// hack for now, we need to wait until after all MonoBehavior Start() methods have been invoked before calling this..
 			Invoke("spawnItems", 0.1f);
@@ -52,19 +57,20 @@ namespace player
 
 		private void spawnItems()
 		{
-			var weapon0 = weaponFactory.makeM4A1(0);
-			var weapon1 = weaponFactory.makeAk47(1);
-			var weapon2 = weaponFactory.makeM4A1(2);
+			var fists = weaponFactory.makeFists(0);
+			var weapon1 = weaponFactory.makeM4A1(1);
+			var weapon2 = weaponFactory.makeAk47(2);
+			var weapon3 = weaponFactory.makeM4A1(3);
 
-			playerModel.addWeapon(weapon0);
-			playerModel.addWeapon(weapon1);
-			playerModel.addWeapon(weapon2);
+			playerModel.addWeapon(fists, 0);
+			playerModel.addWeapon(weapon1, 1);
+			playerModel.addWeapon(weapon2, 2);
+			playerModel.addWeapon(weapon3, 3);
 
-			playerModel.equipWeaponSlot(0, playerAnimator, WeaponSlotsGOs);
-			playerModel.equipWeaponSlot(1, playerAnimator, WeaponSlotsGOs);
-			playerModel.equipWeaponSlot(2, playerAnimator, WeaponSlotsGOs);
-
-			playerModel.unequipEquippedWeapon(playerAnimator, WeaponSlotsGOs);
+			//playerModel.equipWeaponSlot(0, playerAnimator, WeaponSlotsGOs);
+			//playerModel.equipWeaponSlot(1, playerAnimator, WeaponSlotsGOs);
+			//playerModel.equipWeaponSlot(2, playerAnimator, WeaponSlotsGOs);
+			//playerModel.equipWeaponSlot(3, playerAnimator, WeaponSlotsGOs);
 		}
 
 		void Update()
@@ -98,20 +104,20 @@ namespace player
 				}
 				else
 				{
-					bool weapon0 = userIO.GetKeyDown(KeyCode.Alpha1);
-					bool weapon1 = userIO.GetKeyDown(KeyCode.Alpha2);
-					bool weapon2 = userIO.GetKeyDown(KeyCode.Alpha3);
-					if (weapon0)
-					{
-						playerModel.equipWeaponSlot(0, playerAnimator, WeaponSlotsGOs);
-					}
-					else if (weapon1)
+					bool weapon1 = userIO.GetKeyDown(KeyCode.Alpha1);
+					bool weapon2 = userIO.GetKeyDown(KeyCode.Alpha2);
+					bool weapon3 = userIO.GetKeyDown(KeyCode.Alpha3);
+					if (weapon1)
 					{
 						playerModel.equipWeaponSlot(1, playerAnimator, WeaponSlotsGOs);
 					}
 					else if (weapon2)
 					{
 						playerModel.equipWeaponSlot(2, playerAnimator, WeaponSlotsGOs);
+					}
+					else if (weapon3)
+					{
+						playerModel.equipWeaponSlot(3, playerAnimator, WeaponSlotsGOs);
 					}
 				}
 			}

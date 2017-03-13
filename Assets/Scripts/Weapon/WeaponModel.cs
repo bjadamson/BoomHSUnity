@@ -44,6 +44,11 @@ namespace weapon
 			return this.weaponState.AmmoCount == this.weaponState.MaximumAmmoCount;
 		}
 
+		public bool hasMeshRenderer()
+		{
+			return this.WeaponBehavior.PrefabPath != null;
+		}
+
 		public void stopReloadingAnimation()
 		{
 			this.WeaponBehavior.stopAnimations();
@@ -61,11 +66,15 @@ namespace weapon
 
 		public void playReloadAnimation()
 		{
-			this.WeaponBehavior.playReloadAnimation();
+			this.WeaponBehavior.playReloadSound();
 		}
 
 		public void shootIfAble(bool fire1Pressed, bool fire1HeldDown)
 		{
+			if (!weaponState.UsesBullets)
+			{
+				return;
+			}
 			if (fire1Pressed && !weaponState.IsFullyAutomatic)
 			{
 				shoot();

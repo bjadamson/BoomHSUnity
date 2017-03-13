@@ -9,7 +9,7 @@ namespace weapon
 	public struct WeaponState
 	{
 		public readonly string Name;
-		public readonly bool RequiresBullets;
+		public readonly bool UsesBullets;
 		public readonly bool IsFullyAutomatic;
 		public readonly bool UsesPiercingRounds;
 
@@ -23,7 +23,7 @@ namespace weapon
 		public WeaponState(string name, bool usesBullets, bool fullyAuto, bool piercingRounds, float bulletDistance, float bulletSpeed, int maxAmmoCount)
 		{
 			this.Name = name;
-			this.RequiresBullets = usesBullets;
+			this.UsesBullets = usesBullets;
 			this.IsFullyAutomatic = fullyAuto;
 			this.UsesPiercingRounds = piercingRounds;
 			this.BulletDistance = bulletDistance;
