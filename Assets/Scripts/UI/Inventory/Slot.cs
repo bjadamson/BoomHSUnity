@@ -7,26 +7,23 @@ namespace ui.inventory
 {
 	public class Slot : MonoBehaviour, IDropHandler
 	{
-		public GameObject item
-		{
-			get
-			{
-				if (transform.childCount > 0)
-				{
-					return transform.GetChild(0).gameObject;
-				}
-				return null;
-			}
-		}
-
 		public void OnDrop(PointerEventData eventData)
 		{
 			var dragTransform = DragHandler.itemBeingDragged.transform;
 			var draggedIndex = dragTransform.GetSiblingIndex();
+			var transformIndex = transform.GetSiblingIndex();
 
-			//DragHandler.itemBeingDragged.transform.SetParent(transform);
-			dragTransform.SetSiblingIndex(transform.GetSiblingIndex());
-			transform.SetSiblingIndex(draggedIndex);
+			dragTransform.GetChild(0).SetParent (transform);
+			transform.GetChild(0).SetParent(dragTransform);
+			//
+			//if (dragTransform.parent != transform.parent)
+			//{
+			//	var dragParent = dragTransform.parent;
+			//	dragTransform.transform.GetChild(0).SetParent(transform.parent);
+			//	transform.GetChild(0).SetParent(dragParent);
+			//}
+			//dragTransform.SetSiblingIndex(transformIndex);
+			//transform.SetSiblingIndex(draggedIndex);
 			//ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged());
 		}
 	}

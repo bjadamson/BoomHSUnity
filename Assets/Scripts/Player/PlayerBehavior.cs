@@ -154,13 +154,16 @@ namespace player
 			playerModel.addItem(weapon, equipPos);
 			if (equipPos.HasValue)
 			{
-				equipWeapon(equipPos.Value);
+				ifWeaponAtPositionThenEquip(equipPos.Value);
 			}
 		}
 
-		public void equipWeapon(int position)
+		public void ifWeaponAtPositionThenEquip(int position)
 		{
-			playerModel.equipWeaponSlot(position, playerAnimator, weaponSlotsGOs);
+			if (inventory.sashIndexHasItem(position))
+			{
+				playerModel.equipWeaponSlot(position, playerAnimator, weaponSlotsGOs);
+			}
 		}
 
 		public bool isWeaponEquipped()

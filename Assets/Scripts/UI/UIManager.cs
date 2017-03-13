@@ -118,6 +118,7 @@ namespace ui
 		public void setSashItem(int index, Sprite icon, float alpha)
 		{
 			setContainerItem(sashItems, index, icon, alpha);
+			sashPanelHighlight.transform.localPosition = Vector3.zero;
 			sashPanelHighlight.transform.SetParent(sashItems[index].transform);
 			sashPanelHighlight.transform.localPosition = Vector3.zero;
 		}

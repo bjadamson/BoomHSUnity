@@ -34,6 +34,6 @@ public class InventoryIO : MonoBehaviour {
 		playerBehavior.addItem(weaponFactory.makeAk47(), null);
 
 		// state with fists equipped
-		playerBehavior.equipWeapon(0);
+		playerBehavior.ifWeaponAtPositionThenEquip(0);
 	}
 }

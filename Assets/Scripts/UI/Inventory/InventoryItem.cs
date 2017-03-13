@@ -17,7 +17,7 @@ namespace ui.inventory
 			Text = GetComponentInChildren<Text>();
 			Debug.Assert(Text != null);
 
-			ImageButton = GetComponent<Button>();
+			ImageButton = GetComponentInChildren<Button>();
 			Debug.Assert(ImageButton != null);
 		}
 	}

@@ -74,6 +74,11 @@ namespace player
 			uiManager.setInventoryItem(nextPosition.Value, item.WeaponBehavior.Icon, 1.0f);
 		}
 
+		public bool sashIndexHasItem(int position)
+		{
+			return getEquippedItem(position) != null;
+		}
+
 		private int? nextAvailableInventoryPosition()
 		{
 			int itemCount = inventoryItems.Count;
