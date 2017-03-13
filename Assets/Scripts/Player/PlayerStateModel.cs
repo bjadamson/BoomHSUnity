@@ -47,7 +47,8 @@ namespace player
 			this.kameraController = camController;
 		}
 
-		public void addItem(WeaponModel w, int? equippedPosition) {
+		public void addItem(WeaponModel w, int? equippedPosition)
+		{
 			if (equippedPosition.HasValue)
 			{
 				inventory.equipItem(w, equippedPosition.Value);
@@ -82,34 +83,6 @@ namespace player
 			}
 		}
 
-		public void unequipEquippedWeapon(PlayerAnimate playerAnimator, WeaponSlotGameObjects weaponSlotsGOs)
-		{
-			// 1) If there isn't a weapon equipped, nothing to do.
-			if (!isWeaponEquipped())
-			{
-				return;
-			}
-				
-			// 2) Find the index for the weapon on the player's back.
-			var equippedItemIndex = inventory.equippedItemPositionOnBody(activeWeaponModel);
-			if (equippedItemIndex == null)
-			{
-				return;
-			}
-
-			// 3) Confirm that we only ever unequip items that our inventory is aware of.
-			Debug.Assert(equippedItemIndex != null);
-			var backSlotGO = weaponSlotsGOs.BackWeaponSlots[equippedItemIndex.Value];
-			Debug.Assert(backSlotGO != null);
-
-			// 4) Reparent the equipped weapon to the back slot.
-			activeWeaponModel.reparentUnderGO(backSlotGO);
-			activeWeaponModel = null;
-
-			// 5) Animate putting away the weapon.
-			playerAnimator.sheathWeapon();
-		}
-
 		public void equipWeaponSlot(int index, PlayerAnimate playerAnimator, WeaponSlotGameObjects weaponSlotsGOs)
 		{
 			// 1) If reloading, stop.
@@ -119,8 +92,11 @@ namespace player
 				activeWeaponModel.stopReloadingAnimation();
 			}
 
-			// 2) Move the equipped weapon to the player's back.
-			unequipEquippedWeapon(playerAnimator, weaponSlotsGOs);
+			// 2) If there isn't a weapon equipped, move the equipped weapon to the player's back.
+			if (isWeaponEquipped())
+			{
+				unequipEquippedWeapon(playerAnimator, weaponSlotsGOs);
+			}
 
 			// 3) Find the active weapon by index.
 			var weapon = inventory.getEquippedItem(index).WeaponBehavior;
@@ -210,6 +186,28 @@ namespace player
 		}
 
 		#region Private Methods
+
+		private void unequipEquippedWeapon(PlayerAnimate playerAnimator, WeaponSlotGameObjects weaponSlotsGOs)
+		{
+			// 1) Find the index for the weapon on the player's back.
+			var equippedItemIndex = inventory.equippedItemPositionOnBody(activeWeaponModel);
+			if (equippedItemIndex == null)
+			{
+				return;
+			}
+
+			// 2) Confirm that we only ever unequip items that our inventory is aware of.
+			Debug.Assert(equippedItemIndex != null);
+			var backSlotGO = weaponSlotsGOs.BackWeaponSlots[equippedItemIndex.Value];
+			Debug.Assert(backSlotGO != null);
+
+			// 3) Reparent the equipped weapon to the back slot.
+			activeWeaponModel.reparentUnderGO(backSlotGO);
+			activeWeaponModel = null;
+
+			// 4) Animate putting away the weapon.
+			playerAnimator.sheathWeapon();
+		}
 
 		private bool isReloadingAnimationFinished()
 		{

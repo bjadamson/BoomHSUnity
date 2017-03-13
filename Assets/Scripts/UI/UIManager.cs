@@ -33,6 +33,7 @@ namespace ui
 
 		// inventory panel
 		[SerializeField] private GameObject inventoryPanel;
+		[SerializeField] private GameObject sashPanelHighlight;
 		[SerializeField] private InventoryItem[] sashItems;
 		[SerializeField] private InventoryItem[] inventoryItems;
 
@@ -117,6 +118,8 @@ namespace ui
 		public void setSashItem(int index, Sprite icon, float alpha)
 		{
 			setContainerItem(sashItems, index, icon, alpha);
+			sashPanelHighlight.transform.SetParent(sashItems[index].transform);
+			sashPanelHighlight.transform.localPosition = Vector3.zero;
 		}
 
 		private void setContainerItem(InventoryItem[] items, int index, Sprite icon, float alpha)

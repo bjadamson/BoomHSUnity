@@ -13,7 +13,6 @@ namespace player
 		[SerializeField] private UIManager uiManager;
 		private WeaponModel[] equippedItems = new WeaponModel[10];
 
-
 		private IList<WeaponModel> inventoryItems = new List<WeaponModel>();
 		private int maxItemCount = 10;
 

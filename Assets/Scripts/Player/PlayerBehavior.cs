@@ -78,28 +78,26 @@ namespace player
 			if (!playerModel.isADS())
 			{
 				bool fists = userIO.GetKeyDown(KeyCode.BackQuote);
+				bool weapon1 = userIO.GetKeyDown(KeyCode.Alpha1);
+				bool weapon2 = userIO.GetKeyDown(KeyCode.Alpha2);
+				bool weapon3 = userIO.GetKeyDown(KeyCode.Alpha3);
 				if (fists)
 				{
-					playerModel.unequipEquippedWeapon(playerAnimator, weaponSlotsGOs);
+					playerModel.equipWeaponSlot(0, playerAnimator, weaponSlotsGOs);
 				}
-				else
+				else if (weapon1)
 				{
-					bool weapon1 = userIO.GetKeyDown(KeyCode.Alpha1);
-					bool weapon2 = userIO.GetKeyDown(KeyCode.Alpha2);
-					bool weapon3 = userIO.GetKeyDown(KeyCode.Alpha3);
-					if (weapon1)
-					{
-						playerModel.equipWeaponSlot(1, playerAnimator, weaponSlotsGOs);
-					}
-					else if (weapon2)
-					{
-						playerModel.equipWeaponSlot(2, playerAnimator, weaponSlotsGOs);
-					}
-					else if (weapon3)
-					{
-						playerModel.equipWeaponSlot(3, playerAnimator, weaponSlotsGOs);
-					}
+					playerModel.equipWeaponSlot(1, playerAnimator, weaponSlotsGOs);
 				}
+				else if (weapon2)
+				{
+					playerModel.equipWeaponSlot(2, playerAnimator, weaponSlotsGOs);
+				}
+				else if (weapon3)
+				{
+					playerModel.equipWeaponSlot(3, playerAnimator, weaponSlotsGOs);
+				}
+			
 			}
 		}
 
@@ -157,10 +155,6 @@ namespace player
 			if (equipPos.HasValue)
 			{
 				playerModel.equipWeaponSlot(equipPos.Value, playerAnimator, weaponSlotsGOs);
-			}
-			else
-			{
-				playerModel.unequipEquippedWeapon(playerAnimator, weaponSlotsGOs);
 			}
 		}
 
