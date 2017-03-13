@@ -11,33 +11,32 @@ namespace weapon
 	{
 		private uint weaponId = 0;
 
-		public WeaponModel makeAk47(int? equippedPosition)
+		public WeaponModel makeAk47()
 		{
 			bool fullyAutomatic = true;
 			bool piercingRounds = true;
 			bool usesBullets = true;
-			return makeWeapon("Ak-47", "Ak-47", "AkInventoryIcon", usesBullets, fullyAutomatic, piercingRounds, equippedPosition);
+			return makeWeapon("Ak-47", "Ak-47", "AkInventoryIcon", usesBullets, fullyAutomatic, piercingRounds);
 		}
 
-		public WeaponModel makeM4A1(int? equippedPosition)
+		public WeaponModel makeM4A1()
 		{
 			bool fullyAutomatic = false;
 			bool piercingRounds = false;
 			bool usesBullets = true;
-			return makeWeapon("M4A1", "M4A1 Sopmod", "ArInventoryIcon", usesBullets, fullyAutomatic, piercingRounds, equippedPosition);
+			return makeWeapon("M4A1", "M4A1 Sopmod", "ArInventoryIcon", usesBullets, fullyAutomatic, piercingRounds);
 		}
 
-		public WeaponModel makeFists(int? equippedPosition)
+		public WeaponModel makeFists()
 		{
 			bool fullyAutomatic = false;
 			bool piercingRounds = false;
 			bool usesBullets = false;
 			string pathToPrefab = null;
-			return makeWeapon("Fists", pathToPrefab, "FistInventoryIcon", usesBullets, fullyAutomatic, piercingRounds, equippedPosition);
+			return makeWeapon("Fists", pathToPrefab, "FistInventoryIcon", usesBullets, fullyAutomatic, piercingRounds);
 		}
 
-		private WeaponModel makeWeapon(string weaponName, string prefabWeaponName, string iconName, bool usesBullets, bool fullyAutomatic, bool piercingRounds,
-		                               int? equippedPosition)
+		private WeaponModel makeWeapon(string weaponName, string prefabWeaponName, string iconName, bool usesBullets, bool fullyAutomatic, bool piercingRounds)
 		{
 			string pathPrefix = "Prefabs/Weapons/";
 			GameObject go = (GameObject)MonoBehaviour.Instantiate(Resources.Load(pathPrefix + "PlayerWeapon"));

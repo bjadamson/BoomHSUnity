@@ -15,6 +15,7 @@ namespace ui
 		{
 			public class InputFieldManager : MonoBehaviour
 			{
+				[SerializeField] private CursorManager cursorManager;
 				[SerializeField] private ScrollViewManager scrollBar;
 				[SerializeField] private InputField inputField;
 				[SerializeField] private ChatManager chatManager;
@@ -102,6 +103,8 @@ namespace ui
 					transparencyManager.makeOpaque();
 					pushSelected();
 					inputField.Select();
+
+					cursorManager.unlockCursor();
 				}
 
 				private void disableReadFromUserStdin(bool acceptInput)
@@ -119,6 +122,7 @@ namespace ui
 					inputField.text = string.Empty;
 
 					hideCommandPanel();
+					cursorManager.lockCursor();
 				}
 
 				private void pushSelected()

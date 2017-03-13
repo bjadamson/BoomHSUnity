@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,10 @@ namespace player
 		// ui
 		[SerializeField] private UIManager uiManager;
 		private WeaponModel[] equippedItems = new WeaponModel[10];
+
+
+		private IList<WeaponModel> inventoryItems = new List<WeaponModel>();
+		private int maxItemCount = 10;
 
 		public WeaponModel getEquippedItem(int index)
 		{
@@ -55,12 +60,36 @@ namespace player
 			Debug.Assert(index < equippedItems.Length);
 			equippedItems[index] = weapon;
 
-			uiManager.setItem(index, weapon.WeaponBehavior.Icon, 1.0f);
+			uiManager.setSashItem(index, weapon.WeaponBehavior.Icon, 1.0f);
 		}
 
-		//public void addWeapon(WeaponModel weapon)
-		//{
-		//	items.Add(weapon);
-		//}
+		public void addInventoryItem(WeaponModel item)
+		{
+			var nextPosition = nextAvailableInventoryPosition();
+			if (!nextPosition.HasValue)
+			{
+				throw new NotImplementedException();
+			}
+
+			inventoryItems.Add(item);
+			uiManager.setInventoryItem(nextPosition.Value, item.WeaponBehavior.Icon, 1.0f);
+		}
+
+		private int? nextAvailableInventoryPosition()
+		{
+			int itemCount = inventoryItems.Count;
+			if (itemCount <= maxItemCount)
+			{
+				return itemCount;
+			}
+			for (int i = 0; i < maxItemCount; ++i)
+			{
+				if (inventoryItems[i] == null)
+				{
+					return i;
+				}
+			}
+			return null;
+		}
 	}
 }

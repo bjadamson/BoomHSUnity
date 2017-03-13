@@ -47,15 +47,14 @@ namespace player
 			this.kameraController = camController;
 		}
 
-		public void addWeapon(WeaponModel w, int? equippedPosition) {
+		public void addItem(WeaponModel w, int? equippedPosition) {
 			if (equippedPosition.HasValue)
 			{
 				inventory.equipItem(w, equippedPosition.Value);
 			}
 			else
 			{
-				Debug.Assert(0 == 1);
-				//inventory.addWeapon(w);
+				inventory.addInventoryItem(w);
 			}
 		}
 
@@ -136,7 +135,7 @@ namespace player
 			playerAnimator.equipWeapon();
 
 			// 6) Finally update the inventory UI icon
-			uiManager.setItem(index, weapon.Icon, 1.0f);
+			uiManager.setSashItem(index, weapon.Icon, 1.0f);
 		}
 
 		public void shootIfAppropriate(bool fire1Pressed, bool fire1HeldDown)

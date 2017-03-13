@@ -57,20 +57,25 @@ namespace player
 
 		private void spawnItems()
 		{
-			var fists = weaponFactory.makeFists(0);
-			var weapon1 = weaponFactory.makeM4A1(1);
-			var weapon2 = weaponFactory.makeAk47(2);
-			var weapon3 = weaponFactory.makeM4A1(3);
+			var fists = weaponFactory.makeFists();
+			var weapon1 = weaponFactory.makeM4A1();
+			var weapon2 = weaponFactory.makeAk47();
+			var weapon3 = weaponFactory.makeM4A1();
 
-			playerModel.addWeapon(fists, 0);
-			playerModel.addWeapon(weapon1, 1);
-			playerModel.addWeapon(weapon2, 2);
-			playerModel.addWeapon(weapon3, 3);
+			playerModel.addItem(fists, 0);
+			playerModel.addItem(weapon1, 1);
+			playerModel.addItem(weapon2, 2);
+			playerModel.addItem(weapon3, 3);
 
-			//playerModel.equipWeaponSlot(0, playerAnimator, WeaponSlotsGOs);
-			//playerModel.equipWeaponSlot(1, playerAnimator, WeaponSlotsGOs);
-			//playerModel.equipWeaponSlot(2, playerAnimator, WeaponSlotsGOs);
-			//playerModel.equipWeaponSlot(3, playerAnimator, WeaponSlotsGOs);
+			playerModel.addItem(weaponFactory.makeAk47(), null);
+			playerModel.addItem(weaponFactory.makeM4A1(), null);
+			playerModel.addItem(weaponFactory.makeM4A1(), null);
+			playerModel.addItem(weaponFactory.makeAk47(), null);
+
+			playerModel.addItem(weaponFactory.makeM4A1(), null);
+			playerModel.addItem(weaponFactory.makeM4A1(), null);
+			playerModel.addItem(weaponFactory.makeM4A1(), null);
+			playerModel.addItem(weaponFactory.makeAk47(), null);
 		}
 
 		void Update()
@@ -83,6 +88,11 @@ namespace player
 			if (playerModel.isDead())
 			{
 				return;
+			}
+
+			if (userIO.GetKeyDown(KeyCode.I))
+			{
+				uiManager.toggleInventory();
 			}
 
 			if (playerModel.isWeaponEquipped())
