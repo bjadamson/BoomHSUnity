@@ -15,13 +15,13 @@ namespace player
 		[SerializeField] private UIManager uiManager;
 		[SerializeField] private UserIO userIO;
 
-		private WeaponSlotGameObjects WeaponSlotsGOs;
+		private WeaponSlotGameObjects weaponSlotsGOs;
 
 		// constants
 		private readonly float JUMP_FORCE = 660.0f;
 		private readonly float MOVEMENT_SPEED = 10.0f;
 
-		private WeaponFactory weaponFactory = new WeaponFactory();
+
 		private PlayerAnimate playerAnimator;
 		private CrouchStand crouchStand;
 		private CapsuleCollider capsuleCollider;
@@ -37,8 +37,8 @@ namespace player
 			playerAnimator = GetComponent<PlayerAnimate>();
 			Debug.Assert(playerAnimator != null);
 
-			WeaponSlotsGOs = GetComponent<WeaponSlotGameObjects>();
-			Debug.Assert(WeaponSlotsGOs != null);
+			weaponSlotsGOs = GetComponent<WeaponSlotGameObjects>();
+			Debug.Assert(weaponSlotsGOs != null);
 
 			this.inventory = GetComponent<Inventory>();
 			Debug.Assert(inventory != null);
@@ -50,40 +50,10 @@ namespace player
 
 			float distanceToGround = GetComponent<Collider>().bounds.extents.y;
 			playerModel = new PlayerStateModel(distanceToGround, inventory, uiManager, kameraController);
-
-			// hack for now, we need to wait until after all MonoBehavior Start() methods have been invoked before calling this..
-			Invoke("spawnItems", 0.1f);
-		}
-
-		private void spawnItems()
-		{
-			var fists = weaponFactory.makeFists();
-			var weapon1 = weaponFactory.makeM4A1();
-			var weapon2 = weaponFactory.makeAk47();
-			var weapon3 = weaponFactory.makeM4A1();
-
-			playerModel.addItem(fists, 0);
-			playerModel.addItem(weapon1, 1);
-			playerModel.addItem(weapon2, 2);
-			playerModel.addItem(weapon3, 3);
-
-			playerModel.addItem(weaponFactory.makeAk47(), null);
-			playerModel.addItem(weaponFactory.makeM4A1(), null);
-			playerModel.addItem(weaponFactory.makeM4A1(), null);
-			playerModel.addItem(weaponFactory.makeAk47(), null);
-
-			playerModel.addItem(weaponFactory.makeM4A1(), null);
-			playerModel.addItem(weaponFactory.makeM4A1(), null);
-			playerModel.addItem(weaponFactory.makeM4A1(), null);
-			playerModel.addItem(weaponFactory.makeAk47(), null);
 		}
 
 		void Update()
 		{
-			if (userIO.GetKeyDown(KeyCode.P))
-			{
-				spawnItems();
-			}
 			maybeToggleIsDead(userIO.GetKeyDown(KeyCode.K));
 			if (playerModel.isDead())
 			{
@@ -102,7 +72,7 @@ namespace player
 
 				bool fire2Down = userIO.GetButtonDown("Fire2");
 				bool fire2Up = userIO.GetButtonUp("Fire2");
-				playerModel.adsIfAppropriate(fire2Down, fire2Up, playerAnimator, WeaponSlotsGOs.EquippedADS, WeaponSlotsGOs.EquippedRHS);
+				playerModel.adsIfAppropriate(fire2Down, fire2Up, playerAnimator, weaponSlotsGOs.EquippedADS, weaponSlotsGOs.EquippedRHS);
 			}
 
 			if (!playerModel.isADS())
@@ -110,7 +80,7 @@ namespace player
 				bool fists = userIO.GetKeyDown(KeyCode.BackQuote);
 				if (fists)
 				{
-					playerModel.unequipEquippedWeapon(playerAnimator, WeaponSlotsGOs);
+					playerModel.unequipEquippedWeapon(playerAnimator, weaponSlotsGOs);
 				}
 				else
 				{
@@ -119,15 +89,15 @@ namespace player
 					bool weapon3 = userIO.GetKeyDown(KeyCode.Alpha3);
 					if (weapon1)
 					{
-						playerModel.equipWeaponSlot(1, playerAnimator, WeaponSlotsGOs);
+						playerModel.equipWeaponSlot(1, playerAnimator, weaponSlotsGOs);
 					}
 					else if (weapon2)
 					{
-						playerModel.equipWeaponSlot(2, playerAnimator, WeaponSlotsGOs);
+						playerModel.equipWeaponSlot(2, playerAnimator, weaponSlotsGOs);
 					}
 					else if (weapon3)
 					{
-						playerModel.equipWeaponSlot(3, playerAnimator, WeaponSlotsGOs);
+						playerModel.equipWeaponSlot(3, playerAnimator, weaponSlotsGOs);
 					}
 				}
 			}
@@ -178,6 +148,19 @@ namespace player
 			if (what.name == "Terrain")
 			{
 				isFalling = false;
+			}
+		}
+
+		public void addItem(WeaponModel weapon, int? equipPos)
+		{
+			playerModel.addItem(weapon, equipPos);
+			if (equipPos.HasValue)
+			{
+				playerModel.equipWeaponSlot(equipPos.Value, playerAnimator, weaponSlotsGOs);
+			}
+			else
+			{
+				playerModel.unequipEquippedWeapon(playerAnimator, weaponSlotsGOs);
 			}
 		}
 
