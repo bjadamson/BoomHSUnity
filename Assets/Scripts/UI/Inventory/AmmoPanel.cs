@@ -4,34 +4,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using player;
 
-namespace ui
+namespace ui.inventory
 {
-	namespace inventory
+	public class AmmoPanel : MonoBehaviour
 	{
-		public class AmmoPanel : MonoBehaviour
+		[SerializeField] private PlayerBehavior PlayerBehavior;
+		private Text AmmoRemainingText;
+		private Image AmmoImage;
+
+		void Start()
 		{
-			[SerializeField] private PlayerBehavior PlayerBehavior;
-			private Text AmmoRemainingText;
-			private Image AmmoImage;
+			AmmoRemainingText = GetComponentInChildren<Text>();
+			Debug.Assert(AmmoRemainingText != null);
 
-			void Start()
-			{
-				AmmoRemainingText = GetComponentInChildren<Text>();
-				Debug.Assert(AmmoRemainingText != null);
+			AmmoImage = GetComponentInChildren<Image>();
+			Debug.Assert(AmmoImage != null);
+		}
 
-				AmmoImage = GetComponentInChildren<Image>();
-				Debug.Assert(AmmoImage != null);
-			}
+		public void setText(string value)
+		{
+			AmmoRemainingText.text = value;
+		}
 
-			public void setText(string value)
-			{
-				AmmoRemainingText.text = value;
-			}
-
-			public void setImage(Image value)
-			{
-				AmmoImage = value;
-			}
+		public void setImage(Image value)
+		{
+			AmmoImage = value;
 		}
 	}
 }

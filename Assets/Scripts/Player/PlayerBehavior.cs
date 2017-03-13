@@ -160,7 +160,6 @@ namespace player
 
 		public void equipWeapon(int position)
 		{
-			Debug.Log("equipping '" + position + "'");
 			playerModel.equipWeaponSlot(position, playerAnimator, weaponSlotsGOs);
 		}
 
