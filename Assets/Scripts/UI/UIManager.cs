@@ -147,6 +147,23 @@ namespace ui
 			setContainerItem(quickbarItems, index, icon, alpha);
 		}
 
+		public void setBuffIcon(int index, Image icon)
+		{
+			Debug.Assert(index < buffIcons.Length);
+			buffIcons[index] = icon;
+		}
+
+		public void showThenHideHitIndicator()
+		{
+			this.HitIndicator.showThenHideHitIndicator();
+		}
+
+		public void setHighlight(Transform newParent)
+		{
+			sashPanelHighlight.transform.SetParent(newParent);
+			sashPanelHighlight.transform.localPosition = Vector3.zero;
+		}
+
 		private static void setContainerItem(InventoryItem[] items, int index, Sprite icon, float alpha)
 		{
 			Debug.Assert(items.Length > 0);
@@ -167,29 +184,6 @@ namespace ui
 			button.image.color = color;
 
 			item.refreshChildren();
-		}
-
-		public void setBuffIcon(int index, Image icon)
-		{
-			Debug.Assert(index < buffIcons.Length);
-			buffIcons[index] = icon;
-		}
-
-		public void showThenHideHitIndicator()
-		{
-			this.HitIndicator.showThenHideHitIndicator();
-		}
-
-		public void setHighlight(Transform newParent)
-		{
-			//sashPanelHighlight.transform.SetSiblingIndex(index);
-			//sashPanelHighlight.transform.localPosition = weaponItems[index].transform.localPosition;
-			//sashPanelHighlight.transform.SetAsLastSibling();
-			//sashPanelHighlight.transform.position = weaponItems[index].transform.position;
-			//`sashPanelHighlight.transform.localPosition = weaponItems[index].transform.localPosition;
-
-			sashPanelHighlight.transform.SetParent(newParent);
-			sashPanelHighlight.transform.localPosition = Vector3.zero;
 		}
 	}
 }

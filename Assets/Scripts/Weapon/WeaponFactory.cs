@@ -10,9 +10,10 @@ namespace weapon
 {
 	public class WeaponFactory
 	{
-		private int weaponId = 0;
-
 		private readonly UIManager uiManager;
+
+		// state
+		private int weaponId = 0;
 
 		public WeaponFactory(UIManager uim)
 		{

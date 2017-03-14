@@ -85,6 +85,10 @@ namespace player
 
 		public void addInventoryItem(WeaponModel item)
 		{
+			Debug.Assert(item != null);
+			Debug.Assert(item.WeaponBehavior != null);
+			Debug.Assert(item.WeaponBehavior.Icon != null);
+
 			var nextPosition = nextAvailableInventoryPosition();
 			if (!nextPosition.HasValue)
 			{
@@ -92,8 +96,6 @@ namespace player
 			}
 
 			inventoryItems.Add(item);
-			Debug.Assert(item.WeaponBehavior.Icon != null);
-			Debug.Assert(item.WeaponBehavior.Icon != null);
 			uiManager.setInventoryItem(nextPosition.Value, item.WeaponBehavior.Icon, 1.0f);
 		}
 

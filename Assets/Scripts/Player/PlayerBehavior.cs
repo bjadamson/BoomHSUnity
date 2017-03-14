@@ -168,6 +168,12 @@ namespace player
 			}
 		}
 
+		public void equipItemAtPosition(int position)
+		{
+			Debug.Log("equipping weapon at pos: " + position);
+			playerModel.equipWeaponSlot(position, playerAnimator, weaponSlotsGOs);
+		}
+
 		public bool isWeaponEquipped()
 		{
 			return playerModel.isWeaponEquipped();

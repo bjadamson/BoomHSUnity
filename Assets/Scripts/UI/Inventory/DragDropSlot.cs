@@ -5,15 +5,23 @@ using player;
 
 namespace ui.inventory
 {
-	public class Slot : MonoBehaviour, IDropHandler
+	public class DragDropSlot : MonoBehaviour, IDropHandler
 	{
+		[SerializeField] private ItemHighlight itemHighlight;
 		[SerializeField] private PlayerBehavior playerBehavior;
 		[SerializeField] private WeaponBarDragManager weaponManager;
+
+		void Start()
+		{
+			//Debug.Assert(itemHighlight != null);
+		//	Debug.Assert(playerBehavior != null);
+			//Debug.Assert(weaponManager != null);
+		}
 
 		public void OnDrop(PointerEventData eventData)
 		{
 			var dragTransform = DragHandler.itemBeingDragged.transform;
-			var a = dragTransform.GetComponent<Slot>();
+			var a = dragTransform.GetComponent<DragDropSlot>();
 			var b = transform;
 			Debug.Assert(a != null);
 			Debug.Assert(a != b);
@@ -35,6 +43,19 @@ namespace ui.inventory
 
 			Debug.Assert(x != y);
 			weaponManager.onItemMoved(x, y);
+
+			if (itemHighlight.transform.parent == transform.parent)
+			{
+				// drag highlight onto other
+				Debug.Log("drag highlight onto other");
+				playerBehavior.equipItemAtPosition(transform.parent.GetSiblingIndex());
+			}
+			else if (itemHighlight.transform.parent == dragTransform.parent)
+			{
+				// dragged ONTO highlighted
+				Debug.Log("dragged ONTO highlighted");
+				playerBehavior.equipItemAtPosition(dragTransform.parent.GetSiblingIndex());
+			}
 		}
 
 		public void readParentsSiblingIndexThenEquipWeaponAtThatIndex()
