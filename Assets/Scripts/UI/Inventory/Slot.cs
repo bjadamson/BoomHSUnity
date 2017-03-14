@@ -7,9 +7,8 @@ namespace ui.inventory
 {
 	public class Slot : MonoBehaviour, IDropHandler
 	{
-		//[SerializeField] private UIManager uiManager;
 		[SerializeField] private PlayerBehavior playerBehavior;
-		[SerializeField] private Inventory inventory;
+		[SerializeField] private WeaponBarDragManager weaponManager;
 
 		public void OnDrop(PointerEventData eventData)
 		{
@@ -25,7 +24,6 @@ namespace ui.inventory
 
 			var x = aParent.GetSiblingIndex();
 			var y = bParent.GetSiblingIndex();
-			Debug.Log("swapping " + x + " " + y);
 
 			a.transform.SetParent (bParent);
 			a.transform.SetAsFirstSibling();
@@ -36,13 +34,12 @@ namespace ui.inventory
 			b.transform.localPosition = Vector3.zero;
 
 			Debug.Assert(x != y);
-			inventory.swapPositions(x, y);
+			weaponManager.onItemMoved(x, y);
 		}
 
 		public void readParentsSiblingIndexThenEquipWeaponAtThatIndex()
 		{
 			int index = transform.parent.GetSiblingIndex();
-			Debug.Log("parent index: " + index);
 			playerBehavior.ifWeaponAtPositionThenEquip(index);
 		}
 	}

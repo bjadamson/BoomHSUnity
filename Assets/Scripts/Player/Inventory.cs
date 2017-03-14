@@ -12,17 +12,23 @@ namespace player
 	{
 		// ui
 		[SerializeField] private UIManager uiManager;
-		private WeaponModel[] equippedItems = new WeaponModel[10];
+		private WeaponModel[] equippedItems = new WeaponModel[4];
+		private WeaponModel[] quickbarItems = new WeaponModel[6];
 
 		private IList<WeaponModel> inventoryItems = new List<WeaponModel>();
-		private int maxItemCount = 10;
+
+		// TODO: HACK REMOVAL. This shouldn't be defined in two places (it's defined in the UI visually currently also).
+		// Either generate the "Items" on demand, or know ahead of time how many we'll need tops.
+		private int MAX_INVENTORY_ITEM_COUNT = 20;
 
 		public WeaponModel getEquippedItem(int index)
 		{
 			return equippedItems[index];
 		}
 
-		public void swapPositions(int i0, int i1)
+		// TESTING
+		/*
+		public void swapEquippedItems(int i0, int i1)
 		{
 			Debug.Assert(i0 != i1);
 			Debug.Assert(i0 < equippedItems.Length && i1 < equippedItems.Length);
@@ -36,6 +42,7 @@ namespace player
 			//equipItem(i0, getEquippedItem(i1));
 			//equipItem(i1, temp);
 		}
+		*/
 
 		public int? equippedItemPositionOnBody(WeaponModel model)
 		{
@@ -74,14 +81,11 @@ namespace player
 		{
 			Debug.Assert(index < equippedItems.Length);
 			equippedItems[index] = item;
-
-			uiManager.setSashItem(index, item.WeaponBehavior.Icon, 1.0f);
 		}
 
 		public void addInventoryItem(WeaponModel item)
 		{
 			var nextPosition = nextAvailableInventoryPosition();
-			Debug.Log("nextPos: " + nextPosition);
 			if (!nextPosition.HasValue)
 			{
 				throw new NotImplementedException();
@@ -90,16 +94,27 @@ namespace player
 			inventoryItems.Add(item);
 			Debug.Assert(item.WeaponBehavior.Icon != null);
 			Debug.Assert(item.WeaponBehavior.Icon != null);
-
-
-			//if (inventoryItems.Count < 8)
-			//{
-			//	uiManager.setSashItem(nextPosition.Value, item.WeaponBehavior.Icon, 1.0f);
-			//}
-			//else
-			//{
-			//}
 			uiManager.setInventoryItem(nextPosition.Value, item.WeaponBehavior.Icon, 1.0f);
+		}
+
+		public int? availableQuickbarSlot()
+		{
+			for (int i = 0; i < quickbarItems.Length; ++i)
+			{
+				if (quickbarItems[i] == null)
+				{
+					return i;
+				}
+			}
+			return null;
+		}
+
+		public void addQuickbarItem(int index, WeaponModel item)
+		{
+			Debug.Assert(index < quickbarItems.Length);
+			quickbarItems[index] = item;
+
+			uiManager.setQuickbarItem(index, item.WeaponBehavior.Icon, 1.0f);
 		}
 
 		public bool sashIndexHasItem(int position)
@@ -110,11 +125,11 @@ namespace player
 		private int? nextAvailableInventoryPosition()
 		{
 			int itemCount = inventoryItems.Count;
-			if (itemCount <= maxItemCount)
+			if (itemCount <= MAX_INVENTORY_ITEM_COUNT)
 			{
 				return itemCount;
 			}
-			for (int i = 0; i < maxItemCount; ++i)
+			for (int i = 0; i < MAX_INVENTORY_ITEM_COUNT; ++i)
 			{
 				if (inventoryItems[i] == null)
 				{

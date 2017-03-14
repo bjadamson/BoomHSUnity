@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,8 +35,10 @@ namespace ui
 		// inventory panel
 		[SerializeField] private GameObject inventoryPanel;
 		[SerializeField] private GameObject sashPanelHighlight;
-		[SerializeField] private InventoryItem[] sashItems;
+
 		[SerializeField] private InventoryItem[] inventoryItems;
+		[SerializeField] private InventoryItem[] quickbarItems;
+		[SerializeField] private InventoryItem[] weaponItems;
 
 		void Update()
 		{
@@ -48,6 +51,25 @@ namespace ui
 			{
 				ammoPanel.gameObject.SetActive(false);
 			}
+		}
+
+		public InventoryItem itemIdToInventoryItem(int index)
+		{
+			if (index < weaponItems.Length)
+			{
+				return weaponItems[index];
+			}
+			index -= weaponItems.Length;
+			if (index < quickbarItems.Length)
+			{
+				return quickbarItems[index];
+			}
+			index -= quickbarItems.Length;
+			if (index < inventoryItems.Length)
+			{
+				return inventoryItems[index];
+			}
+			throw new NotImplementedException();
 		}
 
 		public void setAmmo(int magazineCount, int magazineMax)
@@ -88,7 +110,6 @@ namespace ui
 
 		public void setInventoryItem(int index, Sprite icon, float alpha)
 		{
-			Debug.Log("setInventory: index: " + index);
 			setContainerItem(inventoryItems, index, icon, alpha);
 		}
 
@@ -116,16 +137,20 @@ namespace ui
 			cursorManager.toggleCursor();
 		}
 
-		public void setSashItem(int index, Sprite icon, float alpha)
+		public void setWeaponItem(int index, Sprite icon, float alpha)
 		{
-			setContainerItem(sashItems, index, icon, alpha);
-			setHighlight(index);
+			setContainerItem(weaponItems, index, icon, alpha);
+		}
+
+		public void setQuickbarItem(int index, Sprite icon, float alpha)
+		{
+			setContainerItem(quickbarItems, index, icon, alpha);
 		}
 
 		private static void setContainerItem(InventoryItem[] items, int index, Sprite icon, float alpha)
 		{
-			Debug.Assert(items.Length > 0 && index < items.Length);
-			Debug.Log("items len: " + items.Length);
+			Debug.Assert(items.Length > 0);
+			Debug.Assert(index < items.Length);
 			var item = items[index];
 			Debug.Assert(item != null);
 			Debug.Assert(item.ImageButton != null);
@@ -155,10 +180,15 @@ namespace ui
 			this.HitIndicator.showThenHideHitIndicator();
 		}
 
-		public void setHighlight(int index)
+		public void setHighlight(Transform newParent)
 		{
-			sashPanelHighlight.transform.localPosition = Vector3.zero;
-			sashPanelHighlight.transform.SetParent(sashItems[index].transform);
+			//sashPanelHighlight.transform.SetSiblingIndex(index);
+			//sashPanelHighlight.transform.localPosition = weaponItems[index].transform.localPosition;
+			//sashPanelHighlight.transform.SetAsLastSibling();
+			//sashPanelHighlight.transform.position = weaponItems[index].transform.position;
+			//`sashPanelHighlight.transform.localPosition = weaponItems[index].transform.localPosition;
+
+			sashPanelHighlight.transform.SetParent(newParent);
 			sashPanelHighlight.transform.localPosition = Vector3.zero;
 		}
 	}

@@ -47,15 +47,24 @@ namespace player
 			this.kameraController = camController;
 		}
 
-		public void addItem(WeaponModel w, int? equippedPosition)
+		public void addItem(WeaponModel item, int? equippedPosition)
 		{
 			if (equippedPosition.HasValue)
 			{
-				inventory.equipItem(equippedPosition.Value, w);
+				inventory.equipItem(equippedPosition.Value, item);
+				uiManager.setWeaponItem(equippedPosition.Value, item.WeaponBehavior.Icon, 1.0f);
 			}
 			else
 			{
-				inventory.addInventoryItem(w);
+				int? qslot = inventory.availableQuickbarSlot();
+				if (qslot.HasValue)
+				{
+					inventory.addQuickbarItem(qslot.Value, item);
+				}
+				else
+				{
+					inventory.addInventoryItem(item);
+				}
 			}
 		}
 
@@ -101,7 +110,7 @@ namespace player
 			// 3) Find the active weapon by index.
 			var item = inventory.getEquippedItem(index);
 			Debug.Assert(item != null);
-			activeWeaponModel = inventory.getEquippedItem(index);
+			activeWeaponModel = item;
 
 			// 4) Reparent the active weapon GO to the equipped weapon slot GO.
 			var equippedWeaponSlot = weaponSlotsGOs.EquippedRHS;
@@ -110,9 +119,17 @@ namespace player
 			// 5) instruct the animator to equip the weapon
 			playerAnimator.equipWeapon();
 
-			// 6) Finally update the inventory UI icon
-			Debug.Log("name: " + item.WeaponBehavior.Icon.name);
-			uiManager.setSashItem(index, item.WeaponBehavior.Icon, 1.0f);
+			var ii = uiManager.itemIdToInventoryItem(index);
+			Debug.Log("input index: " + index);
+
+			var highlightIndex = ii.transform.parent.GetSiblingIndex();
+			Debug.Log("highlightIndex: " + highlightIndex);
+
+			var newParent = ii.transform.parent.parent.GetChild(index);
+			Debug.Assert(newParent != null);
+			Debug.Log("newParent: " + newParent.name);
+
+			uiManager.setHighlight(newParent);
 		}
 
 		public void shootIfAppropriate(bool fire1Pressed, bool fire1HeldDown)

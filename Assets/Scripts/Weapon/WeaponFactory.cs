@@ -1,15 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using player;
-
 using UnityEngine.UI;
+using player;
+using ui;
+using ui.inventory;
 
 namespace weapon
 {
 	public class WeaponFactory
 	{
-		private uint weaponId = 0;
+		private int weaponId = 0;
+
+		private readonly UIManager uiManager;
+
+		public WeaponFactory(UIManager uim)
+		{
+			uiManager = uim;
+		}
 
 		public WeaponModel makeAk47()
 		{
@@ -58,6 +66,8 @@ namespace weapon
 				weaponBehavior.PrefabPath = null;
 			}
 
+			var inventoryItem = uiManager.itemIdToInventoryItem(weaponId - 1);
+			weaponBehavior.InventoryUiItem = inventoryItem;
 			weaponBehavior.Icon = Resources.Load<Sprite>("Textures/UI/" + iconName);
 			Debug.Assert(weaponBehavior.Icon != null);
 
