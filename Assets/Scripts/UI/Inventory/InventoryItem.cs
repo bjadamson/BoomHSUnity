@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using weapon;
 
 namespace ui.inventory
 {
@@ -14,10 +15,15 @@ namespace ui.inventory
 
 		void Start()
 		{
-			Text = GetComponentInChildren<Text>();
+			refreshChildren();
+		}
+
+		public void refreshChildren()
+		{
+			Text = transform.parent.GetComponentInChildren<Text>();
 			Debug.Assert(Text != null);
 
-			ImageButton = GetComponentInChildren<Button>();
+			ImageButton = GetComponent<Button>();
 			Debug.Assert(ImageButton != null);
 		}
 	}

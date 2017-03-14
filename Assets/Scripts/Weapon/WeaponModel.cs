@@ -28,6 +28,14 @@ namespace weapon
 			}
 		}
 
+		public string Name
+		{
+			get
+			{
+				return weaponState.Name;
+			}
+		}
+
 		public WeaponModel(WeaponBehavior weaponBehavior, WeaponState weaponState)
 		{
 			this.WeaponBehavior = weaponBehavior;

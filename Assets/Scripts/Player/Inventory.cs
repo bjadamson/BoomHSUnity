@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using weapon;
 using ui;
 
@@ -19,6 +20,21 @@ namespace player
 		public WeaponModel getEquippedItem(int index)
 		{
 			return equippedItems[index];
+		}
+
+		public void swapPositions(int i0, int i1)
+		{
+			Debug.Assert(i0 != i1);
+			Debug.Assert(i0 < equippedItems.Length && i1 < equippedItems.Length);
+
+			var temp = equippedItems[i0];
+			equippedItems[i0] = equippedItems[i1];
+			equippedItems[i1] = temp;
+
+			//uiManager.setInventoryItem(i0, equippedItems[i0].WeaponBehavior.Icon, 1.0f);
+			//uiManager.setInventoryItem(i1, equippedItems[i1].WeaponBehavior.Icon, 1.0f);
+			//equipItem(i0, getEquippedItem(i1));
+			//equipItem(i1, temp);
 		}
 
 		public int? equippedItemPositionOnBody(WeaponModel model)
@@ -54,23 +70,35 @@ namespace player
 			return false;
 		}
 
-		public void equipItem(WeaponModel weapon, int index)
+		public void equipItem(int index, WeaponModel item)
 		{
 			Debug.Assert(index < equippedItems.Length);
-			equippedItems[index] = weapon;
+			equippedItems[index] = item;
 
-			uiManager.setSashItem(index, weapon.WeaponBehavior.Icon, 1.0f);
+			uiManager.setSashItem(index, item.WeaponBehavior.Icon, 1.0f);
 		}
 
 		public void addInventoryItem(WeaponModel item)
 		{
 			var nextPosition = nextAvailableInventoryPosition();
+			Debug.Log("nextPos: " + nextPosition);
 			if (!nextPosition.HasValue)
 			{
 				throw new NotImplementedException();
 			}
 
 			inventoryItems.Add(item);
+			Debug.Assert(item.WeaponBehavior.Icon != null);
+			Debug.Assert(item.WeaponBehavior.Icon != null);
+
+
+			//if (inventoryItems.Count < 8)
+			//{
+			//	uiManager.setSashItem(nextPosition.Value, item.WeaponBehavior.Icon, 1.0f);
+			//}
+			//else
+			//{
+			//}
 			uiManager.setInventoryItem(nextPosition.Value, item.WeaponBehavior.Icon, 1.0f);
 		}
 

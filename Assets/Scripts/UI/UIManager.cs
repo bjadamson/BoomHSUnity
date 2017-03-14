@@ -88,6 +88,7 @@ namespace ui
 
 		public void setInventoryItem(int index, Sprite icon, float alpha)
 		{
+			Debug.Log("setInventory: index: " + index);
 			setContainerItem(inventoryItems, index, icon, alpha);
 		}
 
@@ -118,22 +119,29 @@ namespace ui
 		public void setSashItem(int index, Sprite icon, float alpha)
 		{
 			setContainerItem(sashItems, index, icon, alpha);
-			sashPanelHighlight.transform.localPosition = Vector3.zero;
-			sashPanelHighlight.transform.SetParent(sashItems[index].transform);
-			sashPanelHighlight.transform.localPosition = Vector3.zero;
+			setHighlight(index);
 		}
 
-		private void setContainerItem(InventoryItem[] items, int index, Sprite icon, float alpha)
+		private static void setContainerItem(InventoryItem[] items, int index, Sprite icon, float alpha)
 		{
-			Debug.Assert(index < sashItems.Length);
+			Debug.Assert(items.Length > 0 && index < items.Length);
+			Debug.Log("items len: " + items.Length);
 			var item = items[index];
+			Debug.Assert(item != null);
+			Debug.Assert(item.ImageButton != null);
+
 			var button = item.ImageButton;
+			Debug.Assert(button != null);
+			Debug.Assert(button.image != null);
+
 			button.image.sprite = icon;
 			item.InventoryId = index;
 
 			var color = button.colors.normalColor;
 			color.a = alpha;
 			button.image.color = color;
+
+			item.refreshChildren();
 		}
 
 		public void setBuffIcon(int index, Image icon)
@@ -145,6 +153,13 @@ namespace ui
 		public void showThenHideHitIndicator()
 		{
 			this.HitIndicator.showThenHideHitIndicator();
+		}
+
+		public void setHighlight(int index)
+		{
+			sashPanelHighlight.transform.localPosition = Vector3.zero;
+			sashPanelHighlight.transform.SetParent(sashItems[index].transform);
+			sashPanelHighlight.transform.localPosition = Vector3.zero;
 		}
 	}
 }

@@ -51,7 +51,7 @@ namespace player
 		{
 			if (equippedPosition.HasValue)
 			{
-				inventory.equipItem(w, equippedPosition.Value);
+				inventory.equipItem(equippedPosition.Value, w);
 			}
 			else
 			{
@@ -92,15 +92,15 @@ namespace player
 				activeWeaponModel.stopReloadingAnimation();
 			}
 
-			// 2) If there isn't a weapon equipped, move the equipped weapon to the player's back.
+			// 2) If there is a weapon equipped, move it to the player's back.
 			if (isWeaponEquipped())
 			{
 				unequipEquippedWeapon(playerAnimator, weaponSlotsGOs);
 			}
 
 			// 3) Find the active weapon by index.
-			var weapon = inventory.getEquippedItem(index).WeaponBehavior;
-			Debug.Assert(weapon != null);
+			var item = inventory.getEquippedItem(index);
+			Debug.Assert(item != null);
 			activeWeaponModel = inventory.getEquippedItem(index);
 
 			// 4) Reparent the active weapon GO to the equipped weapon slot GO.
@@ -111,7 +111,8 @@ namespace player
 			playerAnimator.equipWeapon();
 
 			// 6) Finally update the inventory UI icon
-			uiManager.setSashItem(index, weapon.Icon, 1.0f);
+			Debug.Log("name: " + item.WeaponBehavior.Icon.name);
+			uiManager.setSashItem(index, item.WeaponBehavior.Icon, 1.0f);
 		}
 
 		public void shootIfAppropriate(bool fire1Pressed, bool fire1HeldDown)

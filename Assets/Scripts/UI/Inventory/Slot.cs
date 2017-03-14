@@ -7,24 +7,43 @@ namespace ui.inventory
 {
 	public class Slot : MonoBehaviour, IDropHandler
 	{
+		//[SerializeField] private UIManager uiManager;
+		[SerializeField] private PlayerBehavior playerBehavior;
+		[SerializeField] private Inventory inventory;
+
 		public void OnDrop(PointerEventData eventData)
 		{
 			var dragTransform = DragHandler.itemBeingDragged.transform;
-			var draggedIndex = dragTransform.GetSiblingIndex();
-			var transformIndex = transform.GetSiblingIndex();
+			var a = dragTransform.GetComponent<Slot>();
+			var b = transform;
+			Debug.Assert(a != null);
+			Debug.Assert(a != b);
 
-			dragTransform.GetChild(0).SetParent (transform);
-			transform.GetChild(0).SetParent(dragTransform);
-			//
-			//if (dragTransform.parent != transform.parent)
-			//{
-			//	var dragParent = dragTransform.parent;
-			//	dragTransform.transform.GetChild(0).SetParent(transform.parent);
-			//	transform.GetChild(0).SetParent(dragParent);
-			//}
-			//dragTransform.SetSiblingIndex(transformIndex);
-			//transform.SetSiblingIndex(draggedIndex);
-			//ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged());
+			// swap their parent GO's
+			var aParent = a.transform.parent;
+			var bParent = b.transform.parent;
+
+			var x = aParent.GetSiblingIndex();
+			var y = bParent.GetSiblingIndex();
+			Debug.Log("swapping " + x + " " + y);
+
+			a.transform.SetParent (bParent);
+			a.transform.SetAsFirstSibling();
+			a.transform.localPosition = Vector3.zero;
+
+			b.transform.SetParent (aParent);
+			b.transform.SetAsFirstSibling();
+			b.transform.localPosition = Vector3.zero;
+
+			Debug.Assert(x != y);
+			inventory.swapPositions(x, y);
+		}
+
+		public void readParentsSiblingIndexThenEquipWeaponAtThatIndex()
+		{
+			int index = transform.parent.GetSiblingIndex();
+			Debug.Log("parent index: " + index);
+			playerBehavior.ifWeaponAtPositionThenEquip(index);
 		}
 	}
 }

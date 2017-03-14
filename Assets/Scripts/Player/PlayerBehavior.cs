@@ -10,23 +10,22 @@ namespace player
 {
 	public class PlayerBehavior : MonoBehaviour
 	{
-		[SerializeField] private DeathReviveBehavior deathBehavior;
 		[SerializeField] private CameraController kameraController;
 		[SerializeField] private UIManager uiManager;
 		[SerializeField] private UserIO userIO;
-
-		private WeaponSlotGameObjects weaponSlotsGOs;
 
 		// constants
 		private readonly float JUMP_FORCE = 660.0f;
 		private readonly float MOVEMENT_SPEED = 10.0f;
 
-
-		private PlayerAnimate playerAnimator;
 		private CrouchStand crouchStand;
 		private CapsuleCollider capsuleCollider;
+		private DeathReviveBehavior deathBehavior;
 		private Inventory inventory;
+		private PlayerAnimate playerAnimator;
 		private Rigidbody rigidBody;
+
+		private WeaponSlotGameObjects weaponSlotsGOs;
 
 		// state
 		private PlayerStateModel playerModel;
@@ -34,14 +33,17 @@ namespace player
 
 		void Start()
 		{
+			deathBehavior = GetComponent<DeathReviveBehavior>();
+			Debug.Assert(deathBehavior != null);
+
+			this.inventory = GetComponent<Inventory>();
+			Debug.Assert(inventory != null);
+
 			playerAnimator = GetComponent<PlayerAnimate>();
 			Debug.Assert(playerAnimator != null);
 
 			weaponSlotsGOs = GetComponent<WeaponSlotGameObjects>();
 			Debug.Assert(weaponSlotsGOs != null);
-
-			this.inventory = GetComponent<Inventory>();
-			Debug.Assert(inventory != null);
 
 			playerAnimator = GetComponent<PlayerAnimate>();
 			capsuleCollider = GetComponent<CapsuleCollider>();
