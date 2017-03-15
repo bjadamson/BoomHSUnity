@@ -125,11 +125,9 @@ namespace player
 			// of drag/dropping them breaks any natural correlation between their position on the ui and their indexed position within
 			// our list of items stored within the "model".
 			var inventoryItem = uiManager.itemIdToInventoryItem(index);
-			Debug.Log("item index: " + index);
 
 			var hightlightTargetParent = inventoryItem.transform.parent.parent.GetChild(index);
 			Debug.Assert(hightlightTargetParent != null);
-			Debug.Log("highlight parent: " + hightlightTargetParent.name);
 
 			uiManager.setHighlight(hightlightTargetParent);
 		}

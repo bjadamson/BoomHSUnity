@@ -4,7 +4,7 @@ using ui;
 
 namespace ui.inventory
 {
-	public class EquippedWeaponSelectionHighlight : MonoBehaviour
+	public class EquippedWeaponHighlight : MonoBehaviour
 	{
 		[SerializeField] private InventoryItem initialSlot;
 

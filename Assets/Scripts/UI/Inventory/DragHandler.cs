@@ -30,9 +30,6 @@ namespace ui.inventory
 		{
 			transform.position = eventData.position;
 			transform.position -= mouseOffset;
-
-			Debug.Log(transform.position);
-			//Debug.Log(Input.mousePosition);
 		}
 
 		public void OnEndDrag(PointerEventData eventData)

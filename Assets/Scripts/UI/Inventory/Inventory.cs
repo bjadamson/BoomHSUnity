@@ -11,7 +11,7 @@ namespace ui.inventory
 	public class Inventory : MonoBehaviour
 	{
 		// ui
-		[SerializeField] private UIManager uiManager;
+		private UIManager uiManager;
 		private WeaponModel[] equippedItems = new WeaponModel[4];
 		private WeaponModel[] quickbarItems = new WeaponModel[6];
 
@@ -20,6 +20,12 @@ namespace ui.inventory
 		// TODO: HACK REMOVAL. This shouldn't be defined in two places (it's defined in the UI visually currently also).
 		// Either generate the "Items" on demand, or know ahead of time how many we'll need tops.
 		private int MAX_INVENTORY_ITEM_COUNT = 20;
+
+		void Start()
+		{
+			uiManager = GetComponent<UIManager>();
+			Debug.Assert(uiManager != null);
+		}
 
 		public WeaponModel getEquippedItem(int index)
 		{

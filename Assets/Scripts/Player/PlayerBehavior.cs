@@ -11,6 +11,7 @@ namespace player
 {
 	public class PlayerBehavior : MonoBehaviour
 	{
+		[SerializeField] private Inventory inventory;
 		[SerializeField] private CameraController kameraController;
 		[SerializeField] private UIManager uiManager;
 		[SerializeField] private UserIO userIO;
@@ -22,7 +23,6 @@ namespace player
 		private CrouchStand crouchStand;
 		private CapsuleCollider capsuleCollider;
 		private DeathReviveBehavior deathBehavior;
-		private Inventory inventory;
 		private PlayerAnimate playerAnimator;
 		private Rigidbody rigidBody;
 
@@ -34,11 +34,13 @@ namespace player
 
 		void Start()
 		{
+			Debug.Assert(inventory != null);
+			Debug.Assert(kameraController != null);
+			Debug.Assert(uiManager != null);
+			Debug.Assert(userIO != null);
+
 			deathBehavior = GetComponent<DeathReviveBehavior>();
 			Debug.Assert(deathBehavior != null);
-
-			this.inventory = GetComponent<Inventory>();
-			Debug.Assert(inventory != null);
 
 			playerAnimator = GetComponent<PlayerAnimate>();
 			Debug.Assert(playerAnimator != null);

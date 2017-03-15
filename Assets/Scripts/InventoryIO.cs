@@ -10,6 +10,9 @@ public class InventoryIO : MonoBehaviour
 
 	void Start()
 	{
+		Debug.Assert(playerBehavior != null);
+		Debug.Assert(uiManager != null);
+
 		// hack for now, we need to wait until after all MonoBehavior Start() methods have been invoked before calling this..
 		Invoke("spawnItems", 0.1f);
 	}
