@@ -14,7 +14,7 @@ namespace ui.inventory
 			Debug.Assert(inventory != null);
 		}
 
-		public void onItemMoved(int index0, int index1)
+		public void onEquippedItemMoved(int index0, int index1)
 		{
 			swapEquippedItems(index0, index1);
 		}

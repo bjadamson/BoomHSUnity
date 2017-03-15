@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using player;
 
-namespace ui.inventory
+namespace ui
 {
 	public class AmmoPanel : MonoBehaviour
 	{

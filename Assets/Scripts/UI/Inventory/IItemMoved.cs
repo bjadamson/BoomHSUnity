@@ -5,6 +5,6 @@ namespace ui.inventory
 {
 	interface IItemMoved
 	{
-		void onItemMoved(int index0, int index1);
+		void onEquippedItemMoved(int index0, int index1);
 	}
 }

@@ -38,7 +38,7 @@ namespace ui.inventory
 			b.transform.localPosition = Vector3.zero;
 
 			Debug.Assert(x != y);
-			itemDropManager.onItemMoved(x, y);
+			itemDropManager.onEquippedItemMoved(x, y);
 		}
 	}
 }
