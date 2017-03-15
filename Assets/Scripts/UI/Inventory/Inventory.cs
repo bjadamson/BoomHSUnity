@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using weapon;
 using ui;
 
-namespace player
+namespace ui.inventory
 {
 	public class Inventory : MonoBehaviour
 	{
@@ -25,24 +25,6 @@ namespace player
 		{
 			return equippedItems[index];
 		}
-
-		// TESTING
-		/*
-		public void swapEquippedItems(int i0, int i1)
-		{
-			Debug.Assert(i0 != i1);
-			Debug.Assert(i0 < equippedItems.Length && i1 < equippedItems.Length);
-
-			var temp = equippedItems[i0];
-			equippedItems[i0] = equippedItems[i1];
-			equippedItems[i1] = temp;
-
-			//uiManager.setInventoryItem(i0, equippedItems[i0].WeaponBehavior.Icon, 1.0f);
-			//uiManager.setInventoryItem(i1, equippedItems[i1].WeaponBehavior.Icon, 1.0f);
-			//equipItem(i0, getEquippedItem(i1));
-			//equipItem(i1, temp);
-		}
-		*/
 
 		public int? equippedItemPositionOnBody(WeaponModel model)
 		{

@@ -7,9 +7,9 @@ namespace ui.inventory
 {
 	public class DragDropSlot : MonoBehaviour, IDropHandler
 	{
-		[SerializeField] private ItemHighlight itemHighlight;
+		[SerializeField] private EquippedWeaponSelectionHighlight itemHighlight;
 		[SerializeField] private PlayerBehavior playerBehavior;
-		[SerializeField] private WeaponBarDragManager weaponManager;
+		[SerializeField] private ItemBarOnDragDropManager weaponManager;
 
 		void Start()
 		{

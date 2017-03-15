@@ -5,10 +5,9 @@ using ui;
 
 namespace ui.inventory
 {
-	public class WeaponBarDragManager : MonoBehaviour, IItemMoved
+	public class ItemBarOnDragDropManager : MonoBehaviour, IItemMoved
 	{
 		[SerializeField] private Inventory inventory;
-		[SerializeField] private PlayerBehavior playerBehavior;
 
 		void swapEquippedItems(int index0, int index1)
 		{

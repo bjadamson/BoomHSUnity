@@ -8,8 +8,8 @@ namespace ui.inventory
 	{
 		public static GameObject itemBeingDragged;
 		private CanvasGroup canvasGroup;
-		Vector3 startPosition;
-		Transform startParent;
+		private Vector3 mouseOffset, startPosition;
+		private Transform startParent;
 
 		void Start()
 		{
@@ -22,11 +22,17 @@ namespace ui.inventory
 			startPosition = transform.position;
 			startParent = transform.parent;
 			canvasGroup.blocksRaycasts = false;
+
+			mouseOffset = Input.mousePosition - startPosition;
 		}
 
 		public void OnDrag(PointerEventData eventData)
 		{
 			transform.position = eventData.position;
+			transform.position -= mouseOffset;
+
+			Debug.Log(transform.position);
+			//Debug.Log(Input.mousePosition);
 		}
 
 		public void OnEndDrag(PointerEventData eventData)

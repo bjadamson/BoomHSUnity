@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using weapon;
 using camera;
 using ui;
+using ui.inventory;
 
 namespace player
 {

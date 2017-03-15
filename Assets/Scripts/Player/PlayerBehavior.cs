@@ -5,6 +5,7 @@ using weapon;
 
 // todo: move
 using ui;
+using ui.inventory;
 
 namespace player
 {
