@@ -6,19 +6,6 @@ namespace ui.inventory
 {
 	public class EquippedWeaponHighlight : MonoBehaviour
 	{
-		[SerializeField] private InventoryItem initialSlot;
-
-		void Start()
-		{
-			Debug.Assert(initialSlot != null);
-			transform.position = initialSlot.transform.position;
-			transform.localPosition = Vector3.zero;
-		}
-
-		public bool isParentedBy(InventoryItem item)
-		{
-			Debug.Assert(item != null);
-			return transform.parent == item.transform;
-		}
+		public int Index = 0;
 	}
 }

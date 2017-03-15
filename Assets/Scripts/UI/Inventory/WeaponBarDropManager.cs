@@ -23,22 +23,32 @@ namespace ui.inventory
 
 		public void OnWeaponBarDropped(Transform slotTransform, Transform itemBeingDragged)
 		{
-			//var dragTransform = DragHandler.itemBeingDragged.transform;
-			if (weaponHighlight.transform.parent == slotTransform.parent)
+			if (weaponHighlight.Index == slotTransform.parent.GetSiblingIndex())
 			{
 				// drag highlight onto other
-				playerBehavior.equipItemAtPosition(slotTransform.parent.GetSiblingIndex());
+				int index = slotTransform.parent.GetSiblingIndex();
+				moveHighlightTo(itemBeingDragged, index);
 			}
-			else if (weaponHighlight.transform.parent == itemBeingDragged.parent)
+			else if (weaponHighlight.Index == itemBeingDragged.parent.GetSiblingIndex())
 			{
 				// dragged ONTO highlighted
-				playerBehavior.equipItemAtPosition(itemBeingDragged.parent.GetSiblingIndex());
+				int index = itemBeingDragged.parent.GetSiblingIndex();
+				moveHighlightTo(slotTransform, index);
 			}
 		}
 
 		public void equipWeaponAtThatIndexIfAny(int index)
 		{
 			playerBehavior.ifWeaponAtPositionThenEquip(index);
+		}
+
+		private void moveHighlightTo(Transform itemTransform, int index)
+		{
+			playerBehavior.equipItemAtPosition(index);
+
+			weaponHighlight.transform.position = itemTransform.position;
+			weaponHighlight.transform.localPosition = Vector3.zero;
+			weaponHighlight.Index = index;
 		}
 	}
 }

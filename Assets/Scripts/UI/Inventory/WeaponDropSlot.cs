@@ -22,7 +22,6 @@ namespace ui.inventory
 		public void readParentsSiblingIndexThenEquipWeaponAtThatIndex()
 		{
 			int index = transform.parent.GetSiblingIndex();
-			Debug.Log("readParents, index: " + index);
 			weaponDropManager.equipWeaponAtThatIndexIfAny(index);
 		}
 	}
