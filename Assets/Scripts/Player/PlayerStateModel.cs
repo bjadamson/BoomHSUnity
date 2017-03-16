@@ -124,12 +124,11 @@ namespace player
 			// inventory item to be highlighted. We need to do this when items have been "moved" (dragged around) the UI, since the process
 			// of drag/dropping them breaks any natural correlation between their position on the ui and their indexed position within
 			// our list of items stored within the "model".
-			var inventoryItem = uiManager.itemIdToInventoryItem(index);
+			//var inventoryItem = uiManager.itemIdToInventoryItem(index);
 
-			var hightlightTargetParent = inventoryItem.transform.parent.parent.GetChild(index);
-			Debug.Assert(hightlightTargetParent != null);
-
-			uiManager.setHighlight(hightlightTargetParent);
+			//var hightlightTargetParent = inventoryItem.transform.parent.parent.GetChild(index);
+			//Debug.Assert(hightlightTargetParent != null);
+			uiManager.setWeaponHighlightIndex(index);
 		}
 
 		public void shootIfAppropriate(bool fire1Pressed, bool fire1HeldDown)

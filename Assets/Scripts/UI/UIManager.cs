@@ -34,7 +34,7 @@ namespace ui
 
 		// inventory panel
 		[SerializeField] private GameObject inventoryPanel;
-		[SerializeField] private GameObject sashPanelHighlight;
+		[SerializeField] private EquippedWeaponHighlight equippedWeaponHighlight;
 
 		[SerializeField] private InventoryItem[] inventoryItems;
 		[SerializeField] private InventoryItem[] quickbarItems;
@@ -158,10 +158,11 @@ namespace ui
 			this.HitIndicator.showThenHideHitIndicator();
 		}
 
-		public void setHighlight(Transform newParent)
+		public void setWeaponHighlightIndex(int position)//Transform newParent)
 		{
-			sashPanelHighlight.transform.SetParent(newParent);
-			sashPanelHighlight.transform.localPosition = Vector3.zero;
+			equippedWeaponHighlight.setPosition(position);
+			//sashPanelHighlight.transform.SetParent(newParent);
+			//sashPanelHighlight.transform.localPosition = Vector3.zero;
 		}
 
 		private static void setContainerItem(InventoryItem[] items, int index, Sprite icon, float alpha)
