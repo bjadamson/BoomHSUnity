@@ -36,9 +36,9 @@ namespace ui
 		[SerializeField] private GameObject inventoryPanel;
 		[SerializeField] private EquippedWeaponHighlight equippedWeaponHighlight;
 
-		[SerializeField] private InventoryItem[] inventoryItems;
-		[SerializeField] private InventoryItem[] quickbarItems;
-		[SerializeField] private InventoryItem[] weaponItems;
+		//[SerializeField] private InventoryItem[] inventoryItems;
+		//[SerializeField] private InventoryItem[] quickbarItems;
+		//[SerializeField] private InventoryItem[] weaponItems;
 
 		void Update()
 		{
@@ -51,25 +51,6 @@ namespace ui
 			{
 				ammoPanel.gameObject.SetActive(false);
 			}
-		}
-
-		public InventoryItem itemIdToInventoryItem(int index)
-		{
-			if (index < weaponItems.Length)
-			{
-				return weaponItems[index];
-			}
-			index -= weaponItems.Length;
-			if (index < quickbarItems.Length)
-			{
-				return quickbarItems[index];
-			}
-			index -= quickbarItems.Length;
-			if (index < inventoryItems.Length)
-			{
-				return inventoryItems[index];
-			}
-			throw new NotImplementedException();
 		}
 
 		public void setAmmo(int magazineCount, int magazineMax)
@@ -108,10 +89,10 @@ namespace ui
 			expMajorSlider.value = value;
 		}
 
-		public void setInventoryItem(int index, Sprite icon, float alpha)
-		{
-			setContainerItem(inventoryItems, index, icon, alpha);
-		}
+		//public void setInventoryItem(int index, Sprite icon, float alpha)
+		//{
+		//	setContainerItem(inventoryItems, index, icon, alpha);
+		//}
 
 		public void showInventory()
 		{
@@ -137,15 +118,15 @@ namespace ui
 			cursorManager.toggleCursor();
 		}
 
-		public void setWeaponItem(int index, Sprite icon, float alpha)
-		{
-			setContainerItem(weaponItems, index, icon, alpha);
-		}
+		//public void setWeaponItem(int index, Sprite icon, float alpha)
+		//{
+		//	setContainerItem(weaponItems, index, icon, alpha);
+		//}
 
-		public void setQuickbarItem(int index, Sprite icon, float alpha)
-		{
-			setContainerItem(quickbarItems, index, icon, alpha);
-		}
+		//public void setQuickbarItem(int index, Sprite icon, float alpha)
+		//{
+		//	setContainerItem(quickbarItems, index, icon, alpha);
+		//}
 
 		public void setBuffIcon(int index, Image icon)
 		{
@@ -158,33 +139,9 @@ namespace ui
 			this.HitIndicator.showThenHideHitIndicator();
 		}
 
-		public void setWeaponHighlightIndex(int position)//Transform newParent)
+		public void setWeaponHighlightIndex(int position)
 		{
 			equippedWeaponHighlight.setPosition(position);
-			//sashPanelHighlight.transform.SetParent(newParent);
-			//sashPanelHighlight.transform.localPosition = Vector3.zero;
-		}
-
-		private static void setContainerItem(InventoryItem[] items, int index, Sprite icon, float alpha)
-		{
-			Debug.Assert(items.Length > 0);
-			Debug.Assert(index < items.Length);
-			var item = items[index];
-			Debug.Assert(item != null);
-			Debug.Assert(item.ImageButton != null);
-
-			var button = item.ImageButton;
-			Debug.Assert(button != null);
-			Debug.Assert(button.image != null);
-
-			button.image.sprite = icon;
-			item.InventoryId = index;
-
-			var color = button.colors.normalColor;
-			color.a = alpha;
-			button.image.color = color;
-
-			item.refreshChildren();
 		}
 	}
 }

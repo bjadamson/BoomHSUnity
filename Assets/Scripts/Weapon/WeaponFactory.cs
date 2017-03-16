@@ -10,14 +10,14 @@ namespace weapon
 {
 	public class WeaponFactory
 	{
-		private readonly UIManager uiManager;
+		private readonly Inventory inventory;
 
 		// state
 		private int weaponId = 0;
 
-		public WeaponFactory(UIManager uim)
+		public WeaponFactory(Inventory i)
 		{
-			uiManager = uim;
+			inventory = i;
 		}
 
 		public WeaponModel makeAk47()
@@ -67,7 +67,7 @@ namespace weapon
 				weaponBehavior.PrefabPath = null;
 			}
 
-			var inventoryItem = uiManager.itemIdToInventoryItem(weaponId - 1);
+			var inventoryItem = inventory.itemIdToInventoryItem(weaponId - 1);
 			weaponBehavior.InventoryUiItem = inventoryItem;
 			weaponBehavior.Icon = Resources.Load<Sprite>("Textures/UI/" + iconName);
 			Debug.Assert(weaponBehavior.Icon != null);

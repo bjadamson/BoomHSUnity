@@ -12,7 +12,7 @@ namespace weapon
 	{
 		public string PrefabPath;
 		public Sprite Icon;
-		public InventoryItem InventoryUiItem;
+		public UiSlot InventoryUiItem;
 		[SerializeField] private AudioSource ShootSound;
 		[SerializeField] private AudioSource ClipEmptySound;
 		[SerializeField] private AudioSource ClipFull;

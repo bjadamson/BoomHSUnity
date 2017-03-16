@@ -6,12 +6,12 @@ namespace ui.inventory
 {
 	public class ItemDropManager : MonoBehaviour, IItemMoved
 	{
-		private Inventory inventory;
+		private EquipppedItems equippedItems;
 
 		void Start()
 		{
-			inventory = GetComponent<Inventory>();
-			Debug.Assert(inventory != null);
+			equippedItems = GetComponent<EquipppedItems>();
+			Debug.Assert(equippedItems != null);
 		}
 
 		public void onEquippedItemMoved(int index0, int index1)
@@ -21,11 +21,12 @@ namespace ui.inventory
 
 		private void swapEquippedItems(int index0, int index1)
 		{
-			var item0 = this.inventory.getEquippedItem(index0);
-			var item1 = this.inventory.getEquippedItem(index1);
+			var item0 = this.equippedItems.getEquippedItem(index0);
+			var item1 = this.equippedItems.getEquippedItem(index1);
 
-			inventory.equipItem(index0, item1);
-			inventory.equipItem(index1, item0);
+			bool setUiIcon = false;
+			equippedItems.equipItem(index0, item1, setUiIcon);
+			equippedItems.equipItem(index1, item0, setUiIcon);
 		}
 	}
 }

@@ -2,16 +2,17 @@
 using player;
 using weapon;
 using ui;
+using ui.inventory;
 
 public class InventoryIO : MonoBehaviour
 {
 	[SerializeField] private PlayerBehavior playerBehavior;
-	[SerializeField] private UIManager uiManager;
+	[SerializeField] private Inventory inventory;
 
 	void Start()
 	{
 		Debug.Assert(playerBehavior != null);
-		Debug.Assert(uiManager != null);
+		Debug.Assert(inventory != null);
 
 		// hack for now, we need to wait until after all MonoBehavior Start() methods have been invoked before calling this..
 		Invoke("spawnItems", 0.1f);
@@ -19,7 +20,7 @@ public class InventoryIO : MonoBehaviour
 
 	private void spawnItems()
 	{
-		WeaponFactory weaponFactory = new WeaponFactory(uiManager);
+		WeaponFactory weaponFactory = new WeaponFactory(inventory);
 		var fists = weaponFactory.makeFists();
 		var weapon1 = weaponFactory.makeM4A1();
 		var weapon2 = weaponFactory.makeAk47();

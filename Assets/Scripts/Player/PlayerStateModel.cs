@@ -35,38 +35,17 @@ namespace player
 		private bool isFreelookMode = false;
 
 		// storage
-		private readonly Inventory inventory;
+		private readonly EquipppedItems equippedItems;
 
 		// ui
 		private readonly UIManager uiManager;
 
-		internal PlayerStateModel(float distance, Inventory inventory, UIManager uiMgr, CameraController camController)
+		internal PlayerStateModel(float distance, EquipppedItems equippedItems, UIManager uiMgr, CameraController camController)
 		{
 			this.DistanceToGround = distance;
-			this.inventory = inventory;
+			this.equippedItems = equippedItems;
 			this.uiManager = uiMgr;
 			this.kameraController = camController;
-		}
-
-		public void addItem(WeaponModel item, int? equippedPosition)
-		{
-			if (equippedPosition.HasValue)
-			{
-				inventory.equipItem(equippedPosition.Value, item);
-				uiManager.setWeaponItem(equippedPosition.Value, item.WeaponBehavior.Icon, 1.0f);
-			}
-			else
-			{
-				int? qslot = inventory.availableQuickbarSlot();
-				if (qslot.HasValue)
-				{
-					inventory.addQuickbarItem(qslot.Value, item);
-				}
-				else
-				{
-					inventory.addInventoryItem(item);
-				}
-			}
 		}
 
 		public void maybeReload(bool reloadKeyPressed)
@@ -109,7 +88,7 @@ namespace player
 			}
 
 			// 3) Find the active weapon by index.
-			var item = inventory.getEquippedItem(index);
+			var item = equippedItems.getEquippedItem(index);
 			Debug.Assert(item != null);
 			activeWeaponModel = item;
 
@@ -207,7 +186,7 @@ namespace player
 		private void unequipEquippedWeapon(PlayerAnimate playerAnimator, WeaponSlotGameObjects weaponSlotsGOs)
 		{
 			// 1) Find the index for the weapon on the player's back.
-			var equippedItemIndex = inventory.equippedItemPositionOnBody(activeWeaponModel);
+			var equippedItemIndex = equippedItems.equippedItemPositionOnBody(activeWeaponModel);
 			if (equippedItemIndex == null)
 			{
 				return;

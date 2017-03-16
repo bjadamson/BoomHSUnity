@@ -12,6 +12,8 @@ namespace player
 	public class PlayerBehavior : MonoBehaviour
 	{
 		[SerializeField] private Inventory inventory;
+		[SerializeField] private EquipppedItems equippedItems;
+
 		[SerializeField] private CameraController kameraController;
 		[SerializeField] private UIManager uiManager;
 		[SerializeField] private UserIO userIO;
@@ -54,7 +56,7 @@ namespace player
 			rigidBody = GetComponent<Rigidbody>();
 
 			float distanceToGround = GetComponent<Collider>().bounds.extents.y;
-			playerModel = new PlayerStateModel(distanceToGround, inventory, uiManager, kameraController);
+			playerModel = new PlayerStateModel(distanceToGround, equippedItems, uiManager, kameraController);
 		}
 
 		void Update()
@@ -156,7 +158,7 @@ namespace player
 
 		public void addItem(WeaponModel weapon, int? equipPos)
 		{
-			playerModel.addItem(weapon, equipPos);
+			inventory.addItem(weapon, equipPos);
 			if (equipPos.HasValue)
 			{
 				ifWeaponAtPositionThenEquip(equipPos.Value);
@@ -165,7 +167,7 @@ namespace player
 
 		public void ifWeaponAtPositionThenEquip(int position)
 		{
-			if (inventory.sashIndexHasItem(position))
+			if (inventory.isItemIndexEquipped(position))
 			{
 				playerModel.equipWeaponSlot(position, playerAnimator, weaponSlotsGOs);
 			}

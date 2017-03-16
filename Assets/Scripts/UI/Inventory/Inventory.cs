@@ -10,123 +10,70 @@ namespace ui.inventory
 {
 	public class Inventory : MonoBehaviour
 	{
-		// ui
+		private EquipppedItems equipped;
+		private QuickbarItems quickbar;
+		private InventoryItems inventory;
 		private UIManager uiManager;
-		private WeaponModel[] equippedItems = new WeaponModel[4];
-		private WeaponModel[] quickbarItems = new WeaponModel[6];
-
-		private IList<WeaponModel> inventoryItems = new List<WeaponModel>();
-
-		// TODO: HACK REMOVAL. This shouldn't be defined in two places (it's defined in the UI visually currently also).
-		// Either generate the "Items" on demand, or know ahead of time how many we'll need tops.
-		private int MAX_INVENTORY_ITEM_COUNT = 20;
 
 		void Start()
 		{
+			equipped = GetComponent<EquipppedItems>();
+			Debug.Assert(equipped != null);
+
+			quickbar = GetComponent<QuickbarItems>();
+			Debug.Assert(quickbar != null);
+
+			inventory = GetComponent<InventoryItems>();
+			Debug.Assert(inventory != null);
+
 			uiManager = GetComponent<UIManager>();
 			Debug.Assert(uiManager != null);
 		}
 
-		public WeaponModel getEquippedItem(int index)
+		public void addItem(WeaponModel item, int? equippedPosition)
 		{
-			return equippedItems[index];
-		}
-
-		public int? equippedItemPositionOnBody(WeaponModel model)
-		{
-			// WEIRD
-			// Count the number of equipped items with meshes to get the index of the equipped item on the body..
-			int equippedItemCount = 0;
-			for (int i = 0; i < equippedItems.Length; ++i)
+			if (equippedPosition.HasValue)
 			{
-				var item = equippedItems[i];
-
-				if (item == model)
+				bool updateUiIcon = true;
+				equipped.equipItem(equippedPosition.Value, item, updateUiIcon);
+			}
+			else
+			{
+				bool setUiIcon = true;
+				int? qslot = quickbar.availableQuickbarSlot();
+				if (qslot.HasValue)
 				{
-					return equippedItemCount;
+					quickbar.addItem(qslot.Value, item, setUiIcon);
 				}
-				if (!item.hasMeshRenderer())
+				else
 				{
-					++equippedItemCount;
+					inventory.addInventoryItem(item, setUiIcon);
 				}
 			}
-			return null;
 		}
 
-		public bool availableWeaponSlot()
+		public UiSlot itemIdToInventoryItem(int index)
 		{
-			for (int i = 0; i < equippedItems.Length; ++i)
+			if (index < equipped.Length)
 			{
-				if (equippedItems[i] == null)
-				{
-					return true;
-				}
+				return equipped[index];
 			}
-			return false;
-		}
-
-		public void equipItem(int index, WeaponModel item)
-		{
-			Debug.Assert(index < equippedItems.Length);
-			equippedItems[index] = item;
-		}
-
-		public void addInventoryItem(WeaponModel item)
-		{
-			Debug.Assert(item != null);
-			Debug.Assert(item.WeaponBehavior != null);
-			Debug.Assert(item.WeaponBehavior.Icon != null);
-
-			var nextPosition = nextAvailableInventoryPosition();
-			if (!nextPosition.HasValue)
+			index -= equipped.Length;
+			if (index < quickbar.Length)
 			{
-				throw new NotImplementedException();
+				return quickbar[index];
 			}
-
-			inventoryItems.Add(item);
-			uiManager.setInventoryItem(nextPosition.Value, item.WeaponBehavior.Icon, 1.0f);
-		}
-
-		public int? availableQuickbarSlot()
-		{
-			for (int i = 0; i < quickbarItems.Length; ++i)
+			index -= quickbar.Length;
+			if (index < inventory.Count)
 			{
-				if (quickbarItems[i] == null)
-				{
-					return i;
-				}
+				return inventory[index];
 			}
-			return null;
+			throw new NotImplementedException();
 		}
 
-		public void addQuickbarItem(int index, WeaponModel item)
+		public bool isItemIndexEquipped(int index)
 		{
-			Debug.Assert(index < quickbarItems.Length);
-			quickbarItems[index] = item;
-
-			uiManager.setQuickbarItem(index, item.WeaponBehavior.Icon, 1.0f);
-		}
-
-		public bool sashIndexHasItem(int position)
-		{
-			return getEquippedItem(position) != null;
-		}
-
-		private int? nextAvailableInventoryPosition()
-		{
-			int itemCount = inventoryItems.Count;
-			if (itemCount <= MAX_INVENTORY_ITEM_COUNT)
-			{
-				return itemCount;
-			}
-			for (int i = 0; i < MAX_INVENTORY_ITEM_COUNT; ++i)
-			{
-				if (inventoryItems[i] == null)
-				{
-					return i;
-				}
-			}
-			return null;
+			return equipped.sashIndexHasItem(index);
 		}
 	}
 }
