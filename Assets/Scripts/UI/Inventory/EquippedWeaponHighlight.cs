@@ -11,14 +11,10 @@ namespace ui.inventory
 		// state
 		public int Index = 0;
 
-		void Start()
-		{
-			setWidthToParentsFirstChildsWidth();
-			setPosition(0);
-		}
-
 		public void setPosition(int position)
 		{
+			setWidthToParentsFirstChildsWidth();
+
 			Vector3 pos = Vector3.zero;
 			pos.x = width * position;
 			transform.localPosition = pos;

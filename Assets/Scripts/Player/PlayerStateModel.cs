@@ -99,14 +99,7 @@ namespace player
 			// 5) instruct the animator to equip the weapon
 			playerAnimator.equipWeapon();
 
-			// 6) Draw highlight around the correct InventoryItem. We do the following calculation to figure out the correct
-			// inventory item to be highlighted. We need to do this when items have been "moved" (dragged around) the UI, since the process
-			// of drag/dropping them breaks any natural correlation between their position on the ui and their indexed position within
-			// our list of items stored within the "model".
-			//var inventoryItem = uiManager.itemIdToInventoryItem(index);
-
-			//var hightlightTargetParent = inventoryItem.transform.parent.parent.GetChild(index);
-			//Debug.Assert(hightlightTargetParent != null);
+			// 6) Draw highlight around the correct InventoryItem.
 			uiManager.setWeaponHighlightIndex(index);
 		}
 
