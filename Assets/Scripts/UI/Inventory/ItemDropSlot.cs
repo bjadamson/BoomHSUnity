@@ -7,11 +7,11 @@ namespace ui.inventory
 {
 	public class ItemDropSlot : MonoBehaviour, IDropHandler
 	{
-		[SerializeField] private ItemDropManager itemDropManager;
+		[SerializeField] private PlayerBehavior playerBehavior;
 
 		void Start()
 		{
-			Debug.Assert(itemDropManager != null);
+			Debug.Assert(playerBehavior != null);
 		}
 
 		public void OnDrop(PointerEventData _)
@@ -38,7 +38,7 @@ namespace ui.inventory
 			b.transform.localPosition = Vector3.zero;
 
 			Debug.Assert(x != y);
-			itemDropManager.onItemMoved(x, y);
+			playerBehavior.swapEquippedItems(x, y);
 		}
 	}
 }

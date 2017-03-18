@@ -112,19 +112,19 @@ namespace player
 				bool weapon3 = userIO.GetKeyDown(KeyCode.Alpha3);
 				if (fists)
 				{
-					equipWeaponSlot(0, playerAnimator, weaponSlotsGOs);
+					equipWeaponSlot(0);
 				}
 				else if (weapon1)
 				{
-					equipWeaponSlot(1, playerAnimator, weaponSlotsGOs);
+					equipWeaponSlot(1);
 				}
 				else if (weapon2)
 				{
-					equipWeaponSlot(2, playerAnimator, weaponSlotsGOs);
+					equipWeaponSlot(2);
 				}
 				else if (weapon3)
 				{
-					equipWeaponSlot(3, playerAnimator, weaponSlotsGOs);
+					equipWeaponSlot(3);
 				}
 			}
 		}
@@ -190,14 +190,14 @@ namespace player
 		{
 			if (inventory.isItemIndexEquipped(position))
 			{
-				equipWeaponSlot(position, playerAnimator, weaponSlotsGOs);
+				equipWeaponSlot(position);
 			}
 		}
 
 		public void equipItemAtPosition(int position)
 		{
 			Debug.Log("equipping weapon at pos: " + position);
-			equipWeaponSlot(position, playerAnimator, weaponSlotsGOs);
+			equipWeaponSlot(position);
 		}
 
 		public bool isWeaponEquipped()
@@ -213,6 +213,25 @@ namespace player
 		public int equippedWeaponMaxAmmo()
 		{
 			return activeWeaponModel.MaxAmmoCount;
+		}
+			
+		public void swapEquippedItems(int index0, int index1)
+		{
+			var item0 = this.equippedItems.getEquippedItem(index0);
+			var item1 = this.equippedItems.getEquippedItem(index1);
+
+			bool setUiIcon = false;
+			equippedItems.equipItem(index0, item1, setUiIcon);
+			equippedItems.equipItem(index1, item0, setUiIcon);
+
+			if (item0 == activeWeaponModel)
+			{
+				equipWeaponSlot(index0);
+			}
+			else if (item1 == activeWeaponModel)
+			{
+				equipWeaponSlot(index1);
+			}
 		}
 
 		#region Private Methods
@@ -287,7 +306,7 @@ namespace player
 			}
 		}
 
-		private void equipWeaponSlot(int index, PlayerAnimate playerAnimator, WeaponSlotGameObjects weaponSlotsGOs)
+		private void equipWeaponSlot(int index)
 		{
 			// 1) If reloading, stop.
 			startedReloading = false;

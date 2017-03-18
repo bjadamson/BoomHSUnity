@@ -36,10 +36,6 @@ namespace ui
 		[SerializeField] private GameObject inventoryPanel;
 		[SerializeField] private EquippedWeaponHighlight equippedWeaponHighlight;
 
-		//[SerializeField] private InventoryItem[] inventoryItems;
-		//[SerializeField] private InventoryItem[] quickbarItems;
-		//[SerializeField] private InventoryItem[] weaponItems;
-
 		void Update()
 		{
 			if (playerBehavior.isWeaponEquipped())
@@ -89,11 +85,6 @@ namespace ui
 			expMajorSlider.value = value;
 		}
 
-		//public void setInventoryItem(int index, Sprite icon, float alpha)
-		//{
-		//	setContainerItem(inventoryItems, index, icon, alpha);
-		//}
-
 		public void showInventory()
 		{
 			inventoryPanel.GetComponent<CanvasGroup>().alpha = 1;
@@ -117,16 +108,6 @@ namespace ui
 
 			cursorManager.toggleCursor();
 		}
-
-		//public void setWeaponItem(int index, Sprite icon, float alpha)
-		//{
-		//	setContainerItem(weaponItems, index, icon, alpha);
-		//}
-
-		//public void setQuickbarItem(int index, Sprite icon, float alpha)
-		//{
-		//	setContainerItem(quickbarItems, index, icon, alpha);
-		//}
 
 		public void setBuffIcon(int index, Image icon)
 		{
