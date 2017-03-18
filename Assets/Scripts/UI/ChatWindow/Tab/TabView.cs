@@ -30,12 +30,14 @@ namespace ui
 
 				void IPointerEnterHandler.OnPointerEnter (PointerEventData eventData)
 				{
+                    Debug.Log("mouse enter");
 					manager.mouseOverTabEnter (this, panelId);
 				}
 
 				void IPointerExitHandler.OnPointerExit (PointerEventData eventData)
 				{
-					manager.mouseOverTabExit (this, panelId);
+                    Debug.Log("mouse exit");
+                    manager.mouseOverTabExit (this, panelId);
 				}
 
 				public void OnPointerClick (PointerEventData eventData)

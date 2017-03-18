@@ -52,7 +52,9 @@ namespace weapon
 			Debug.Assert(go != null);
 			go.name = "PlayerWeapon" + weaponId;
 
-			++weaponId;
+			// Initial state is 0, so set THEN increment.
+			inventory.setInventoryItemId(weaponId++);
+
 			go.transform.localPosition = Vector3.zero;
 			go.transform.localRotation = Quaternion.identity;
 			go.transform.localScale = Vector3.one;
@@ -67,8 +69,6 @@ namespace weapon
 				weaponBehavior.PrefabPath = null;
 			}
 
-			var inventoryItem = inventory.itemIdToInventoryItem(weaponId - 1);
-			weaponBehavior.InventoryUiItem = inventoryItem;
 			weaponBehavior.Icon = Resources.Load<Sprite>("Textures/UI/" + iconName);
 			Debug.Assert(weaponBehavior.Icon != null);
 

@@ -8,7 +8,7 @@ using ui;
 
 namespace ui.inventory
 {
-	public class QuickbarItems : MonoBehaviour
+	public class QuickbarItems : MonoBehaviour, IItemStorage
 	{
 		[SerializeField] private UiSlot[] inventoryItems;
 		private WeaponModel[] quickbarItems;
@@ -48,15 +48,35 @@ namespace ui.inventory
 			return null;
 		}
 
-		public void addItem(int index, WeaponModel item, bool setUiIcon)
+		public void addItem(int index, WeaponModel item)
 		{
 			Debug.Assert(index < quickbarItems.Length);
 			quickbarItems[index] = item;
 
-			if (setUiIcon)
-			{
-				inventoryItems[index].setUiIndexAndIcon(index, item.WeaponBehavior.Icon);
-			}
+			inventoryItems[index].setIcon(item.WeaponBehavior.Icon);
 		}
+
+		#region IItemStorage implementation
+
+		public WeaponModel getItem(int index)
+		{
+			Debug.Assert(index < quickbarItems.Length);
+			return quickbarItems[index];
+		}
+
+		public UiSlot getUi(int index)
+		{
+			Debug.Assert(index < inventoryItems.Length);
+			return inventoryItems[index];
+		}
+
+		public WeaponModel replaceItem(int index, WeaponModel newItem)
+		{
+			var old = getItem(index);
+			quickbarItems[index] = newItem;
+			return old;
+		}
+
+		#endregion
 	}
 }

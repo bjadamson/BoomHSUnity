@@ -59,7 +59,6 @@ namespace ui
 
 			public void sendActiveChannelMessage (string message)
 			{
-				// here
 				panelManager.addEntry (message);
 
 				bool generalTabActive = panelManager.isGeneralPaneActive();
@@ -98,7 +97,7 @@ namespace ui
 					Color channelsTextColor = channelModel.getChannelTextColor(channelName);
 					channelModel.sendMessage("general", message, channelsTextColor);
 				}
-			}
+            }
 
 			public void addOptionsMenuUnderCursor (Vector2 pos)
 			{

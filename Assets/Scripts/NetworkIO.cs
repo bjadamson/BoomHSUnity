@@ -39,7 +39,9 @@ public class NetworkIO : MonoBehaviour, IDisposable {
 			chatManager.sendChatMessage ("guild", "hemingway: your all fucked");
 			chatManager.sendChatMessage ("combat log", "You receive 30 damage.");
 			chatManager.sendChatMessage ("whisper", "saa dude from 2013");
-		}
+
+            chatManager.moveFocusToInputFieldIfActive();
+        }
 	}
 
 	#region IDisposable implementation

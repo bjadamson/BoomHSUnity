@@ -8,11 +8,19 @@ using ui;
 
 namespace ui.inventory
 {
-	public class EquipppedItems : MonoBehaviour
+	public class EquipppedItems : MonoBehaviour, IItemStorage
 	{
-		[SerializeField] private UiSlot[] inventoryItems = new UiSlot[4];
-		private WeaponModel[] equippedItems = new WeaponModel[4];
+		[SerializeField] private UiSlot[] inventoryItems;
+		private WeaponModel[] equippedItems;
 		private UIManager uiManager;
+
+		void Start()
+		{
+			uiManager = GetComponent<UIManager>();
+			Debug.Assert(uiManager != null);
+
+			equippedItems = new WeaponModel[inventoryItems.Length];
+		}
 
 		public int Length
 		{
@@ -25,12 +33,6 @@ namespace ui.inventory
 			{
 				return inventoryItems[index];
 			}
-		}
-
-		void Start()
-		{
-			uiManager = GetComponent<UIManager>();
-			Debug.Assert(uiManager != null);
 		}
 
 		public WeaponModel getEquippedItem(int index)
@@ -71,20 +73,41 @@ namespace ui.inventory
 			return false;
 		}
 
-		public void equipItem(int index, WeaponModel item, bool setUiIcon)
+		public void equipItem(int index, WeaponModel item)
 		{
 			Debug.Assert(index < equippedItems.Length);
 			equippedItems[index] = item;
 
-			if (setUiIcon)
-			{
-				inventoryItems[index].setUiIndexAndIcon(index, item.WeaponBehavior.Icon);
-			}
+			inventoryItems[index].setIcon(item.WeaponBehavior.Icon);
 		}
 
 		public bool sashIndexHasItem(int position)
 		{
 			return getEquippedItem(position) != null;
 		}
+
+		#region IItemStorage implementation
+
+		public WeaponModel getItem(int index)
+		{
+			Debug.Assert(index < equippedItems.Length);
+			return equippedItems[index];
+		}
+
+		public UiSlot getUi(int index)
+		{
+			Debug.Assert(index < inventoryItems.Length);
+			Debug.Log("getGui: " + index);
+			return inventoryItems[index];
+		}
+
+		public WeaponModel replaceItem(int index, WeaponModel newItem)
+		{
+			var old = getItem(index);
+			equippedItems[index] = newItem;
+			return old;
+		}
+
+		#endregion
 	}
 }

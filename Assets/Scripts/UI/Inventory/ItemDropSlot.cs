@@ -7,11 +7,11 @@ namespace ui.inventory
 {
 	public class ItemDropSlot : MonoBehaviour, IDropHandler
 	{
-		[SerializeField] private ItemDropManager itemDropManager;
+		[SerializeField] private PlayerBehavior playerBehavior;
 
 		void Start()
 		{
-			Debug.Assert(itemDropManager != null);
+			Debug.Assert(playerBehavior != null);
 		}
 
 		public void OnDrop(PointerEventData _)
@@ -26,9 +26,6 @@ namespace ui.inventory
 			var aParent = a.transform.parent;
 			var bParent = b.transform.parent;
 
-			var x = aParent.GetSiblingIndex();
-			var y = bParent.GetSiblingIndex();
-
 			a.transform.SetParent(bParent);
 			a.transform.SetAsFirstSibling();
 			a.transform.localPosition = Vector3.zero;
@@ -37,8 +34,16 @@ namespace ui.inventory
 			b.transform.SetAsFirstSibling();
 			b.transform.localPosition = Vector3.zero;
 
+			int x = a.GetComponent<UiSlot>().InventoryId;
+			int y = b.GetComponent<UiSlot>().InventoryId;
+			Debug.Log("Switching inventory ids: '" + x + "' , '" + y + "'");
 			Debug.Assert(x != y);
-			itemDropManager.onItemMoved(x, y);
+			playerBehavior.swapItems(x, y);
+		}
+
+		public void emitInventoryId()
+		{
+			Debug.Log("InventoryId: '" + GetComponent<UiSlot>().InventoryId + "'");
 		}
 	}
 }

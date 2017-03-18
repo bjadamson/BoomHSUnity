@@ -45,7 +45,7 @@ namespace ui
 
 				public void mouseOverTabExit (TabView tab, int panelId)
 				{
-					if (activeTab != tab) {
+					if (activeTab != tab && mousedOverTab != null) {
 						mousedOverTab.makeTransparent ();
 					}
 

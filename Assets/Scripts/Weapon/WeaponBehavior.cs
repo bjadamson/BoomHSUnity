@@ -12,7 +12,6 @@ namespace weapon
 	{
 		public string PrefabPath;
 		public Sprite Icon;
-		public UiSlot InventoryUiItem;
 		[SerializeField] private AudioSource ShootSound;
 		[SerializeField] private AudioSource ClipEmptySound;
 		[SerializeField] private AudioSource ClipFull;
@@ -22,7 +21,6 @@ namespace weapon
 
 		void Start()
 		{
-			Debug.Assert(InventoryUiItem != null);
 			if (PrefabPath == null)
 			{
 				// Item doesn't have a model

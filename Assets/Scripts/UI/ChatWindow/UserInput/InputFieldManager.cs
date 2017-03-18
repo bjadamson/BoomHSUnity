@@ -79,11 +79,11 @@ namespace ui
 					{
 						toggleCommandPanel();
 					}
-				}
-
-				public bool isReadingChatInputFromStdin()
-				{
-					return inputField.gameObject.activeSelf;
+                    if (isActive)
+                    {
+                        Debug.Log("SELECTING INPUT FIELD RIGHT MEOW");
+                        inputField.Select();
+                    }
 				}
 
 				private void toggleCommandPanel()
@@ -104,7 +104,7 @@ namespace ui
 					pushSelected();
 					inputField.Select();
 
-					cursorManager.unlockCursor();
+                    cursorManager.unlockCursor();
 				}
 
 				private void disableReadFromUserStdin(bool acceptInput)

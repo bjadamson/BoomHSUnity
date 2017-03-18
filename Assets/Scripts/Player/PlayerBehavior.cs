@@ -31,8 +31,30 @@ namespace player
 		private WeaponSlotGameObjects weaponSlotsGOs;
 
 		// state
-		private PlayerStateModel playerModel;
 		private bool isFalling = false;
+
+		// psm
+		// constants
+		private readonly float TIME_FOR_REVIVE_ANIMATION = 3.0f;
+		private readonly float TIME_FOR_RELOAD = 1.5f;
+
+		// environment
+		private float distanceToGround;
+
+		// weapon
+		private WeaponModel activeWeaponModel;
+		private bool isPlayerADS = false;
+		private bool startedReloading = false;
+		private float timeWhenReloadingFinished = 0.0f;
+
+		// stats
+		private int health = 100;
+
+		// life/death
+		private float timeWhenRevivingFinished = 0.0f;
+
+		// camera
+		private bool isFreelookMode = false;
 
 		void Start()
 		{
@@ -55,14 +77,13 @@ namespace player
 			crouchStand = GetComponent<CrouchStand>();
 			rigidBody = GetComponent<Rigidbody>();
 
-			float distanceToGround = GetComponent<Collider>().bounds.extents.y;
-			playerModel = new PlayerStateModel(distanceToGround, equippedItems, uiManager, kameraController);
+			distanceToGround = GetComponent<Collider>().bounds.extents.y;
 		}
 
 		void Update()
 		{
 			maybeToggleIsDead(userIO.GetKeyDown(KeyCode.K));
-			if (playerModel.isDead())
+			if (isDead())
 			{
 				return;
 			}
@@ -72,17 +93,17 @@ namespace player
 				uiManager.toggleInventory();
 			}
 
-			if (playerModel.isWeaponEquipped())
+			if (isWeaponEquipped())
 			{
-				playerModel.maybeReload(userIO.GetKeyDown(KeyCode.R));
-				playerModel.shootIfAppropriate(userIO.GetButtonDown("Fire1"), userIO.GetButton("Fire1"));
+				maybeReload(userIO.GetKeyDown(KeyCode.R));
+				shootIfAppropriate(userIO.GetButtonDown("Fire1"), userIO.GetButton("Fire1"));
 
 				bool fire2Down = userIO.GetButtonDown("Fire2");
 				bool fire2Up = userIO.GetButtonUp("Fire2");
-				playerModel.adsIfAppropriate(fire2Down, fire2Up, playerAnimator, weaponSlotsGOs.EquippedADS, weaponSlotsGOs.EquippedRHS);
+				adsIfAppropriate(fire2Down, fire2Up, playerAnimator, weaponSlotsGOs.EquippedADS, weaponSlotsGOs.EquippedRHS);
 			}
 
-			if (!playerModel.isADS())
+			if (!isADS())
 			{
 				bool fists = userIO.GetKeyDown(KeyCode.BackQuote);
 				bool weapon1 = userIO.GetKeyDown(KeyCode.Alpha1);
@@ -90,27 +111,26 @@ namespace player
 				bool weapon3 = userIO.GetKeyDown(KeyCode.Alpha3);
 				if (fists)
 				{
-					playerModel.equipWeaponSlot(0, playerAnimator, weaponSlotsGOs);
+					equipWeaponSlot(0);
 				}
 				else if (weapon1)
 				{
-					playerModel.equipWeaponSlot(1, playerAnimator, weaponSlotsGOs);
+					equipWeaponSlot(1);
 				}
 				else if (weapon2)
 				{
-					playerModel.equipWeaponSlot(2, playerAnimator, weaponSlotsGOs);
+					equipWeaponSlot(2);
 				}
 				else if (weapon3)
 				{
-					playerModel.equipWeaponSlot(3, playerAnimator, weaponSlotsGOs);
+					equipWeaponSlot(3);
 				}
-			
 			}
 		}
 
 		void FixedUpdate()
 		{
-			if (playerModel.isDead() || playerModel.isReviving())
+			if (isDead() || isReviving())
 			{
 				return;
 			}
@@ -121,7 +141,7 @@ namespace player
 			float horizontal = horizontalAxis * timeMultiplier;
 			float vertical = verticalAxis * timeMultiplier;
 
-			bool onGround = isOnGround(transform, playerModel.DistanceToGround);
+			bool onGround = isOnGround(transform, distanceToGround);
 			bool strafeLeft = horizontalAxis < 0f;
 			bool strafeRight = horizontalAxis > 0f;
 			Debug.Assert(strafeLeft == false || strafeRight == false);
@@ -169,36 +189,49 @@ namespace player
 		{
 			if (inventory.isItemIndexEquipped(position))
 			{
-				playerModel.equipWeaponSlot(position, playerAnimator, weaponSlotsGOs);
+				equipWeaponSlot(position);
 			}
-		}
-
-		public void equipItemAtPosition(int position)
-		{
-			Debug.Log("equipping weapon at pos: " + position);
-			playerModel.equipWeaponSlot(position, playerAnimator, weaponSlotsGOs);
 		}
 
 		public bool isWeaponEquipped()
 		{
-			return playerModel.isWeaponEquipped();
+			return activeWeaponModel != null;
 		}
 
 		public int equippedWeaponAmmoCount()
 		{
-			return playerModel.equippedWeaponAmmoCount();
+			return activeWeaponModel.AmmoCount;
 		}
 
 		public int equippedWeaponMaxAmmo()
 		{
-			return playerModel.equippedWeaponMaxAmmo();
+			return activeWeaponModel.MaxAmmoCount;
 		}
+			
+		public void swapItems(int index0, int index1)
+		{
+			inventory.swapItems(index0, index1);
+
+			var item0 = inventory.lookupItemById(index0);
+			var item1 = inventory.lookupItemById(index1);
+
+			if (item0.Storage.getItem(item0.Index) == activeWeaponModel)
+			{
+				equipWeaponSlot(index1);
+			}
+			else if (item1.Storage.getItem(item1.Index) == activeWeaponModel)
+			{
+				equipWeaponSlot(index0);
+			}
+		}
+
+		#region Private Methods
 
 		private void maybeToggleIsDead(bool toggleLifeDeath)
 		{
 			if (toggleLifeDeath)
 			{
-				if (playerModel.isDead() && !playerModel.isReviving())
+				if (isDead() && !isReviving())
 				{
 					revive();
 				}
@@ -218,7 +251,7 @@ namespace player
 
 		private void kill()
 		{
-			playerModel.kill();
+			health = -1;
 			deathBehavior.setDead();
 			playerAnimator.playDeathAnimation();
 			kameraController.death();
@@ -226,7 +259,9 @@ namespace player
 
 		private void revive()
 		{
-			playerModel.revive();
+			health = 100;
+			timeWhenRevivingFinished = Time.time + TIME_FOR_REVIVE_ANIMATION;
+
 			deathBehavior.setAlive();
 			playerAnimator.playReviveAnimation();
 			kameraController.revive();
@@ -237,5 +272,134 @@ namespace player
 			// 0.1 offset deals with "irregularities" in the ground
 			return Physics.Raycast(playerTransform.position, -Vector3.up, distanceToGround + 0.01f);
 		}
+
+		private void maybeReload(bool reloadKeyPressed)
+		{
+			if (reloadKeyPressed)
+			{
+				if (activeWeaponModel.isClipFull())
+				{
+					activeWeaponModel.playClipFullSound();
+				}
+				else if (!startedReloading)
+				{
+					startedReloading = true;
+					activeWeaponModel.playReloadAnimation();
+					timeWhenReloadingFinished = Time.time + TIME_FOR_RELOAD;
+				}
+			}
+			else if (startedReloading && isReloadingAnimationFinished())
+			{
+				activeWeaponModel.stopReloadingAnimation();
+				activeWeaponModel.reload();
+
+				startedReloading = false;
+			}
+		}
+
+		private void equipWeaponSlot(int index)
+		{
+			// 1) If reloading, stop.
+			startedReloading = false;
+			if (activeWeaponModel != null)
+			{
+				activeWeaponModel.stopReloadingAnimation();
+			}
+
+			// 2) If there is a weapon equipped, move it to the player's back.
+			if (isWeaponEquipped())
+			{
+				unequipEquippedWeapon();
+			}
+
+			// 3) Find the active weapon by index.
+			var item = equippedItems.getEquippedItem(index);
+			Debug.Assert(item != null);
+			activeWeaponModel = item;
+
+			// 4) Reparent the active weapon GO to the equipped weapon slot GO.
+			var equippedWeaponSlot = weaponSlotsGOs.EquippedRHS;
+			activeWeaponModel.reparentUnderGO(equippedWeaponSlot);
+
+			// 5) instruct the animator to equip the weapon
+			playerAnimator.equipWeapon();
+
+			// 6) Draw highlight around the correct InventoryItem.
+			uiManager.setWeaponHighlightIndex(index);
+		}
+
+		private void shootIfAppropriate(bool fire1Pressed, bool fire1HeldDown)
+		{
+			if (startedReloading || isFreelookMode)
+			{
+				return;
+			}
+			activeWeaponModel.shootIfAble(fire1Pressed, fire1HeldDown);
+		}
+
+		private void adsIfAppropriate(bool fire2Down, bool fire2Up, PlayerAnimate playerAnimator, GameObject equippedADS, GameObject equippedRHS)
+		{
+			if (!startedReloading)
+			{
+				if (fire2Down)
+				{
+					isPlayerADS = true;
+					playerAnimator.setADS(true);
+					activeWeaponModel.reparentUnderGO(equippedADS);
+					kameraController.adsZoomIn();
+				}
+				else if (fire2Up)
+				{
+					isPlayerADS = false;
+					playerAnimator.setADS(false);
+					activeWeaponModel.reparentUnderGO(equippedRHS);
+					kameraController.adsZoomOut();
+				}
+			}
+		}
+
+		private bool isDead()
+		{
+			return health < 0;
+		}
+
+		private bool isReviving()
+		{
+			return timeWhenRevivingFinished >= Time.time;
+		}
+
+		private bool isADS()
+		{
+			return isPlayerADS;
+		}
+
+		private void unequipEquippedWeapon()
+		{
+			// 1) Find the index for the weapon on the player's back.
+			var equippedItemIndex = equippedItems.equippedItemPositionOnBody(activeWeaponModel);
+			if (equippedItemIndex == null)
+			{
+				return;
+			}
+
+			// 2) Confirm that we only ever unequip items that our inventory is aware of.
+			Debug.Assert(equippedItemIndex != null);
+			var backSlotGO = weaponSlotsGOs.BackWeaponSlots[equippedItemIndex.Value];
+			Debug.Assert(backSlotGO != null);
+
+			// 3) Reparent the equipped weapon to the back slot.
+			activeWeaponModel.reparentUnderGO(backSlotGO);
+			activeWeaponModel = null;
+
+			// 4) Animate putting away the weapon.
+			playerAnimator.sheathWeapon();
+		}
+
+		private bool isReloadingAnimationFinished()
+		{
+			return timeWhenReloadingFinished < Time.time;
+		}
+
+		#endregion
 	}
 }

@@ -5,24 +5,19 @@ using player;
 
 namespace ui.inventory
 {
-	public class WeaponDropSlot : MonoBehaviour, IDropHandler
+	public class WeaponDropSlot : MonoBehaviour
 	{
-		[SerializeField] private WeaponBarDropManager weaponDropManager;
+		[SerializeField] private PlayerBehavior playerBehavior;
 
 		void Start()
 		{
-			Debug.Assert(weaponDropManager != null);
-		}
-
-		public void OnDrop(PointerEventData eventData)
-		{
-			weaponDropManager.OnWeaponBarDropped(transform, DragHandler.itemBeingDragged.transform);
+			Debug.Assert(playerBehavior != null);
 		}
 
 		public void readParentsSiblingIndexThenEquipWeaponAtThatIndex()
 		{
 			int index = transform.parent.GetSiblingIndex();
-			weaponDropManager.equipWeaponAtThatIndexIfAny(index);
+			playerBehavior.ifWeaponAtPositionThenEquip(index);
 		}
 	}
 }

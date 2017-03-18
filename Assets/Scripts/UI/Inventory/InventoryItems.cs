@@ -8,7 +8,7 @@ using ui;
 
 namespace ui.inventory
 {
-	public class InventoryItems : MonoBehaviour
+	public class InventoryItems : MonoBehaviour, IItemStorage
 	{
 		[SerializeField] UiSlot[] inventoryItems;
 		private IList<WeaponModel> weaponModels;
@@ -36,7 +36,7 @@ namespace ui.inventory
 			weaponModels = new List<WeaponModel>(inventoryItems.Length);
 		}
 
-		public void addInventoryItem(WeaponModel item, bool setUiIcon)
+		public void addInventoryItem(WeaponModel item)
 		{
 			Debug.Assert(item != null);
 			Debug.Assert(item.WeaponBehavior != null);
@@ -49,11 +49,9 @@ namespace ui.inventory
 			}
 
 			weaponModels.Add(item);
-			if (setUiIcon)
-			{
-				int index = nextPosition.Value;
-				inventoryItems[index].setUiIndexAndIcon(index, item.WeaponBehavior.Icon);
-			}
+	
+			int index = nextPosition.Value;
+			inventoryItems[index].setIcon(item.WeaponBehavior.Icon);
 		}
 
 		private int? nextAvailableInventoryPosition()
@@ -73,5 +71,28 @@ namespace ui.inventory
 			}
 			return null;
 		}
+
+		#region IItemStorage implementation
+
+		public WeaponModel getItem(int index)
+		{
+			Debug.Assert(index < weaponModels.Count);
+			return weaponModels[index];
+		}
+
+		public UiSlot getUi(int index)
+		{
+			Debug.Assert(index < inventoryItems.Length);
+			return inventoryItems[index];
+		}
+
+		public WeaponModel replaceItem(int index, WeaponModel newItem)
+		{
+			var old = getItem(index);
+			weaponModels[index] = newItem;
+			return old;
+		}
+
+		#endregion
 	}
 }
