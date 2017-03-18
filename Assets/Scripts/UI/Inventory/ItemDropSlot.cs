@@ -26,9 +26,6 @@ namespace ui.inventory
 			var aParent = a.transform.parent;
 			var bParent = b.transform.parent;
 
-			var x = aParent.GetSiblingIndex();
-			var y = bParent.GetSiblingIndex();
-
 			a.transform.SetParent(bParent);
 			a.transform.SetAsFirstSibling();
 			a.transform.localPosition = Vector3.zero;
@@ -37,8 +34,16 @@ namespace ui.inventory
 			b.transform.SetAsFirstSibling();
 			b.transform.localPosition = Vector3.zero;
 
+			int x = a.GetComponent<UiSlot>().InventoryId;
+			int y = b.GetComponent<UiSlot>().InventoryId;
+			Debug.Log("Switching inventory ids: '" + x + "' , '" + y + "'");
 			Debug.Assert(x != y);
-			playerBehavior.swapEquippedItems(x, y);
+			playerBehavior.swapItems(x, y);
+		}
+
+		public void emitInventoryId()
+		{
+			Debug.Log("InventoryId: '" + GetComponent<UiSlot>().InventoryId + "'");
 		}
 	}
 }

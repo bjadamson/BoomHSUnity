@@ -15,9 +15,9 @@ namespace ui.inventory
 			refreshChildren();
 		}
 			
-		public void setUiIndexAndIcon(int index, Sprite icon)
+		public void setIcon(Sprite icon)
 		{
-			setIndexAndIcon(index, icon, 1.0f);
+			setIconAndRefresh(icon, 1.0f);
 		}
 
 		private void refreshChildren()
@@ -29,10 +29,9 @@ namespace ui.inventory
 			Debug.Assert(ImageButton != null);
 		}
 
-		private void setIndexAndIcon(int index, Sprite icon, float alpha)
+		private void setIconAndRefresh(Sprite icon, float alpha)
 		{
 			ImageButton.image.sprite = icon;
-			InventoryId = index;
 
 			var color = ImageButton.colors.normalColor;
 			color.a = alpha;

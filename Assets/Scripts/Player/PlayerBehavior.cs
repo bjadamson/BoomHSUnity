@@ -39,7 +39,7 @@ namespace player
 		private readonly float TIME_FOR_RELOAD = 1.5f;
 
 		// environment
-		public float DistanceToGround;
+		private float distanceToGround;
 
 		// weapon
 		private WeaponModel activeWeaponModel;
@@ -77,8 +77,7 @@ namespace player
 			crouchStand = GetComponent<CrouchStand>();
 			rigidBody = GetComponent<Rigidbody>();
 
-			DistanceToGround = GetComponent<Collider>().bounds.extents.y;
-		//	playerModel = new PlayerStateModel(distanceToGround, equippedItems, uiManager, kameraController);
+			distanceToGround = GetComponent<Collider>().bounds.extents.y;
 		}
 
 		void Update()
@@ -142,7 +141,7 @@ namespace player
 			float horizontal = horizontalAxis * timeMultiplier;
 			float vertical = verticalAxis * timeMultiplier;
 
-			bool onGround = isOnGround(transform, DistanceToGround);
+			bool onGround = isOnGround(transform, distanceToGround);
 			bool strafeLeft = horizontalAxis < 0f;
 			bool strafeRight = horizontalAxis > 0f;
 			Debug.Assert(strafeLeft == false || strafeRight == false);
@@ -194,12 +193,6 @@ namespace player
 			}
 		}
 
-		public void equipItemAtPosition(int position)
-		{
-			Debug.Log("equipping weapon at pos: " + position);
-			equipWeaponSlot(position);
-		}
-
 		public bool isWeaponEquipped()
 		{
 			return activeWeaponModel != null;
@@ -215,22 +208,20 @@ namespace player
 			return activeWeaponModel.MaxAmmoCount;
 		}
 			
-		public void swapEquippedItems(int index0, int index1)
+		public void swapItems(int index0, int index1)
 		{
-			var item0 = this.equippedItems.getEquippedItem(index0);
-			var item1 = this.equippedItems.getEquippedItem(index1);
+			inventory.swapItems(index0, index1);
 
-			bool setUiIcon = false;
-			equippedItems.equipItem(index0, item1, setUiIcon);
-			equippedItems.equipItem(index1, item0, setUiIcon);
+			var item0 = inventory.lookupItemById(index0);
+			var item1 = inventory.lookupItemById(index1);
 
-			if (item0 == activeWeaponModel)
-			{
-				equipWeaponSlot(index0);
-			}
-			else if (item1 == activeWeaponModel)
+			if (item0.Storage.getItem(item0.Index) == activeWeaponModel)
 			{
 				equipWeaponSlot(index1);
+			}
+			else if (item1.Storage.getItem(item1.Index) == activeWeaponModel)
+			{
+				equipWeaponSlot(index0);
 			}
 		}
 
@@ -318,7 +309,7 @@ namespace player
 			// 2) If there is a weapon equipped, move it to the player's back.
 			if (isWeaponEquipped())
 			{
-				unequipEquippedWeapon(playerAnimator, weaponSlotsGOs);
+				unequipEquippedWeapon();
 			}
 
 			// 3) Find the active weapon by index.
@@ -382,7 +373,7 @@ namespace player
 			return isPlayerADS;
 		}
 
-		private void unequipEquippedWeapon(PlayerAnimate playerAnimator, WeaponSlotGameObjects weaponSlotsGOs)
+		private void unequipEquippedWeapon()
 		{
 			// 1) Find the index for the weapon on the player's back.
 			var equippedItemIndex = equippedItems.equippedItemPositionOnBody(activeWeaponModel);
