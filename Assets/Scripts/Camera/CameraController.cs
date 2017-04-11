@@ -6,27 +6,31 @@ namespace camera
 {
 	public class CameraController : MonoBehaviour
 	{
-		[SerializeField] private UserIO userIO;
+        private static readonly float PLAYER_TURN_SMOOTHNESS = 0.6f;
+        [SerializeField] private UserIO userIO;
 		[SerializeField] private ThirdPerson thirdPerson;
 		[SerializeField] private FirstPerson firstPerson;
 
-		[SerializeField] private GameObject player;
+		[SerializeField] private GameObject playerGO;
 		[SerializeField] private GameObject playerHead;
-		[SerializeField] private FollowPlayer thirdPersonFollowPlayer;
-		private Freelook freelookMode;
+        [SerializeField] private float AdsZoomFovDelta;
+        private Freelook freelook;
 
-		void Start()
+        // state
+        private bool lockTransform_ = false;
+
+        void Start()
 		{
-			freelookMode = GetComponent<Freelook>();
+			freelook = GetComponent<Freelook>();
 
 			third();
-			player.transform.localRotation = Quaternion.identity;
+			playerGO.transform.localRotation = Quaternion.identity;
 			thirdPerson.transform.localRotation = Quaternion.identity;
 		}
 
 		void Update()
 		{
-			if (!freelookMode.IsFreelookModeActive())
+			if (!freelook.IsFreelookModeActive())
 			{
 				if (userIO.GetKeyDown(KeyCode.T))
 				{
@@ -43,17 +47,29 @@ namespace camera
 
 			if (Input.GetKeyDown(KeyCode.Mouse3))
 			{
-				this.freelookMode.enabled = true;
-				this.freelookMode.PreviousCameraRotation = getActiveCameraObject().transform.localRotation;
+				this.freelook.enabled = true;
+				this.freelook.PreviousCameraRotation = getActiveCameraObject().transform.localRotation;
 			}
 			else if (Input.GetKeyUp(KeyCode.Mouse3))
 			{
-				this.freelookMode.enabled = false;
+				this.freelook.enabled = false;
 			}
-		}
+
+            if (lockTransform_)
+            {
+                return;
+            }
+            
+            if (!freelook.IsFreelookModeActive())
+            {
+                // rotate around local axis
+                Vector2 mouseAxis = userIO.GetMouseAxis();
+                playerGO.transform.RotateAround(playerGO.transform.position, playerGO.transform.up, mouseAxis.x * PLAYER_TURN_SMOOTHNESS);
+            }
+        }
 
 		public bool isFreelookMode() {
-			return freelookMode.IsFreelookModeActive();
+			return freelook.IsFreelookModeActive();
 		}
 
 		public bool isFirstPerson() {
@@ -62,13 +78,11 @@ namespace camera
 		}
 
 		public void death() {
-			thirdPerson.lockTransform();
-			firstPerson.lockTransform();
+			lockTransform();
 		}
 
 		public void revive() {
-			thirdPerson.unlockTransform();
-			firstPerson.unlockTransform();
+			unlockTransform();
 		}
 
 		public void first()
@@ -76,10 +90,10 @@ namespace camera
 			firstPerson.gameObject.SetActive(true);
 			thirdPerson.gameObject.SetActive(false);
 
-			freelookMode.ActiveCamera = firstPerson.gameObject;
-			freelookMode.TargetObject = firstPerson.transform;
+			freelook.ActiveCamera = firstPerson.gameObject;
+			freelook.TargetObject = firstPerson.transform;
 
-			firstPerson.unlockTransform();
+			unlockTransform();
 		}
 
 		public void third()
@@ -87,23 +101,38 @@ namespace camera
 			thirdPerson.gameObject.SetActive(true);
 			firstPerson.gameObject.SetActive(false);
 
-			freelookMode.ActiveCamera = thirdPerson.gameObject;
-			freelookMode.TargetObject = playerHead.transform;
+			freelook.ActiveCamera = thirdPerson.gameObject;
+			freelook.TargetObject = playerHead.transform;
 
-			thirdPerson.unlockTransform();
+            unlockTransform();
 		}
 
-		public void adsZoomIn()
+        public void adsZoomIn()
 		{
-			thirdPersonFollowPlayer.zoomIn();
-		}
+            Camera.main.fieldOfView -= AdsZoomFovDelta;
+        }
 
 		public void adsZoomOut()
 		{
-			thirdPersonFollowPlayer.zoomOut();
-		}
+            Camera.main.fieldOfView += AdsZoomFovDelta;
+        }
 
-		private GameObject getActiveCameraObject()
+        public bool isTransformLocked()
+        {
+            return true == lockTransform_;
+        }
+
+        private void lockTransform()
+        {
+            lockTransform_ = true;
+        }
+
+        private void unlockTransform()
+        {
+            lockTransform_ = false;
+        }
+
+        private GameObject getActiveCameraObject()
 		{
 			return firstPerson.gameObject.activeSelf ? firstPerson.gameObject : thirdPerson.gameObject;
 		}

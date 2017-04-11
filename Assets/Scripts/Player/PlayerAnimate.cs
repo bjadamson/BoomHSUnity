@@ -8,9 +8,7 @@ namespace player
 	public class PlayerAnimate : MonoBehaviour
 	{
 		[SerializeField] private Animator animator;
-		[SerializeField] private float directionDampTime = 0.25f;
 		[SerializeField] private ThirdPerson tpCamera;
-		[SerializeField] private float directionSpeed = 3.0f;
 		[SerializeField] private float rotationDegreesPerSecond = 120f;
 		[SerializeField] private UserIO userIO;
 
@@ -65,7 +63,7 @@ namespace player
 		public void setCrouch(bool value)
 		{
 			animator.SetBool("Crouching", value);
-		}
+        }
 
 		public void setJump(bool value)
 		{

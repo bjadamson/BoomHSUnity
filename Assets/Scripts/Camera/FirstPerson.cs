@@ -7,60 +7,39 @@ namespace camera
 	public class FirstPerson : MonoBehaviour
 	{
 		[SerializeField] private UserIO userIO;
+        [SerializeField] private CameraController kameraController;
 		[SerializeField] public GameObject playerGO;
-		[SerializeField] public Transform player;
-		[SerializeField] public Transform head;
+		[SerializeField] public Transform headTransform;
 		private Freelook freelook;
 
-		// state
-		private float horizontalRot = 0.0f;
-		private float verticalRot = 0.0f;
-		private bool lockTransform_ = false;
-
-		void Start()
+        // state
+        private float verticalRot = 0.0f;
+        
+        void Start()
 		{
-			freelook = GetComponentInParent<Freelook>();
-			Debug.Assert(freelook != null);
-		}
+            kameraController = GetComponentInParent<CameraController>();
+			Debug.Assert(kameraController != null);
 
-		void Update()
+            freelook = GetComponentInParent<Freelook>();
+            Debug.Assert(freelook != null);
+        }
+
+        private void Update()
+        {
+            Vector2 mouseAxis = userIO.GetMouseAxis();
+            verticalRot = mouseAxis.y;
+        }
+
+        void LateUpdate()
 		{
-			if (lockTransform_)
+			if (kameraController.isTransformLocked())
 			{
 				return;
 			}
 
-			Vector2 mouseAxis = userIO.GetMouseAxis();
-			horizontalRot = mouseAxis.x;
-			verticalRot = mouseAxis.y;
+            transform.position = headTransform.position;
 
-			if (!freelook.IsFreelookModeActive())
-			{
-				// rotate around local axis
-				playerGO.transform.RotateAround(playerGO.transform.position, playerGO.transform.up, horizontalRot);
-			}
-
-			transform.position = head.position;
-		}
-
-		public void lockTransform()
-		{
-			lockTransform_ = true;
-		}
-
-		public void unlockTransform()
-		{
-			lockTransform_ = false;
-		}
-
-		void LateUpdate()
-		{
-			if (lockTransform_)
-			{
-				return;
-			}
-
-			if (!freelook.IsFreelookModeActive())
+            if (!freelook.IsFreelookModeActive())
 			{
 				// 1) set camera's horizontal rotation to match the player's rotation.
 				var newRot = transform.localEulerAngles;
@@ -70,9 +49,16 @@ namespace camera
 				// 2) rotate the camera up/down
 				transform.RotateAround(transform.position, transform.right, -verticalRot);
 
-				// 3) If we rotated up/down too far, rotate back.
-				if (withinThreshold(transform.up, Vector3.up))
-				{
+                Vector3 a = transform.forward;
+                Vector3 b = Vector3.forward;
+                a.x = b.x;
+                a.z = b.z;
+                float yAngleDifference = Vector3.Angle(a, b);
+                Debug.Log("angle: '" + yAngleDifference + "'");
+
+                // 3) If we rotated up/down too far, rotate back.
+                if (yAngleDifference > 45.0f)
+                {
 					// Rotated too far, rotate back
 					transform.RotateAround(transform.position, transform.right, verticalRot);
 				}
@@ -81,11 +67,5 @@ namespace camera
 				transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0.0f);
 			}
 		}
-
-		private static bool withinThreshold(Vector3 a, Vector3 b)
-		{
-			const float DELTA = 0.05f;
-			return Vector3.Dot(a, b) < DELTA;
-		}
-	}
+    }
 }
